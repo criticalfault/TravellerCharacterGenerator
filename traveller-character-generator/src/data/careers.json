@@ -1,0 +1,169 @@
+{
+    "agent": {
+        "qualification": {"INT":6},
+        "assignments":[
+            "Law Enforcement",
+            "Intelligence",
+            "Corporate"
+        ],
+        "career_progress":{
+            "survival":{
+                "Law Enforcement":{"END":6},
+                "Intelligence":{"INT":7},
+                "Corporate":{"INT":5}
+            },
+            "advancement":{
+                "Law enforcement":{"INT":6},
+                "Intelligence":{"INT":5},
+                "Corporate":{"INT":7}
+            }
+        },
+        "muster_out_benefits":{
+            "cash":{
+                "1":1000,
+                "2":2000,
+                "3":5000,
+                "4":7500,
+                "5":10000,
+                "6":25000,
+                "7":50000
+            },
+            "benefits":{
+                "1":"Scientific Equipment",
+                "2":"INT +1",
+                "3":"Ship Share",
+                "4":"Weapon",
+                "5":"Cybernetic Implant",
+                "6":["SOC +1","Cybernetic Implant"],
+                "7":"TAS Membership"
+            }
+        },
+        "skills_and_training":{
+            "personal_development":{
+                "1":"Gun Combat",
+                "2":"DEX +1",
+                "3":"END +1",
+                "4":"Melee",
+                "5":"INT +1",
+                "6":"Athletics"
+            },
+            "service_skills":{
+                "1":"Streetwise",
+                "2":"Drive",
+                "3":"Investigate",
+                "4":"Flyer",
+                "5":"Recon",
+                "6":"Gun Combat"
+            },
+            "advanced_education_requirements":{
+                "EDU":8
+            },
+            "advanced_education":{
+                "1":"Advocate",
+                "2":"Language",
+                "3":"Explosives",
+                "4":"Medic",
+                "5":"Vacc Suit",
+                "6":"Electronics"
+            },
+            "law_enforcement":{
+                "1":"Investigate",
+                "2":"Recon",
+                "3":"Streetwise",
+                "4":"Stealth",
+                "5":"Melee",
+                "6":"Advocate"
+            },
+            "intelligence":{
+                "1":"Investigate",
+                "2":"Recon",
+                "3":"Electronics (comms)",
+                "4":"Stealth",
+                "5":"Persuade",
+                "6":"Deception"
+            },
+            "corporate":{
+                "1":"Investigate",
+                "2":"Electronics (computers)",
+                "3":"Stealth",
+                "4":"Carouse",
+                "5":"Deception",
+                "6":"Streetwise"
+            }
+        }
+    },
+    "ranks":{
+        "law_enforcement":{
+            "0":"Rookie",
+            "1":"Corporal",
+            "2":"Sergeant",
+            "3":"Detective",
+            "4":"Lietenant",
+            "5":"Chief",
+            "6":"Commissioner"
+        },
+        "intelligence":{
+            "0":"-",
+            "1":"Agent",
+            "2":"Field Agent",
+            "3":"-",
+            "4":"Special Agent",
+            "5":"Assistant Director",
+            "6":"Director"
+        },
+        "corporate":{
+            "0":"-",
+            "1":"Agent",
+            "2":"Field Agent",
+            "3":"-",
+            "4":"Special Agent",
+            "5":"Assistant Director",
+            "6":"Director"
+        }
+    },
+    "rank_bonus":{
+        "law_enforcement":{ 
+            "0":"-",
+            "1":"Streetwise 1",
+            "2":"-",
+            "3":"-",
+            "4":"Investigate 1",
+            "5":"Admin 1",
+            "6":"SOC +1"
+        },
+        "intelligence":{
+            "0":"-",
+            "1":"Deception 1",
+            "2":"Investigate 1",
+            "3":"-",
+            "4":"Gun Combat 1",
+            "5":"-",
+            "6":"-"
+        },
+        "corporate":{
+            "0":"-",
+            "1":"Deception 1",
+            "2":"Investigate 1",
+            "3":"-",
+            "4":"Gun Combat 1",
+            "5":"-",
+            "6":"-"
+        }
+    },
+    "mishaps":{
+        "1":"Severely injuried (this is the same result as a result of 2 on the injury table). Alternatively, roll twice on the injury table and take the lower result.",
+        "2":"A criminal or other figure under investigation offers you a deal. Accept and you leave this career without further penalty (although you lose the benefit roll as normal). Refuse and you must roll twice on the injury table and take the lower result. You gain an Enemy and one level in any skill you choose.",
+        "3":"An investigation goes critically wrong or leads to the top, ruining your career. Roll Advocate 8+. If you succeed, you may keep the benefit roll from this term. If you roll 2, you must take the Prisoner career in your next term.",
+        "4":"You learn something you should not know and people want to kill you for it. Gain an Enemry and Deception 1",
+        "5":"Your work ends up coming home with you and someone get hurts. Choose one of your Contacts, Allies or Family members and roll twice on the injury table for them, taking the lower result.",
+        "6":"Injured. Roll on the Injury Table."
+    },
+    "events":{
+        "1":"Disaster! Roll on the Mishap Table but you are not ejected from this career.",
+        "2":"",
+        "3":"",
+        "4":"",
+        "5":"",
+        "6":""
+    }
+}
