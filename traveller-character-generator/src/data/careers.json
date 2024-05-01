@@ -149,25 +149,25 @@
             }
         },
         "mishaps":{
-            "1":"Severely injuried (this is the same result as a result of 2 on the injury table). Alternatively, roll twice on the injury table and take the lower result.",
-            "2":"A criminal or other figure under investigation offers you a deal. Accept and you leave this career without further penalty (although you lose the benefit roll as normal). Refuse and you must roll twice on the injury table and take the lower result. You gain an Enemy and one level in any skill you choose.",
-            "3":"An investigation goes critically wrong or leads to the top, ruining your career. Roll Advocate 8+. If you succeed, you may keep the benefit roll from this term. If you roll 2, you must take the Prisoner career in your next term.",
-            "4":"You learn something you should not know and people want to kill you for it. Gain an Enemry and Deception 1",
-            "5":"Your work ends up coming home with you and someone get hurts. Choose one of your Contacts, Allies or Family members and roll twice on the injury table for them, taking the lower result.",
-            "6":"Injured. Roll on the Injury Table."
+            "1":{"description":"Severely injuried (this is the same result as a result of 2 on the injury table). Alternatively, roll twice on the injury table and take the lower result.","eventChain":["Severe_Injury"]},
+            "2":{"description":"A criminal or other figure under investigation offers you a deal. Accept and you leave this career without further penalty (although you lose the benefit roll as normal). Refuse and you must roll twice on the injury table and take the lower result. You gain an Enemy and one level in any skill you choose."},
+            "3":{"description":"An investigation goes critically wrong or leads to the top, ruining your career. Roll Advocate 8+. If you succeed, you may keep the benefit roll from this term. If you roll 2, you must take the Prisoner career in your next term."},
+            "4":{"description":"You learn something you should not know and people want to kill you for it. Gain an Enemy and Deception 1","eventChain":["Gain_Enemy","Gain Skill ~ Deception 1"]},
+            "5":{"description":"Your work ends up coming home with you and someone get hurts. Choose one of your Contacts, Allies or Family members and roll twice on the injury table for them, taking the lower result."},
+            "6":{"description":"Injured. Roll on the Injury Table.","eventChain":["Injury"]}
         },
         "events":{
-            "2":"Disaster! Roll on the Mishap Table but you are not ejected from this career.",
-            "3":"An investigation takes on a dangerous turn. Roll Investigate 8+ or Streetwise at 8+. If you fail, roll on the mishap table. If you succeed, increase one of these skills by one level, Deception, Jack of All Trades, Persuade, or Tactics",
-            "4":"You complete a mission for you superiors and are suitably rewarded. Gain DM+1 to any one Benefit roll from this career.",
-            "5":"You establish a network of contacts. Gain D3 Contacts.",
-            "6":"You are already given advanced training in a specialist field. Roll Education 8+ to increase any one skill you already have one level in.",
-            "7":"Life Event.",
-            "8":"You go undercover to investigate an Enemy. Roll Deception 8+. If you succeed, roll immediately on the Rogue or Citizen Events table and make one roll on any Specialist skill table for that career. If you fail, roll immediately on the Rogue or Citizen mishap Tables.",
-            "9":"You go above and beyond the call of duty. Gain DM+2 on to your next advancement roll.",
-            "10":"You are given a specialist training in vehicles. Gain one of Drive 1, Flyer 1, Pilot 1 or Gunner 1.",
-            "11":"Youo are brefriended by a senior agent. Either increase Investigate by one level or DM+4 to advancement roll thanks to their aid.",
-            "12":"Your efforts uncover a major conspiracy against your employers. You are automatically promoted."
+            "2": {"description":"Disaster! Roll on the Mishap Table but you are not ejected from this career.","eventChain":["Disaster"]},
+            "3": {"description":"An investigation takes on a dangerous turn. Roll Investigate 8+ or Streetwise at 8+. If you fail, roll on the mishap table. If you succeed, increase one of these skills by one level, Deception, Jack of All Trades, Persuade, or Tactics","eventChain":["Roll_Skill~Investigate_8,Streetwise_8","Roll_Skill_Success:Increase_Skill~Deception,Persuade,Jack of All Trades,Tactics"]},},
+            "4": {"description":"You complete a mission for you superiors and are suitably rewarded. Gain DM+1 to any one Benefit roll from this career.","eventChain":["Benefit_DM+1"]},
+            "5": {"description":"You establish a network of contacts. Gain D3 Contacts.","eventChain":["Gain_D3_Contacts"]},
+            "6": {"description":"You are already given advanced training in a specialist field. Roll Education 8+ to increase any one skill you already have one level in."},
+            "7": {"description":"Life Event.","eventChain":["Life_Event"]},
+            "8": {"description":"You go undercover to investigate an Enemy. Roll Deception 8+. If you succeed, roll immediately on the Rogue or Citizen Events table and make one roll on any Specialist skill table for that career. If you fail, roll immediately on the Rogue or Citizen mishap Tables."},
+            "9": {"description":"You go above and beyond the call of duty. Gain DM+2 on to your next advancement roll.","eventChain":["Benefit_DM+2"]},
+            "10":{"description":"You are given a specialist training in vehicles. Gain one of Drive 1, Flyer 1, Pilot 1 or Gunner 1.","eventChain":["Gain_Skill ~ Drive 1,Flyer 1,Gunner 1"]},
+            "11":{"description":"You are brefriended by a senior agent. Either increase Investigate by one level or DM+4 to advancement roll thanks to their aid.","eventChain":["Increase_Skill ~ Investigate|Benefit_DM+4"]},
+            "12":{"description":"Your efforts uncover a major conspiracy against your employers. You are automatically promoted.","eventChain":["Automatic_Promotion"]}
         }
     },
     "army":{
@@ -270,10 +270,66 @@
                 "6":"Electronics (sensors)"
             }
         },
-        "ranks":{},
-        "rank_bonus":{},
-        "mishaps":{},
-        "events":{}
+        "ranks":{
+            "enlisted":{
+                "0":"Private",
+                "1":"Lance Corporal",
+                "2":"Corporal",
+                "3":"Lance Sergeant",
+                "4":"Sergant",
+                "5":"Gunnery Sergant",
+                "6":"Sergant Major"
+            },
+            "officer":{
+                "1":"Lieutenant",
+                "2":"Captain",
+                "3":"Major",
+                "4":"Lieutenant Colonel",
+                "5":"Colonel",
+                "6":"General"
+            }
+        },
+        "rank_bonus":{ 
+            "enlisted":{
+                "0":"Gun Combat 1",
+                "1":"Reacon 1",
+                "2":"-",
+                "3":"Leadership 1",
+                "4":"-",
+                "5":"-",
+                "6":"-"
+            },
+            "officer":{
+                "1":"Leadership 1",
+                "2":"-",
+                "3":"Tactics (military) 1",
+                "4":"-",
+                "5":"-",
+                "6":["SOC 10","SOC +1"]
+            }
+        },
+        "mishaps":{
+            "0":"",
+            "1":"",
+            "2":"",
+            "3":"",
+            "4":"",
+            "5":"",
+            "6":""
+        },
+        "events":{
+            "2":"Disaster! Roll on the Mishap Table but you are not ejected from this career.",
+            "3":"",
+            "4":"",
+            "5":"",
+            "6":"",
+            "7":"Life Event.",
+            "8":"",
+            "9":"",
+            "10":"",
+            "11":"",
+            "12":"You display heroism in battle. You may gain a promotion or a comission automatically."
+        }
     },
     "citizen":{},
     "drifter":{},
