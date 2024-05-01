@@ -1,5 +1,6 @@
 {
     "agent": {
+        "hasCommission":false,
         "qualification": {"INT":6},
         "assignments":[
             "Law Enforcement",
@@ -55,9 +56,7 @@
                 "5":"Recon",
                 "6":"Gun Combat"
             },
-            "advanced_education_requirements":{
-                "EDU":8
-            },
+            "advanced_education_requirements":{"EDU":8 },
             "advanced_education":{
                 "1":"Advocate",
                 "2":"Language",
@@ -90,80 +89,201 @@
                 "5":"Deception",
                 "6":"Streetwise"
             }
+        },
+        "ranks":{
+            "law_enforcement":{
+                "0":"Rookie",
+                "1":"Corporal",
+                "2":"Sergeant",
+                "3":"Detective",
+                "4":"Lietenant",
+                "5":"Chief",
+                "6":"Commissioner"
+            },
+            "intelligence":{
+                "0":"-",
+                "1":"Agent",
+                "2":"Field Agent",
+                "3":"-",
+                "4":"Special Agent",
+                "5":"Assistant Director",
+                "6":"Director"
+            },
+            "corporate":{
+                "0":"-",
+                "1":"Agent",
+                "2":"Field Agent",
+                "3":"-",
+                "4":"Special Agent",
+                "5":"Assistant Director",
+                "6":"Director"
+            }
+        },
+        "rank_bonus":{
+            "law_enforcement":{ 
+                "0":"-",
+                "1":"Streetwise 1",
+                "2":"-",
+                "3":"-",
+                "4":"Investigate 1",
+                "5":"Admin 1",
+                "6":"SOC +1"
+            },
+            "intelligence":{
+                "0":"-",
+                "1":"Deception 1",
+                "2":"Investigate 1",
+                "3":"-",
+                "4":"Gun Combat 1",
+                "5":"-",
+                "6":"-"
+            },
+            "corporate":{
+                "0":"-",
+                "1":"Deception 1",
+                "2":"Investigate 1",
+                "3":"-",
+                "4":"Gun Combat 1",
+                "5":"-",
+                "6":"-"
+            }
+        },
+        "mishaps":{
+            "1":"Severely injuried (this is the same result as a result of 2 on the injury table). Alternatively, roll twice on the injury table and take the lower result.",
+            "2":"A criminal or other figure under investigation offers you a deal. Accept and you leave this career without further penalty (although you lose the benefit roll as normal). Refuse and you must roll twice on the injury table and take the lower result. You gain an Enemy and one level in any skill you choose.",
+            "3":"An investigation goes critically wrong or leads to the top, ruining your career. Roll Advocate 8+. If you succeed, you may keep the benefit roll from this term. If you roll 2, you must take the Prisoner career in your next term.",
+            "4":"You learn something you should not know and people want to kill you for it. Gain an Enemry and Deception 1",
+            "5":"Your work ends up coming home with you and someone get hurts. Choose one of your Contacts, Allies or Family members and roll twice on the injury table for them, taking the lower result.",
+            "6":"Injured. Roll on the Injury Table."
+        },
+        "events":{
+            "2":"Disaster! Roll on the Mishap Table but you are not ejected from this career.",
+            "3":"An investigation takes on a dangerous turn. Roll Investigate 8+ or Streetwise at 8+. If you fail, roll on the mishap table. If you succeed, increase one of these skills by one level, Deception, Jack of All Trades, Persuade, or Tactics",
+            "4":"You complete a mission for you superiors and are suitably rewarded. Gain DM+1 to any one Benefit roll from this career.",
+            "5":"You establish a network of contacts. Gain D3 Contacts.",
+            "6":"You are already given advanced training in a specialist field. Roll Education 8+ to increase any one skill you already have one level in.",
+            "7":"Life Event.",
+            "8":"You go undercover to investigate an Enemy. Roll Deception 8+. If you succeed, roll immediately on the Rogue or Citizen Events table and make one roll on any Specialist skill table for that career. If you fail, roll immediately on the Rogue or Citizen mishap Tables.",
+            "9":"You go above and beyond the call of duty. Gain DM+2 on to your next advancement roll.",
+            "10":"You are given a specialist training in vehicles. Gain one of Drive 1, Flyer 1, Pilot 1 or Gunner 1.",
+            "11":"Youo are brefriended by a senior agent. Either increase Investigate by one level or DM+4 to advancement roll thanks to their aid.",
+            "12":"Your efforts uncover a major conspiracy against your employers. You are automatically promoted."
         }
     },
-    "ranks":{
-        "law_enforcement":{
-            "0":"Rookie",
-            "1":"Corporal",
-            "2":"Sergeant",
-            "3":"Detective",
-            "4":"Lietenant",
-            "5":"Chief",
-            "6":"Commissioner"
+    "army":{
+        "hasCommission":true,
+        "comission":{"SOC":8},
+        "qualification": {"END":5},
+        "assignments":[
+            "Support",
+            "Infantry",
+            "Cavalry"
+        ],
+        "career_progress":{
+            "survival":{
+                "Support":{"END":5},
+                "Infantry":{"STR":6},
+                "Cavalry":{"DEX":7}
+            },
+            "advancement":{
+                "Support":{"EDU":7},
+                "Infantry":{"EDU":6},
+                "Cavalry":{"INT":5}
+            }
         },
-        "intelligence":{
-            "0":"-",
-            "1":"Agent",
-            "2":"Field Agent",
-            "3":"-",
-            "4":"Special Agent",
-            "5":"Assistant Director",
-            "6":"Director"
+        "muster_out_benefits":{
+            "cash":{
+                "1":2000,
+                "2":5000,
+                "3":10000,
+                "4":10000,
+                "5":10000,
+                "6":20000,
+                "7":30000
+            },
+            "benefits":{
+                "1":"Cybernetic Implant",
+                "2":"INT +1",
+                "3":"EDU +1",
+                "4":"Weapon",
+                "5":"Armour",
+                "6":["END +1","Cybernetic Implant"],
+                "7":"SOC +1"
+            }
         },
-        "corporate":{
-            "0":"-",
-            "1":"Agent",
-            "2":"Field Agent",
-            "3":"-",
-            "4":"Special Agent",
-            "5":"Assistant Director",
-            "6":"Director"
-        }
+        "skills_and_training":{
+            "personal_development":{
+                "1":"STR +1",
+                "2":"DEX +1",
+                "3":"END +1",
+                "4":"Gambler",
+                "5":"Medic",
+                "6":"Melee"
+            },
+            "service_skills":{
+                "1":["Drive","Vacc Suit"],
+                "2":"Athletics",
+                "3":"Gun Combat",
+                "4":"Recon",
+                "5":"Melee",
+                "6":"Heavy Weapons"
+            },
+            "advanced_education_requirements":{"INT":8},
+            "advanced_education":{
+                "1":"Tactics (Military)",
+                "2":"Electronics",
+                "3":"Navigation",
+                "4":"Explosives",
+                "5":"Engineer",
+                "6":"Survival"
+            },
+            "officer":{
+                "1":"Tactics (Military)",
+                "2":"Leadership",
+                "3":"Advocate",
+                "4":"Diplomat",
+                "5":"Electronics",
+                "6":"Admin"
+            },
+            "support":{
+                "1":"Mechanic",
+                "2":["Drive","Flyer"],
+                "3":"Profession",
+                "4":"Explosives",
+                "5":"Electronics (comms)",
+                "6":"Medic"
+            },
+            "infantry":{
+                "1":"Gun Combat",
+                "2":"Melee",
+                "3":"Heavy Weapons",
+                "4":"Stealth",
+                "5":"Athletics",
+                "6":"Recon"
+            },
+            "cavalry":{
+                "1":"Mechanic",
+                "2":"Drive",
+                "3":"Flyer",
+                "4":"Recon",
+                "5":"Heavy Weapons (vehicles)",
+                "6":"Electronics (sensors)"
+            }
+        },
+        "ranks":{},
+        "rank_bonus":{},
+        "mishaps":{},
+        "events":{}
     },
-    "rank_bonus":{
-        "law_enforcement":{ 
-            "0":"-",
-            "1":"Streetwise 1",
-            "2":"-",
-            "3":"-",
-            "4":"Investigate 1",
-            "5":"Admin 1",
-            "6":"SOC +1"
-        },
-        "intelligence":{
-            "0":"-",
-            "1":"Deception 1",
-            "2":"Investigate 1",
-            "3":"-",
-            "4":"Gun Combat 1",
-            "5":"-",
-            "6":"-"
-        },
-        "corporate":{
-            "0":"-",
-            "1":"Deception 1",
-            "2":"Investigate 1",
-            "3":"-",
-            "4":"Gun Combat 1",
-            "5":"-",
-            "6":"-"
-        }
-    },
-    "mishaps":{
-        "1":"Severely injuried (this is the same result as a result of 2 on the injury table). Alternatively, roll twice on the injury table and take the lower result.",
-        "2":"A criminal or other figure under investigation offers you a deal. Accept and you leave this career without further penalty (although you lose the benefit roll as normal). Refuse and you must roll twice on the injury table and take the lower result. You gain an Enemy and one level in any skill you choose.",
-        "3":"An investigation goes critically wrong or leads to the top, ruining your career. Roll Advocate 8+. If you succeed, you may keep the benefit roll from this term. If you roll 2, you must take the Prisoner career in your next term.",
-        "4":"You learn something you should not know and people want to kill you for it. Gain an Enemry and Deception 1",
-        "5":"Your work ends up coming home with you and someone get hurts. Choose one of your Contacts, Allies or Family members and roll twice on the injury table for them, taking the lower result.",
-        "6":"Injured. Roll on the Injury Table."
-    },
-    "events":{
-        "1":"Disaster! Roll on the Mishap Table but you are not ejected from this career.",
-        "2":"",
-        "3":"",
-        "4":"",
-        "5":"",
-        "6":""
-    }
+    "citizen":{},
+    "drifter":{},
+    "entertainer":{},
+    "mariner":{},
+    "merchant":{},
+    "navy":{},
+    "noble":{},
+    "rogue":{},
+    "scholar":{},
+    "scout":{},
+    "psion":{}
 }
