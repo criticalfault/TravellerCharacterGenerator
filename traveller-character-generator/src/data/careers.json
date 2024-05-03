@@ -175,7 +175,10 @@
                                     "type":"Increase_Skill",
                                     "Skills_To_Increase":["Deception","Persuade","Jack of All Trades","Tactics"]
                                 },
-                            "Failure":null
+                            "Failure":{
+                                "type":"Roll_On_Mishaps_Table",
+                                "Events_Tables":["agent"]
+                            }
                         }
                     ]
                 },
@@ -188,8 +191,31 @@
             "7": {  "description":"Life Event.",
                     "eventChain":[{"type":"Life_Event"}]
                 },
-            "8": {"description":"You go undercover to investigate an Enemy. Roll Deception 8+. If you succeed, roll immediately on the Rogue or Citizen Events table and make one roll on any Specialist skill table for that career. If you fail, roll immediately on the Rogue or Citizen mishap Tables."},
-            "9": {"description":"You go above and beyond the call of duty. Gain DM+2 on to your next advancement roll.","eventChain":[{"type":"Benefit_DM","DM":2}]},
+            "8": {
+                    "description":"You go undercover to investigate an Enemy. Roll Deception 8+. If you succeed, roll immediately on the Rogue or Citizen Events table and make one roll on any Specialist skill table for that career. If you fail, roll immediately on the Rogue or Citizen mishap Tables.",
+                    "eventChain":[
+                        {"type":"Roll_Skill",
+                            "SkillsAbleToRoll":[
+                                    {"Deception":8}
+                                ],
+                            "Success":[
+                                {
+                                    "type":"Roll_On_Events_Table",
+                                    "Events_Tables":["Rogue","Citizen"]
+                                },
+                                {
+                                    "type":"Roll_On_Specialist_Table",
+                                    "Events_Tables":["Rogue","Citizen"]
+                                }
+                            ],
+                        "Failure":{
+                            "type":"Roll_On_Mishaps_Table",
+                            "Events_Tables":["Rogue","Citizen"]
+                        }
+                    }
+                ]
+                },
+            "9": {"description":"You go above and beyond the call of duty. Gain DM+2 on to your next advancement roll.","eventChain":[{"type":"Advancement_DM","DM":2}]},
             "10":{
                 "description":"You are given a specialist training in vehicles. Gain one of Drive 1, Flyer 1, Pilot 1 or Gunner 1.",
                 "eventChain":[{"type":"Gain_Skill","skills_list":["Drive 1","Flyer 1","Gunner 1"]}]
@@ -206,7 +232,7 @@
                                                 "skills_list":["Investigate"]
                                             },
                                             {
-                                                "type":"Benefit_DM","DM":4
+                                                "type":"Advancement_DM","DM":4
                                             }
                                         ]
                                     }
@@ -362,26 +388,106 @@
             }
         },
         "mishaps":{
-            "0":"",
-            "1":"",
-            "2":"",
-            "3":"",
-            "4":"",
-            "5":"",
-            "6":""
+            "1":{
+                "description":"Severely injuried (this is the same result as a result of 2 on the injury table). Alternatively, roll twice on the injury table and take the lower result.",
+                "eventChain":[{"type":"Severe_Injury"}]
+                },
+            "2":{
+                    "description":"Your unit is slaughtered in a disastrous battle, for which you blame your commander. Gain them as an Enemy as they have you removed from service.",
+                    "eventChain":[{"type":"Gain_Enemy","amount":1},{"type":"Removed_From_Career_No_Benefits"}]
+                },
+            "3":{
+                    "description":"You are sent to a very unpleasant region (jungle, swamp, desert, ice cap, urban, etc) to battle against guerrilla fighters and rebels. You are discharged because of stress, injury, or because the government wishes to bury the whole incident. Increase recon or survival by one level but also gain the rebels as an Enemy.",
+                    "eventChain":[{"type":"Gain_Enemy","amount":1, "type_of_enemy":"Rebels"},{"type": "Increase_Skill","skills_list":["Recon","Survival"]}]
+                },
+            "4":{
+                    "description":"You discover that your commanding officer is engage in some illegal activity, such as weapon smuggling. You can join their ring and gain them as an Ally before the inevitable investigation gets you discharged or you can co-operate with the military police - the official whitewash gets you discharged anyway but you may keep your benefits roll you this term of service.",
+                    "eventChain":[
+                        {
+                            "type":"choice",
+                            "choices":
+                            [
+                                {
+                                    "type": "Gain_Ally",
+                                    "amount":1
+                                },
+                                {
+                                    "type":"Removed_From_Career"
+                                }
+                            ]
+                        }
+                    ]
+                }, 
+            "5":{
+                    "description":"You are tormented by or qurrel with an officer or fellow soldier. Gain that officer as a Rival as they drive you out of the service",
+                    "eventChain":[{"type":"Gain_Rival","amount":1},{"type":"Removed_From_Career_No_Benefits"}]
+                },
+            "6":{
+                    "description":"Injured. Roll on the Injury Table.",
+                    "eventChain":[{"type":"Injury"}]
+                }
         },
         "events":{
-            "2":"Disaster! Roll on the Mishap Table but you are not ejected from this career.",
-            "3":"",
-            "4":"",
-            "5":"",
-            "6":"",
-            "7":"Life Event.",
-            "8":"",
-            "9":"",
-            "10":"",
-            "11":"",
-            "12":"You display heroism in battle. You may gain a promotion or a comission automatically."
+            "2": {  
+                "description":"Disaster! Roll on the Mishap Table but you are not ejected from this career.",
+                "eventChain":[{"type":"Disaster"}]
+            },
+            "3":{ 
+                "description":"You are assigned to a planet with a hostile or wild environment. Gain one of Vacc Suit 1, Engineer 1, Animals (Riding or Training) 1 or Recon 1",
+                "eventChain":[{"type":"Gain_Skill","skills_list":["Vacc Suit 1","Engineer 1","Animals (Riding) 1","Animals (Training) 1","Recon 1"]}]
+            },
+            "4":{ 
+                "description":"You are assigned to an urbanized planet torn by war. Gain one of Stealth 1, Streetwise 1, Persuade 1, or Recon 1",
+                "eventChain":[{"type":"Gain_Skill","skills_list":["Stealth 1","Streetwise 1","Persuade 1","Recon 1"]}]
+            },
+            "5": {  
+                "description":"You are given a special assignment or duty in your unit. Gain DM+1 to any one Benefit Roll.",
+                "eventChain":[{"type":"Benefit_DM", "DM":1}]
+            },
+            "6": {  
+                "description":"You are thrown into a brutal ground war. Roll EDU 8+ to avoid injury; if you succeed, you gain one level in Gun Combat or Leadership",
+                "eventChain":[{"type":"Increase_Skill","skills_list":["Gun Combat","Leadership"]}]
+            },
+            "7": {  
+                "description":"Life Event.",
+                "eventChain":[{"type":"Life_Event"}]
+            },
+            "8": {  
+                "description":"You are given advanced training in a specialist field. EDU 8+ to increase any one skill you already have by one level",
+                "eventChain":[{"type":"Increase_Skill","skills_list":["Any"]}]
+            },
+            "9":{  
+                "description":"Surrounded and outnumbered by the enemy, you hold out until relief arrives. Gain DM+2 on your next advancement roll",
+                "eventChain":[{"type":"Advancement_DM","DM":2}]
+            },
+            "10":{  
+                "description":"You are assigned to a peacekeepering role. Gain one of Admin 1, Investigate 1, Deception 1, or Recon 1",
+                "eventChain":[{"type":"Gain_Skill","skills_list":["Admin 1","Investigate 1","Deception 1","Recon 1"]}]
+            },
+            "11":{  
+                "description":"Your commanding office takes an interest in your career. Ether gain Tactics (Military) 1, or DM+4 to your next advancement roll thanks to their aid.",
+                "eventChain":
+                [
+                    {
+                        "type":"choice",
+                        "choices":
+                        [
+                            {
+                                "type": "Gain_Skill",
+                                "skills_list":["Tactics (Military) 1"]
+                            },
+                            {
+                                "type":"Advancement_DM",
+                                "DM":4
+                            }
+                        ]
+                    }
+                ]
+            },
+            "12":{
+                "description":"You display heroism in battle. You may gain a promotion or a comission automatically.",
+                "eventChain":[{"type": "Automatic_Promotion_Or_Comission"}]
+            }
         }
     },
     "citizen":{},
