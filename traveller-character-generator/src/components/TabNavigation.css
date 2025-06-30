@@ -119,3 +119,246 @@
     min-width: 80px;
   }
 }
+
+/* Race Selection Tab Styles */
+.race-selection-tab {
+  max-width: 100%;
+}
+
+.race-selection-tab h2 {
+  color: #343a40;
+  margin-bottom: 10px;
+  font-size: 1.8rem;
+}
+
+.race-selection-tab > p {
+  color: #6c757d;
+  margin-bottom: 30px;
+  font-size: 1.1rem;
+}
+
+.race-selection-content {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 30px;
+  margin-bottom: 30px;
+}
+
+.race-list h3 {
+  color: #495057;
+  margin-bottom: 15px;
+  font-size: 1.3rem;
+}
+
+.race-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.race-button {
+  background: #f8f9fa;
+  border: 2px solid #dee2e6;
+  padding: 12px 20px;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #495057;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: left;
+}
+
+.race-button:hover {
+  background: #e9ecef;
+  border-color: #007bff;
+}
+
+.race-button.selected {
+  background: #007bff;
+  color: white;
+  border-color: #0056b3;
+}
+
+.race-details {
+  background: #f8f9fa;
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  padding: 25px;
+}
+
+.race-details h3 {
+  color: #007bff;
+  margin-bottom: 15px;
+  font-size: 1.5rem;
+}
+
+.race-description {
+  color: #495057;
+  margin-bottom: 20px;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.race-details h4 {
+  color: #343a40;
+  margin: 20px 0 10px 0;
+  font-size: 1.2rem;
+}
+
+.race-details ul {
+  margin: 0 0 15px 20px;
+  padding: 0;
+}
+
+.race-details li {
+  color: #495057;
+  margin-bottom: 5px;
+  line-height: 1.4;
+}
+
+.attribute-modifiers li {
+  font-weight: 500;
+  color: #007bff;
+}
+
+.special-abilities li {
+  color: #28a745;
+  font-weight: 500;
+}
+
+.racial-traits li {
+  color: #6c757d;
+}
+
+.race-selection-actions {
+  margin-top: 25px;
+}
+
+.confirm-race-button {
+  background: #28a745;
+  color: white;
+  border: none;
+  padding: 12px 30px;
+  border-radius: 6px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.confirm-race-button:hover {
+  background: #218838;
+}
+
+.race-confirmed {
+  background: #d4edda;
+  border: 1px solid #c3e6cb;
+  border-radius: 8px;
+  padding: 25px;
+  margin-bottom: 20px;
+}
+
+.race-confirmed h3 {
+  color: #155724;
+  margin-bottom: 15px;
+  font-size: 1.5rem;
+}
+
+.confirmed-race-summary p {
+  color: #155724;
+  margin-bottom: 20px;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.confirmed-race-summary h4 {
+  color: #155724;
+  margin: 20px 0 10px 0;
+  font-size: 1.2rem;
+}
+
+.confirmed-race-summary ul {
+  margin: 0 0 15px 20px;
+  padding: 0;
+}
+
+.confirmed-race-summary li {
+  color: #155724;
+  margin-bottom: 5px;
+  line-height: 1.4;
+}
+
+.applied-modifiers li {
+  font-weight: 600;
+  color: #007bff;
+}
+
+.special-abilities-summary li {
+  color: #28a745;
+  font-weight: 500;
+}
+
+.race-actions {
+  margin-top: 20px;
+}
+
+.change-race-button {
+  background: #6c757d;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.change-race-button:hover {
+  background: #5a6268;
+}
+
+.current-character-info {
+  background: #e9ecef;
+  border: 1px solid #dee2e6;
+  border-radius: 6px;
+  padding: 20px;
+  margin-top: 20px;
+}
+
+.current-character-info h4 {
+  color: #495057;
+  margin-bottom: 10px;
+  font-size: 1.2rem;
+}
+
+.current-character-info p {
+  color: #6c757d;
+  margin: 5px 0;
+  font-size: 1rem;
+}
+
+.current-character-info strong {
+  color: #343a40;
+}
+
+/* Responsive design for race selection */
+@media (max-width: 768px) {
+  .race-selection-content {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  
+  .race-details {
+    padding: 20px;
+  }
+  
+  .race-confirmed {
+    padding: 20px;
+  }
+  
+  .current-character-info {
+    padding: 15px;
+  }
+}

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './TabNavigation.css';
 
 // Tab component definitions
+import RaceSelectionTab from './tabs/RaceSelectionTab';
 import AttributesTab from './tabs/AttributesTab';
 import BackgroundSkillsTab from './tabs/BackgroundSkillsTab';
 import CareerSelectionTab from './tabs/CareerSelectionTab';
@@ -11,6 +12,7 @@ import SummaryTab from './tabs/SummaryTab';
 import SaveLoadTab from './tabs/SaveLoadTab';
 
 const TABS = [
+  { id: 'race-selection', label: 'Species', component: RaceSelectionTab },
   { id: 'attributes', label: 'Attributes', component: AttributesTab },
   { id: 'background', label: 'Background Skills', component: BackgroundSkillsTab },
   { id: 'career-selection', label: 'Career Selection', component: CareerSelectionTab },
@@ -21,7 +23,7 @@ const TABS = [
 ];
 
 export default function TabNavigation() {
-  const [activeTab, setActiveTab] = useState('attributes');
+  const [activeTab, setActiveTab] = useState('race-selection');
 
   const handleTabChange = (tabId) => {
     setActiveTab(tabId);

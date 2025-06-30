@@ -11,7 +11,8 @@ const initialCharacterState = {
     END: 0,
     INT: 0,
     EDU: 0,
-    SOC: 0
+    SOC: 0,
+    PSI: 0
   },
   skills: {},
   careerHistory: [],
@@ -102,12 +103,13 @@ const characterReducer = (state, action) => {
       return { ...state, species: action.payload };
       
     case CHARACTER_ACTIONS.SET_ATTRIBUTES:
+      const updatedAttributes = { ...state.attributes, ...action.payload };
       return { 
         ...state, 
-        attributes: { ...state.attributes, ...action.payload },
+        attributes: updatedAttributes,
         damage: { 
           ...state.damage, 
-          max: calculateMaxDamage(state.attributes.STR, state.attributes.DEX, state.attributes.END) 
+          max: calculateMaxDamage(updatedAttributes.STR, updatedAttributes.DEX, updatedAttributes.END) 
         }
       };
       

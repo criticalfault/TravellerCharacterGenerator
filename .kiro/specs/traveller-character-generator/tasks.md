@@ -90,7 +90,7 @@
   - Add character management (multiple characters, delete, etc.)
   - _Requirements: 2.2_
 
-- [ ] 13. Add race/species selection system
+- [x] 13. Add race/species selection system
   - Create race selection interface with available species
   - Implement racial attribute modifiers and special abilities
   - Add racial ability tracking and display
