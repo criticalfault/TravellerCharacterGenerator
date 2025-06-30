@@ -17,6 +17,34 @@ export default function SummaryTab() {
     URL.revokeObjectURL(url);
   };
 
+  const printCharacterSheet = () => {
+    window.print();
+  };
+
+  const getTotalTerms = () => {
+    return character.careerHistory.reduce((total, career) => total + career.terms, 0);
+  };
+
+  const getHighestRank = () => {
+    if (character.careerHistory.length === 0) return "None";
+    const highestRankCareer = character.careerHistory.reduce((highest, career) => 
+      career.rank > highest.rank ? career : highest
+    );
+    return `${highestRankCareer.rankTitle || 'Rank'} ${highestRankCareer.rank} (${highestRankCareer.career})`;
+  };
+
+  const getSkillCount = () => {
+    return Object.keys(character.skills).length;
+  };
+
+  const getHighestSkill = () => {
+    if (Object.keys(character.skills).length === 0) return "None";
+    const [skillName, level] = Object.entries(character.skills).reduce(([maxSkill, maxLevel], [skill, level]) => 
+      level > maxLevel ? [skill, level] : [maxSkill, maxLevel]
+    );
+    return `${skillName} ${level}`;
+  };
+
   return (
     <div className="summary-tab">
       <h2>Character Summary</h2>
@@ -26,8 +54,26 @@ export default function SummaryTab() {
         <div className="character-header">
           <div className="basic-info-summary">
             <h3>{character.name || "Unnamed Character"}</h3>
-            <p><strong>Species:</strong> {character.species}</p>
-            <p><strong>Age:</strong> {character.age}</p>
+            <div className="character-overview">
+              <div className="overview-item">
+                <strong>Species:</strong> {character.species}
+              </div>
+              <div className="overview-item">
+                <strong>Age:</strong> {character.age} years
+              </div>
+              <div className="overview-item">
+                <strong>Total Terms:</strong> {getTotalTerms()}
+              </div>
+              <div className="overview-item">
+                <strong>Highest Rank:</strong> {getHighestRank()}
+              </div>
+              <div className="overview-item">
+                <strong>Skills Known:</strong> {getSkillCount()}
+              </div>
+              <div className="overview-item">
+                <strong>Best Skill:</strong> {getHighestSkill()}
+              </div>
+            </div>
           </div>
         </div>
         
@@ -184,14 +230,59 @@ export default function SummaryTab() {
             </div>
           )}
         </div>
+        
+        <div className="character-statistics">
+          <h4>Character Statistics</h4>
+          <div className="stats-grid">
+            <div className="stat-item">
+              <span className="stat-label">Total Attribute Points:</span>
+              <span className="stat-value">
+                {Object.values(character.attributes).reduce((sum, val) => sum + val, 0)}
+              </span>
+            </div>
+            <div className="stat-item">
+              <span className="stat-label">Average Attribute:</span>
+              <span className="stat-value">
+                {(Object.values(character.attributes).reduce((sum, val) => sum + val, 0) / 6).toFixed(1)}
+              </span>
+            </div>
+            <div className="stat-item">
+              <span className="stat-label">Total Skill Levels:</span>
+              <span className="stat-value">
+                {Object.values(character.skills).reduce((sum, level) => sum + level, 0)}
+              </span>
+            </div>
+            <div className="stat-item">
+              <span className="stat-label">Years in Service:</span>
+              <span className="stat-value">
+                {getTotalTerms() * 4} years
+              </span>
+            </div>
+            <div className="stat-item">
+              <span className="stat-label">Benefit Rolls Earned:</span>
+              <span className="stat-value">
+                {character.benefitRolls}
+              </span>
+            </div>
+            <div className="stat-item">
+              <span className="stat-label">Current Wealth:</span>
+              <span className="stat-value">
+                {character.money.toLocaleString()} Cr
+              </span>
+            </div>
+          </div>
+        </div>
       </div>
       
       <div className="summary-actions">
         <button className="btn btn-primary" onClick={exportCharacter}>
-          Export Character
+          Export Character JSON
         </button>
-        <button className="btn btn-secondary">
+        <button className="btn btn-secondary" onClick={printCharacterSheet}>
           Print Character Sheet
+        </button>
+        <button className="btn btn-success" onClick={() => window.location.reload()}>
+          Create New Character
         </button>
       </div>
     </div>

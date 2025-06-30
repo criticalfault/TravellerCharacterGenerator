@@ -76,7 +76,7 @@
   - Add final character equipment and money calculation
   - _Requirements: 4.5a_
 
-- [ ] 11. Build character summary and sheet display
+- [x] 11. Build character summary and sheet display
   - Create SummaryTab showing complete character information
   - Display all attributes, skills, career history, and equipment
   - Add character sheet formatting and organization
