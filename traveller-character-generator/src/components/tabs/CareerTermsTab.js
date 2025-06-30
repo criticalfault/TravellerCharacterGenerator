@@ -5,22 +5,29 @@ import {
   makeSurvivalRoll, 
   makeAdvancementRoll, 
   calculateAgingEffects,
-  getAttributeModifier 
+  getAttributeModifier,
+  rollEvent,
+  rollMishap
 } from '../../utils/gameMechanics';
+import { processEventChain } from '../../utils/eventProcessor';
 
 export default function CareerTermsTab() {
-  const { character, dispatch, CHARACTER_ACTIONS, addSkill, updateAttribute } = useCharacter();
+  const { character, dispatch, CHARACTER_ACTIONS, addSkill, updateAttribute, addRelationship } = useCharacter();
   
   // Term progression state
-  const [currentPhase, setCurrentPhase] = useState('survival'); // survival, advancement, skills, decision
+  const [currentPhase, setCurrentPhase] = useState('survival'); // survival, event, advancement, skills, decision
   const [termResults, setTermResults] = useState({
     survival: null,
+    event: null,
+    mishap: null,
     advancement: null,
     skillTraining: null,
     aging: null
   });
   const [termComplete, setTermComplete] = useState(false);
   const [showTermSummary, setShowTermSummary] = useState(false);
+  const [pendingChoices, setPendingChoices] = useState([]);
+  const [eventProcessing, setEventProcessing] = useState(false);
 
   // Get current career data
   const getCurrentCareer = () => {
@@ -52,12 +59,16 @@ export default function CareerTermsTab() {
       setCurrentPhase('survival');
       setTermResults({
         survival: null,
+        event: null,
+        mishap: null,
         advancement: null,
         skillTraining: null,
         aging: null
       });
       setTermComplete(false);
       setShowTermSummary(false);
+      setPendingChoices([]);
+      setEventProcessing(false);
     }
   }, [character.currentTerm]);
 
@@ -84,30 +95,109 @@ export default function CareerTermsTab() {
     });
 
     if (survivalResult.success) {
-      // Survival successful - proceed to advancement
-      setCurrentPhase('advancement');
+      // Survival successful - proceed to event roll
+      setCurrentPhase('event');
     } else {
       // Survival failed - career ends, roll mishap
       handleSurvivalFailure();
     }
   };
 
-  const handleSurvivalFailure = () => {
-    // In Traveller, survival failure means career ends and character rolls on mishap table
-    // For now, we'll end the career and note the failure
+  const handleSurvivalFailure = async () => {
+    const career = getCurrentCareer();
+    if (!career || !career.mishaps) return;
+
+    // Roll on mishap table
+    const mishapResult = rollMishap(career.mishaps);
+    
+    setTermResults(prev => ({ ...prev, mishap: mishapResult }));
+    
+    // Add mishap event to career history
     dispatch({
       type: CHARACTER_ACTIONS.ADD_CAREER_EVENT,
       payload: {
         type: 'mishap',
-        description: 'Failed survival roll - career ended due to mishap'
+        roll: mishapResult.roll,
+        description: mishapResult.description
       }
     });
 
-    // End current career
+    // Process mishap event chain if it exists
+    if (mishapResult.eventChain && mishapResult.eventChain.length > 0) {
+      setEventProcessing(true);
+      try {
+        const eventResult = await processEventChain(
+          mishapResult.eventChain,
+          character,
+          dispatch,
+          CHARACTER_ACTIONS,
+          addSkill,
+          updateAttribute,
+          addRelationship
+        );
+        
+        if (eventResult.playerChoices.length > 0) {
+          setPendingChoices(eventResult.playerChoices);
+        }
+      } catch (error) {
+        console.error('Error processing mishap event chain:', error);
+      } finally {
+        setEventProcessing(false);
+      }
+    }
+
+    // End current career (mishaps typically end careers)
     dispatch({ type: CHARACTER_ACTIONS.END_CAREER });
     
     setCurrentPhase('ended');
     setTermComplete(true);
+  };
+
+  const handleEventRoll = async () => {
+    const career = getCurrentCareer();
+    if (!career || !career.events) return;
+
+    // Roll on event table
+    const eventResult = rollEvent(career.events);
+    
+    setTermResults(prev => ({ ...prev, event: eventResult }));
+    
+    // Add event to career history
+    dispatch({
+      type: CHARACTER_ACTIONS.ADD_CAREER_EVENT,
+      payload: {
+        type: 'event',
+        roll: eventResult.roll,
+        description: eventResult.description
+      }
+    });
+
+    // Process event chain if it exists
+    if (eventResult.eventChain && eventResult.eventChain.length > 0) {
+      setEventProcessing(true);
+      try {
+        const chainResult = await processEventChain(
+          eventResult.eventChain,
+          character,
+          dispatch,
+          CHARACTER_ACTIONS,
+          addSkill,
+          updateAttribute,
+          addRelationship
+        );
+        
+        if (chainResult.playerChoices.length > 0) {
+          setPendingChoices(chainResult.playerChoices);
+        }
+      } catch (error) {
+        console.error('Error processing event chain:', error);
+      } finally {
+        setEventProcessing(false);
+      }
+    }
+
+    // Proceed to advancement roll
+    setCurrentPhase('advancement');
   };
 
   const handleAdvancementRoll = () => {
@@ -271,6 +361,52 @@ export default function CareerTermsTab() {
     setTermComplete(true);
   };
 
+  const handlePlayerChoice = (choice, option, choiceIndex) => {
+    // Apply the chosen option
+    switch (option.type) {
+      case 'skill':
+        addSkill(option.skill, option.level);
+        break;
+      case 'increase_skill':
+        addSkill(option.skill, option.level);
+        break;
+      case 'promotion':
+        // Handle automatic promotion
+        const career = getCurrentCareer();
+        if (career) {
+          handlePromotion(career);
+        }
+        break;
+      case 'commission':
+        // Handle automatic commission
+        dispatch({
+          type: CHARACTER_ACTIONS.ADD_CAREER_EVENT,
+          payload: {
+            type: 'commission',
+            success: true,
+            description: 'Automatically commissioned as an officer'
+          }
+        });
+        break;
+      default:
+        console.log('Unhandled choice type:', option.type);
+    }
+
+    // Remove this choice from pending choices
+    const newPendingChoices = [...pendingChoices];
+    newPendingChoices.splice(choiceIndex, 1);
+    setPendingChoices(newPendingChoices);
+
+    // Add event to career history
+    dispatch({
+      type: CHARACTER_ACTIONS.ADD_CAREER_EVENT,
+      payload: {
+        type: 'player_choice',
+        description: `Chose: ${option.description}`
+      }
+    });
+  };
+
   if (!character.currentCareer) {
     return (
       <div className="career-terms-tab">
@@ -330,8 +466,24 @@ export default function CareerTermsTab() {
             )}
           </div>
 
+          <div className={`phase-card ${currentPhase === 'event' ? 'active' : termResults.event ? 'completed' : 'pending'}`}>
+            <h4>2. Event Roll</h4>
+            <p>Experience events that shape your character's career.</p>
+            {currentPhase === 'event' && (
+              <button className="btn btn-primary" onClick={handleEventRoll} disabled={eventProcessing}>
+                {eventProcessing ? 'Processing...' : 'Roll Event'}
+              </button>
+            )}
+            {termResults.event && (
+              <div className="roll-result success">
+                <p><strong>Event:</strong> {termResults.event.description}</p>
+                <p><strong>Roll:</strong> {termResults.event.roll} on 2d6</p>
+              </div>
+            )}
+          </div>
+
           <div className={`phase-card ${currentPhase === 'advancement' ? 'active' : termResults.advancement ? 'completed' : 'pending'}`}>
-            <h4>2. Advancement Roll</h4>
+            <h4>3. Advancement Roll</h4>
             <p>Attempt to gain rank and recognition in your career.</p>
             {career && assignment && (
               <div className="roll-info">
@@ -357,7 +509,7 @@ export default function CareerTermsTab() {
           </div>
 
           <div className={`phase-card ${currentPhase === 'skills' ? 'active' : termResults.skillTraining ? 'completed' : 'pending'}`}>
-            <h4>3. Skill Training</h4>
+            <h4>4. Skill Training</h4>
             <p>Gain new skills or improve existing ones through training.</p>
             {currentPhase === 'skills' && (
               <button className="btn btn-primary" onClick={handleSkillTraining}>
@@ -370,6 +522,17 @@ export default function CareerTermsTab() {
               </div>
             )}
           </div>
+
+          {termResults.mishap && (
+            <div className="phase-card mishap-effects">
+              <h4>Mishap</h4>
+              <p>A mishap has occurred, ending your career.</p>
+              <div className="mishap-result">
+                <p><strong>Mishap:</strong> {termResults.mishap.description}</p>
+                <p><strong>Roll:</strong> {termResults.mishap.roll} on 2d6</p>
+              </div>
+            </div>
+          )}
 
           {termResults.aging && !termResults.aging.noAging && (
             <div className="phase-card aging-effects">
@@ -385,8 +548,31 @@ export default function CareerTermsTab() {
             </div>
           )}
 
+          {pendingChoices.length > 0 && (
+            <div className="phase-card player-choices">
+              <h4>Player Choices</h4>
+              <p>Make your choices to continue:</p>
+              {pendingChoices.map((choice, index) => (
+                <div key={index} className="choice-section">
+                  <p><strong>{choice.description}</strong></p>
+                  <div className="choice-options">
+                    {choice.choices?.map((option, optionIndex) => (
+                      <button
+                        key={optionIndex}
+                        className="btn btn-secondary choice-btn"
+                        onClick={() => handlePlayerChoice(choice, option, index)}
+                      >
+                        {option.description}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+
           <div className={`phase-card ${currentPhase === 'decision' ? 'active' : 'pending'}`}>
-            <h4>4. Continue or Leave</h4>
+            <h4>5. Continue or Leave</h4>
             <p>Decide whether to continue in this career for another term or leave.</p>
             {currentPhase === 'decision' && (
               <div className="career-decision">

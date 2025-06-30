@@ -824,6 +824,46 @@
   background: #138496;
 }
 
+.mishap-effects {
+  border-color: #dc3545 !important;
+  background: #f8d7da !important;
+}
+
+.mishap-result {
+  background: white;
+  padding: 10px;
+  border-radius: 4px;
+  margin-top: 10px;
+}
+
+.player-choices {
+  border-color: #ffc107 !important;
+  background: #fff3cd !important;
+}
+
+.choice-section {
+  margin-bottom: 20px;
+  padding: 15px;
+  background: white;
+  border-radius: 6px;
+}
+
+.choice-options {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+
+.choice-btn {
+  padding: 8px 16px;
+  font-size: 0.9rem;
+}
+
+.choice-btn:hover {
+  background: #5a6268;
+}
+
 /* Button Styles */
 .btn {
   padding: 10px 20px;

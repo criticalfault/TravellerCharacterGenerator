@@ -51,7 +51,7 @@
   - Add term continuation vs career change decision points
   - _Requirements: 4.3a, 4.3b, 4.4a, 4.4b_
 
-- [ ] 8. Build event and mishap system
+- [x] 8. Build event and mishap system
   - Implement event table rolling and processing with 2d6 rolls
   - Create mishap table handling with consequences and career ejection
   - Add complex event chain processing system for multi-step events
