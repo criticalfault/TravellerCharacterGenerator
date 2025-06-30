@@ -42,7 +42,7 @@
   - Handle commission qualification for military careers
   - _Requirements: 4.1, 4.2_
 
-- [ ] 7. Implement career term progression mechanics
+- [x] 7. Implement career term progression mechanics
   - Create CareerTermsTab for managing career progression
   - Implement survival rolls with assignment-specific attribute requirements
   - Add advancement roll system with promotion tracking for enlisted/officer tracks

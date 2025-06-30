@@ -590,19 +590,106 @@
 }
 
 /* Career Terms Tab Styles */
+.current-career-info {
+  background: #e7f3ff;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 30px;
+}
+
+.career-details {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 15px;
+  margin-top: 15px;
+}
+
+.career-details p {
+  margin: 0;
+  padding: 10px;
+  background: white;
+  border-radius: 4px;
+  border-left: 4px solid #007bff;
+}
+
 .term-progression {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 20px;
   margin-top: 20px;
 }
 
 .phase-card {
   background: #f8f9fa;
-  border: 1px solid #e9ecef;
+  border: 2px solid #e9ecef;
   border-radius: 8px;
   padding: 20px;
   text-align: center;
+  transition: all 0.2s ease;
+}
+
+.phase-card.active {
+  border-color: #007bff;
+  background: #e7f3ff;
+  box-shadow: 0 4px 8px rgba(0,123,255,0.1);
+}
+
+.phase-card.completed {
+  border-color: #28a745;
+  background: #d4edda;
+}
+
+.phase-card.pending {
+  opacity: 0.6;
+}
+
+.phase-card h4 {
+  color: #282c34;
+  margin-bottom: 15px;
+}
+
+.roll-info {
+  background: white;
+  padding: 10px;
+  border-radius: 4px;
+  margin: 10px 0;
+  font-size: 0.9rem;
+}
+
+.roll-result {
+  background: white;
+  padding: 15px;
+  border-radius: 6px;
+  margin-top: 15px;
+  border-left: 4px solid #6c757d;
+}
+
+.roll-result.success {
+  border-left-color: #28a745;
+  background: #d4edda;
+}
+
+.roll-result.failure {
+  border-left-color: #dc3545;
+  background: #f8d7da;
+}
+
+.promotion-notice {
+  color: #28a745;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.aging-effects {
+  border-color: #ffc107 !important;
+  background: #fff3cd !important;
+}
+
+.aging-result {
+  background: white;
+  padding: 10px;
+  border-radius: 4px;
+  margin-top: 10px;
 }
 
 .career-decision {
@@ -610,6 +697,57 @@
   gap: 10px;
   justify-content: center;
   margin-top: 15px;
+  flex-wrap: wrap;
+}
+
+.career-ended {
+  background: #f8d7da;
+  border: 1px solid #f5c6cb;
+  border-radius: 8px;
+  padding: 20px;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.term-summary {
+  background: #d1ecf1;
+  border: 1px solid #bee5eb;
+  border-radius: 8px;
+  padding: 20px;
+  margin-top: 30px;
+}
+
+.summary-content {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  margin-top: 15px;
+}
+
+.summary-section {
+  background: white;
+  padding: 15px;
+  border-radius: 6px;
+}
+
+.summary-section h4 {
+  color: #0c5460;
+  margin-bottom: 10px;
+}
+
+.summary-section ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.summary-section li {
+  padding: 5px 0;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.summary-section li:last-child {
+  border-bottom: none;
 }
 
 .career-entry {
@@ -618,6 +756,72 @@
   border-radius: 8px;
   margin-bottom: 15px;
   border-left: 4px solid #007bff;
+}
+
+.career-entry h4 {
+  color: #282c34;
+  margin-bottom: 10px;
+}
+
+.commissioned-badge {
+  background: #28a745;
+  color: white;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  margin-left: 10px;
+}
+
+.career-events {
+  margin-top: 15px;
+  background: white;
+  padding: 15px;
+  border-radius: 6px;
+}
+
+.career-events ul {
+  list-style: none;
+  padding: 0;
+  margin: 10px 0 0 0;
+}
+
+.career-events li {
+  padding: 8px 0;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.career-events li:last-child {
+  border-bottom: none;
+}
+
+.event-result {
+  margin-left: 10px;
+}
+
+.event-result.success {
+  color: #28a745;
+}
+
+.event-result.failure {
+  color: #dc3545;
+}
+
+.no-career {
+  background: #fff3cd;
+  border: 1px solid #ffeaa7;
+  border-radius: 8px;
+  padding: 30px;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.btn-info {
+  background: #17a2b8;
+  color: white;
+}
+
+.btn-info:hover:not(:disabled) {
+  background: #138496;
 }
 
 /* Button Styles */
