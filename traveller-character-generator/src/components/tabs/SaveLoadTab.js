@@ -4,8 +4,13 @@ import { useCharacter } from '../../context/CharacterContext';
 export default function SaveLoadTab() {
   const { character, dispatch, CHARACTER_ACTIONS } = useCharacter();
   const [savedCharacters, setSavedCharacters] = useState(() => {
-    const saved = localStorage.getItem('travellerCharacters');
-    return saved ? JSON.parse(saved) : [];
+    try {
+      const saved = localStorage.getItem('travellerCharacters');
+      return saved ? JSON.parse(saved) : [];
+    } catch (error) {
+      console.error('Error loading saved characters:', error);
+      return [];
+    }
   });
   const [characterName, setCharacterName] = useState(character.name || '');
 
@@ -34,8 +39,14 @@ export default function SaveLoadTab() {
       updatedSaved.push(characterToSave);
     }
 
-    setSavedCharacters(updatedSaved);
-    localStorage.setItem('travellerCharacters', JSON.stringify(updatedSaved));
+    try {
+      setSavedCharacters(updatedSaved);
+      localStorage.setItem('travellerCharacters', JSON.stringify(updatedSaved));
+    } catch (error) {
+      console.error('Error saving character:', error);
+      alert('Error saving character. Please try again.');
+      return;
+    }
     
     // Update current character name
     dispatch({ type: CHARACTER_ACTIONS.SET_NAME, payload: characterName });
@@ -52,9 +63,14 @@ export default function SaveLoadTab() {
 
   const deleteCharacter = (characterName) => {
     if (window.confirm(`Delete character "${characterName}"? This cannot be undone.`)) {
-      const updatedSaved = savedCharacters.filter(char => char.name !== characterName);
-      setSavedCharacters(updatedSaved);
-      localStorage.setItem('travellerCharacters', JSON.stringify(updatedSaved));
+      try {
+        const updatedSaved = savedCharacters.filter(char => char.name !== characterName);
+        setSavedCharacters(updatedSaved);
+        localStorage.setItem('travellerCharacters', JSON.stringify(updatedSaved));
+      } catch (error) {
+        console.error('Error deleting character:', error);
+        alert('Error deleting character. Please try again.');
+      }
     }
   };
 
@@ -79,12 +95,20 @@ export default function SaveLoadTab() {
     reader.onload = (e) => {
       try {
         const characterData = JSON.parse(e.target.result);
+        
+        // Basic validation of character data
+        if (!characterData || typeof characterData !== 'object') {
+          throw new Error('Invalid character data structure');
+        }
+        
         if (window.confirm(`Import character "${characterData.name || 'Unknown'}"? This will replace your current character.`)) {
           dispatch({ type: CHARACTER_ACTIONS.LOAD_CHARACTER, payload: characterData });
           setCharacterName(characterData.name || '');
+          alert('Character imported successfully!');
         }
       } catch (error) {
-        alert('Error importing character: Invalid file format');
+        console.error('Error importing character:', error);
+        alert('Error importing character: Invalid file format or corrupted data');
       }
     };
     reader.readAsText(file);
