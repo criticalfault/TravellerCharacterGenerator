@@ -350,15 +350,23 @@
   gap: 30px;
   justify-content: center;
   font-weight: bold;
+  margin-bottom: 15px;
 }
 
 .points-available { color: #28a745; }
 .points-used { color: #dc3545; }
 .points-remaining { color: #007bff; }
 
+.skill-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
 .skills-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
   gap: 15px;
   margin-top: 15px;
 }
@@ -367,32 +375,134 @@
   background: #f8f9fa;
   padding: 15px;
   border-radius: 6px;
-  border: 1px solid #e9ecef;
+  border: 2px solid #e9ecef;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.skill-item:hover {
+  border-color: #007bff;
+  box-shadow: 0 2px 8px rgba(0,123,255,0.1);
+}
+
+.skill-item.skill-selected {
+  background: #e7f3ff;
+  border-color: #007bff;
+}
+
+.skill-item.skill-maxed {
+  background: #d4edda;
+  border-color: #28a745;
+}
+
+.skill-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 10px;
+}
+
+.skill-name {
+  font-weight: bold;
+  color: #282c34;
+}
+
+.skill-level-display {
+  font-size: 0.9rem;
+  color: #007bff;
+  font-weight: bold;
+}
+
+.skill-description {
+  margin: 8px 0;
+  padding: 8px;
+  background: #fff;
+  border-radius: 4px;
+  font-style: italic;
 }
 
 .skill-controls {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
+  justify-content: center;
+}
+
+.skill-level-input {
+  width: 50px;
+  padding: 4px;
+  text-align: center;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  font-weight: bold;
+}
+
+.skill-tooltip {
+  position: absolute;
+  bottom: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #282c34;
+  color: white;
+  padding: 8px 12px;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  white-space: nowrap;
+  z-index: 10;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+.skill-tooltip::before {
+  content: '';
+  position: absolute;
+  top: -5px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-bottom: 5px solid #282c34;
 }
 
 .selected-skills-list {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 10px;
   margin-top: 15px;
 }
 
 .selected-skill {
   background: #d4edda;
-  padding: 10px;
+  padding: 12px;
   border-radius: 4px;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   border-left: 4px solid #28a745;
+}
+
+.remove-skill-btn {
+  margin-left: 10px;
+  padding: 2px 6px;
+  font-size: 0.8rem;
+}
+
+.completion-notice {
+  background: #d1ecf1;
+  border: 1px solid #bee5eb;
+  border-radius: 8px;
+  padding: 20px;
+  margin-top: 30px;
+  text-align: center;
+}
+
+.completion-notice h4 {
+  color: #0c5460;
+  margin-bottom: 10px;
+}
+
+.completion-notice p {
+  color: #0c5460;
+  margin: 0;
 }
 
 /* Career Selection Tab Styles */

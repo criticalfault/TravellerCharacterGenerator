@@ -26,7 +26,7 @@
   - Include lock/finalize attributes functionality
   - _Requirements: 2.1, 2.2_
 
-- [ ] 5. Implement background skills selection
+- [x] 5. Implement background skills selection
   - Create BackgroundSkillsTab component
   - Calculate available skill points based on Education DM
   - Implement skill selection from predefined list
