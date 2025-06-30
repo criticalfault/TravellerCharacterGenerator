@@ -5,11 +5,11 @@ import {
   makeSurvivalRoll, 
   makeAdvancementRoll, 
   calculateAgingEffects,
-  getAttributeModifier,
   rollEvent,
   rollMishap
 } from '../../utils/gameMechanics';
 import { processEventChain } from '../../utils/eventProcessor';
+import SkillTrainingInterface from '../SkillTrainingInterface';
 
 export default function CareerTermsTab() {
   const { character, dispatch, CHARACTER_ACTIONS, addSkill, updateAttribute, addRelationship } = useCharacter();
@@ -294,20 +294,20 @@ export default function CareerTermsTab() {
   };
 
   const handleSkillTraining = () => {
-    // For now, we'll just note that skill training occurred
-    // The actual skill selection will be implemented in task 9
+    // Start skill training phase
+    setCurrentPhase('skills');
+  };
+
+  const handleSkillTrainingComplete = (trainingData) => {
+    // Record skill training completion
     setTermResults(prev => ({ 
       ...prev, 
-      skillTraining: { completed: true, note: 'Skill training completed' }
-    }));
-    
-    dispatch({
-      type: CHARACTER_ACTIONS.ADD_CAREER_EVENT,
-      payload: {
-        type: 'skill_training',
-        description: 'Completed skill training for this term'
+      skillTraining: { 
+        completed: true, 
+        table: trainingData.table,
+        note: `Completed training on ${trainingData.table}` 
       }
-    });
+    }));
 
     // Check for aging effects
     handleAging();
@@ -511,10 +511,12 @@ export default function CareerTermsTab() {
           <div className={`phase-card ${currentPhase === 'skills' ? 'active' : termResults.skillTraining ? 'completed' : 'pending'}`}>
             <h4>4. Skill Training</h4>
             <p>Gain new skills or improve existing ones through training.</p>
-            {currentPhase === 'skills' && (
-              <button className="btn btn-primary" onClick={handleSkillTraining}>
-                Complete Training
-              </button>
+            {currentPhase === 'skills' && !termResults.skillTraining && (
+              <SkillTrainingInterface 
+                career={career}
+                assignment={assignment}
+                onComplete={handleSkillTrainingComplete}
+              />
             )}
             {termResults.skillTraining && (
               <div className="roll-result success">

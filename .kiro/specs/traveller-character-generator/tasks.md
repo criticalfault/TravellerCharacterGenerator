@@ -69,7 +69,7 @@
   - Handle attribute increases as skills (+1 STR, +1 DEX, etc.)
   - _Requirements: 4.1, 4.4a_
 
-- [ ] 10. Implement mustering out benefits
+- [x] 10. Implement mustering out benefits
   - Create MusteringOutTab for final character benefits
   - Implement benefit roll system with cash and material benefits
   - Handle benefit table processing and item assignment
