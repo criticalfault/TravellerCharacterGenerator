@@ -24,12 +24,12 @@ describe('TabNavigation', () => {
     expect(screen.getByText('Save/Load')).toBeInTheDocument();
   });
 
-  test('starts with attributes tab active', () => {
+  test('starts with species tab active', () => {
     renderWithProvider(<TabNavigation />);
     
-    const attributesTab = screen.getByText('Attributes');
-    expect(attributesTab).toHaveClass('active');
-    expect(screen.getByText('Character Attributes')).toBeInTheDocument();
+    const speciesTab = screen.getByText('Species');
+    expect(speciesTab).toHaveClass('active');
+    expect(screen.getByText('Species Selection')).toBeInTheDocument();
   });
 
   test('can switch between tabs', () => {
@@ -55,9 +55,9 @@ describe('TabNavigation', () => {
     const nextButton = screen.getByText('Next');
     fireEvent.click(nextButton);
     
-    // Should now be on Background Skills tab
-    const backgroundTabButton = screen.getAllByText('Background Skills')[0];
-    expect(backgroundTabButton).toHaveClass('active');
+    // Should now be on Attributes tab
+    const attributesTabButton = screen.getAllByText('Attributes')[0];
+    expect(attributesTabButton).toHaveClass('active');
     
     // Previous button should now be enabled
     expect(prevButton).not.toBeDisabled();

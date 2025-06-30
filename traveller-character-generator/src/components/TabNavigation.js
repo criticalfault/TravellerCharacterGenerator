@@ -39,8 +39,19 @@ export default function TabNavigation() {
   };
 
   const canNavigateToTab = (tabId) => {
-    // Basic navigation validation - can be enhanced later
-    // For now, allow navigation to all tabs for development
+    // Navigation validation based on character creation progress
+    const tabOrder = ['race-selection', 'attributes', 'background', 'career-selection', 'career-terms', 'mustering-out', 'summary', 'save-load'];
+    const currentIndex = tabOrder.indexOf(activeTab);
+    const targetIndex = tabOrder.indexOf(tabId);
+    
+    // Always allow navigation to current tab or previous tabs
+    if (targetIndex <= currentIndex) {
+      return true;
+    }
+    
+    // Allow navigation to next tab only if current requirements are met
+    // For development, allow navigation to all tabs
+    // TODO: Add proper validation logic based on character state
     return true;
   };
 

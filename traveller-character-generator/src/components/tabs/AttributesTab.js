@@ -31,6 +31,11 @@ export default function AttributesTab() {
     if (character.attributesLocked) return;
     
     const result = generateAttributes3d6DropLowest();
+    if (!result || !result.attributes) {
+      console.error('Invalid 3d6 drop lowest result:', result);
+      return;
+    }
+    
     const rollDetails = {
       method: '3d6 drop lowest',
       timestamp: new Date().toLocaleTimeString(),
@@ -52,6 +57,11 @@ export default function AttributesTab() {
     if (character.attributesLocked) return;
     
     const roll = roll2d6();
+    if (!roll || typeof roll.total !== 'number') {
+      console.error('Invalid roll result:', roll);
+      return;
+    }
+    
     updateAttribute(attr, roll.total);
     
     const rollDetails = {
@@ -67,6 +77,11 @@ export default function AttributesTab() {
     if (character.attributesLocked) return;
     
     const roll = roll3d6DropLowest();
+    if (!roll || typeof roll.total !== 'number') {
+      console.error('Invalid 3d6 drop lowest roll result:', roll);
+      return;
+    }
+    
     updateAttribute(attr, roll.total);
     
     const rollDetails = {

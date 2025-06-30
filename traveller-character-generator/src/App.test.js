@@ -7,8 +7,8 @@ test('renders traveller character generator', () => {
   expect(headerElement).toBeInTheDocument();
 });
 
-test('renders character attributes section', () => {
+test('renders species selection section', () => {
   render(<App />);
-  const attributesElement = screen.getByText(/Character Attributes/i);
-  expect(attributesElement).toBeInTheDocument();
+  const speciesElement = screen.getByText(/Species Selection/i);
+  expect(speciesElement).toBeInTheDocument();
 });
