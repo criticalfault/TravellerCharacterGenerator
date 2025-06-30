@@ -33,7 +33,7 @@
   - Add skill point allocation and validation
   - _Requirements: 3.1_
 
-- [ ] 6. Create career selection and qualification system
+- [x] 6. Create career selection and qualification system
   - Build CareerSelectionTab with career list and descriptions
   - Implement qualification rolls using character attributes (2d6 + attribute DM)
   - Handle qualification success/failure paths and draft mechanics
