@@ -1,38 +1,581 @@
 .App {
   text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+  min-height: 100vh;
+  background-color: #f5f5f5;
 }
 
 .App-header {
   background-color: #282c34;
-  min-height: 100vh;
+  padding: 20px;
+  color: white;
+  margin-bottom: 20px;
+}
+
+.App-header h1 {
+  margin: 0 0 10px 0;
+  font-size: 2.5rem;
+}
+
+.App-header p {
+  margin: 0;
+  font-size: 1.2rem;
+  opacity: 0.8;
+}
+
+.dashboard {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.character-info {
+  background: white;
+  border-radius: 8px;
+  padding: 30px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  text-align: left;
+}
+
+.character-info h2 {
+  color: #282c34;
+  border-bottom: 2px solid #61dafb;
+  padding-bottom: 10px;
+  margin-bottom: 30px;
+}
+
+.character-info h3 {
+  color: #444;
+  margin-top: 30px;
+  margin-bottom: 15px;
+}
+
+.basic-info {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 15px;
+  margin-bottom: 30px;
+}
+
+.basic-info p {
+  margin: 0;
+  padding: 10px;
+  background: #f8f9fa;
+  border-radius: 4px;
+}
+
+.attribute-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.attribute {
+  background: #f8f9fa;
+  padding: 15px;
+  border-radius: 6px;
+  text-align: center;
+  border: 2px solid #e9ecef;
+}
+
+.attr-name {
+  font-weight: bold;
+  display: block;
+  margin-bottom: 5px;
+  color: #495057;
+}
+
+.attr-value {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #007bff;
+  display: block;
+  margin-bottom: 5px;
+}
+
+.attr-modifier {
+  font-size: 0.9rem;
+  color: #6c757d;
+}
+
+.skills ul, .career-history ul {
+  list-style: none;
+  padding: 0;
+}
+
+.skills li, .career-history li {
+  background: #f8f9fa;
+  margin: 8px 0;
+  padding: 10px;
+  border-radius: 4px;
+  border-left: 4px solid #007bff;
+}
+
+.relationship-lists > div {
+  margin: 10px 0;
+  padding: 10px;
+  background: #e7f3ff;
+  border-radius: 4px;
+}
+
+.test-controls {
+  margin-top: 30px;
+  text-align: center;
+}
+
+.test-controls button {
+  background: #007bff;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.test-controls button:hover {
+  background: #0056b3;
+}
+* Tab Content Styles */
+.attributes-tab, .background-skills-tab, .career-selection-tab, 
+.career-terms-tab, .mustering-out-tab, .summary-tab, .save-load-tab {
+  max-width: 100%;
+}
+
+.attributes-tab h2, .background-skills-tab h2, .career-selection-tab h2,
+.career-terms-tab h2, .mustering-out-tab h2, .summary-tab h2, .save-load-tab h2 {
+  color: #282c34;
+  margin-bottom: 20px;
+  border-bottom: 2px solid #61dafb;
+  padding-bottom: 10px;
+}
+
+/* Attributes Tab Styles */
+.attribute-control {
+  background: #f8f9fa;
+  padding: 15px;
+  border-radius: 6px;
+  border: 2px solid #e9ecef;
+}
+
+.attr-label {
+  font-weight: bold;
+  display: block;
+  margin-bottom: 8px;
+  color: #495057;
+}
+
+.attr-input-group {
   display: flex;
-  flex-direction: column;
   align-items: center;
+  gap: 10px;
+}
+
+.attr-input {
+  width: 80px;
+  padding: 8px;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  font-size: 1.1rem;
+  text-align: center;
+}
+
+.attribute-actions {
+  margin-top: 30px;
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 15px;
+  margin-top: 15px;
+}
+
+.info-item {
+  background: #f8f9fa;
+  padding: 15px;
+  border-radius: 6px;
+  border-left: 4px solid #007bff;
+}
+
+/* Background Skills Tab Styles */
+.skill-points-display {
+  background: #e7f3ff;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 30px;
+}
+
+.points-info {
+  display: flex;
+  gap: 30px;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  font-weight: bold;
+}
+
+.points-available { color: #28a745; }
+.points-used { color: #dc3545; }
+.points-remaining { color: #007bff; }
+
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 15px;
+  margin-top: 15px;
+}
+
+.skill-item {
+  background: #f8f9fa;
+  padding: 15px;
+  border-radius: 6px;
+  border: 1px solid #e9ecef;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.skill-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.selected-skills-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.selected-skill {
+  background: #d4edda;
+  padding: 10px;
+  border-radius: 4px;
+  display: flex;
+  justify-content: space-between;
+  border-left: 4px solid #28a745;
+}
+
+/* Career Selection Tab Styles */
+.careers-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+  margin-top: 15px;
+}
+
+.career-card {
+  background: #f8f9fa;
+  border: 2px solid #e9ecef;
+  border-radius: 8px;
+  padding: 20px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.career-card:hover {
+  border-color: #007bff;
+  box-shadow: 0 4px 8px rgba(0,123,255,0.1);
+}
+
+.career-card.selected {
+  border-color: #007bff;
+  background: #e7f3ff;
+}
+
+.career-name {
+  color: #282c34;
+  margin-bottom: 15px;
+}
+
+.qualification-info {
+  background: #fff;
+  padding: 10px;
+  border-radius: 4px;
+  margin-bottom: 15px;
+  border-left: 4px solid #007bff;
+}
+
+.assignments ul {
+  margin: 5px 0 0 20px;
+}
+
+.assignment-options {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 15px;
+}
+
+.assignment-btn {
+  background: #f8f9fa;
+  border: 2px solid #e9ecef;
+  padding: 10px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.assignment-btn:hover {
+  border-color: #007bff;
+}
+
+.assignment-btn.selected {
+  background: #007bff;
+  color: white;
+  border-color: #007bff;
+}
+
+.qualification-section {
+  background: #e7f3ff;
+  padding: 25px;
+  border-radius: 8px;
+  margin-top: 30px;
+}
+
+.qualification-details {
+  background: white;
+  padding: 20px;
+  border-radius: 6px;
+  margin-bottom: 20px;
+}
+
+/* Career Terms Tab Styles */
+.term-progression {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.phase-card {
+  background: #f8f9fa;
+  border: 1px solid #e9ecef;
+  border-radius: 8px;
+  padding: 20px;
+  text-align: center;
+}
+
+.career-decision {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 15px;
+}
+
+.career-entry {
+  background: #f8f9fa;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  border-left: 4px solid #007bff;
+}
+
+/* Button Styles */
+.btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: none;
+  display: inline-block;
+  text-align: center;
+}
+
+.btn-primary {
+  background: #007bff;
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.btn-primary:hover:not(:disabled) {
+  background: #0056b3;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.btn-secondary {
+  background: #6c757d;
+  color: white;
+}
+
+.btn-secondary:hover:not(:disabled) {
+  background: #545b62;
+}
+
+.btn-success {
+  background: #28a745;
+  color: white;
+}
+
+.btn-success:hover:not(:disabled) {
+  background: #1e7e34;
+}
+
+.btn-warning {
+  background: #ffc107;
+  color: #212529;
+}
+
+.btn-warning:hover:not(:disabled) {
+  background: #e0a800;
+}
+
+.btn-danger {
+  background: #dc3545;
+  color: white;
+}
+
+.btn-danger:hover:not(:disabled) {
+  background: #c82333;
+}
+
+.btn-sm {
+  padding: 6px 12px;
+  font-size: 0.875rem;
+}
+
+.btn-large {
+  padding: 15px 30px;
+  font-size: 1.125rem;
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Form Styles */
+.form-input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 2px rgba(0,123,255,0.25);
+}
+
+/* Summary Tab Styles */
+.character-sheet {
+  background: #f8f9fa;
+  padding: 30px;
+  border-radius: 8px;
+  margin-bottom: 30px;
+}
+
+.attributes-grid-summary {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 15px;
+  margin-top: 15px;
+}
+
+.attribute-summary {
+  background: white;
+  padding: 15px;
+  border-radius: 6px;
+  text-align: center;
+  border: 1px solid #e9ecef;
+}
+
+.skills-list-summary {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.skill-summary {
+  background: white;
+  padding: 10px;
+  border-radius: 4px;
+  display: flex;
+  justify-content: space-between;
+  border-left: 4px solid #28a745;
+}
+
+.summary-actions {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+}
+
+/* Save/Load Tab Styles */
+.current-character-info {
+  background: #f8f9fa;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 30px;
+}
+
+.character-name-input {
+  margin-bottom: 15px;
+}
+
+.character-name-input label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.current-character-actions {
+  display: flex;
+  gap: 15px;
+}
+
+.saved-characters-list {
+  display: grid;
+  gap: 15px;
+}
+
+.saved-character-item {
+  background: #f8f9fa;
+  border: 1px solid #e9ecef;
+  border-radius: 8px;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.character-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.import-export-actions {
+  display: flex;
+  gap: 15px;
+  margin-top: 15px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .attributes-grid, .skills-grid, .careers-grid {
+    grid-template-columns: 1fr;
   }
-  to {
-    transform: rotate(360deg);
+  
+  .attribute-actions, .current-character-actions, .summary-actions {
+    flex-direction: column;
+  }
+  
+  .saved-character-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+  
+  .character-actions {
+    width: 100%;
+    justify-content: flex-end;
   }
 }

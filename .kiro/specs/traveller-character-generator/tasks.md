@@ -1,18 +1,18 @@
 # Implementation Plan
 
-- [ ] 1. Set up core character state management and context
+- [x] 1. Set up core character state management and context
   - Create CharacterContext with useContext and useReducer for managing character state
   - Define character data structure matching design specifications
   - Implement character state reducer with actions for updating attributes, skills, careers
   - _Requirements: 1.1, 2.1, 2.2, 4.1_
 
-- [ ] 2. Create tabbed navigation system
+- [x] 2. Create tabbed navigation system
   - Implement tab navigation component with state management for active tab
   - Create tab components structure for each character creation step
   - Add navigation controls to move between tabs with validation
   - _Requirements: 2.1, 2.2, 3.1, 4.1_
 
-- [ ] 3. Implement dice rolling utilities and game mechanics
+- [x] 3. Implement dice rolling utilities and game mechanics
   - Create dice rolling functions (2d6, 3d6 drop lowest, etc.)
   - Implement attribute modifier calculations (DM system)
   - Create skill check functions with target numbers

@@ -1,24 +1,21 @@
-import logo from './logo.svg';
+import React from 'react';
 import './App.css';
+import { CharacterProvider } from './context/CharacterContext';
+import Dashboard from './components/dashboard';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <CharacterProvider>
+      <div className="App">
+        <header className="App-header">
+          <h1>Traveller Character Generator</h1>
+          <p>Mongoose 2nd Edition</p>
+        </header>
+        <main>
+          <Dashboard />
+        </main>
+      </div>
+    </CharacterProvider>
   );
 }
 
