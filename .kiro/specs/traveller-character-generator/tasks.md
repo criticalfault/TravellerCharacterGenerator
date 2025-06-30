@@ -97,7 +97,7 @@
   - Integrate race selection with character creation flow
   - _Requirements: 1.1, 1.2_
 
-- [ ] 14. Create event chain processing engine
+- [x] 14. Create event chain processing engine
   - Build event chain interpreter to process complex eventChain arrays from career data
   - Implement event type handlers (Gain_Skill, Increase_Skill, Roll_Skill, etc.)
   - Add player choice system for events with multiple options
