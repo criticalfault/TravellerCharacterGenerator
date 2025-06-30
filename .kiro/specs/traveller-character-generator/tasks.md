@@ -19,7 +19,7 @@
   - Write unit tests for dice and calculation functions
   - _Requirements: 2.1, 4.2, 4.3a, 4.3b_
 
-- [ ] 4. Build character attributes generation system
+- [x] 4. Build character attributes generation system
   - Create AttributesTab component with roll/reroll functionality
   - Implement multiple rolling methods (2d6, 3d6 drop lowest)
   - Add attribute display with modifiers and validation

@@ -126,7 +126,7 @@ const characterReducer = (state, action) => {
       };
       
     case CHARACTER_ACTIONS.LOCK_ATTRIBUTES:
-      return { ...state, attributesLocked: true };
+      return { ...state, attributesLocked: action.payload !== undefined ? action.payload : true };
       
     case CHARACTER_ACTIONS.ADD_SKILL:
       return {
