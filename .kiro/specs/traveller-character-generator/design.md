@@ -52,17 +52,62 @@ Each tab corresponds to a step in character creation:
 ```js
 {
   name: "Jane Traveller",
+  age: 34,
   attributes: { STR: 7, DEX: 8, END: 6, INT: 9, EDU: 7, SOC: 5 },
-  skills: { GunCombat: 1, Mechanic: 2 },
+  skills: { "Gun Combat": 1, "Mechanic": 2, "Investigate": 3 },
   careerHistory: [
-    { career: "Navy", terms: 2, rank: 3, events: [...] }
+    { 
+      career: "Agent", 
+      assignment: "Law Enforcement",
+      terms: 2, 
+      rank: 3, 
+      rankTitle: "Detective",
+      events: [
+        { term: 1, type: "event", roll: 8, description: "Advanced training..." },
+        { term: 2, type: "advancement", success: true }
+      ]
+    }
   ],
-  gear: ["Vacc Suit", "Laser Rifle"],
+  contacts: ["Detective Smith", "Informant Joe"],
+  allies: ["Captain Martinez"],
+  enemies: ["Crime Boss Wilson"],
+  rivals: [],
+  gear: ["Vacc Suit", "Laser Rifle", "Scientific Equipment"],
   cyberware: ["Neural Link"],
   money: 32000,
+  benefitRolls: 4,
+  injuries: [],
+  species: "Human",
   damage: { current: 0, max: 9 }
 }
 ```
+
+---
+
+## Event Processing System
+
+The career system uses a complex event chain processing engine to handle the rich career progression mechanics:
+
+### Event Chain Structure
+- Events contain `eventChain` arrays with multiple steps
+- Each step has a `type` (Gain_Skill, Roll_Skill, choice, etc.)
+- Conditional logic supports success/failure branches
+- Player choices allow multiple outcome paths
+
+### Event Types
+- **Gain_Skill**: Add new skills or increase existing ones
+- **Roll_Skill**: Make skill checks with consequences
+- **choice**: Present player with multiple options
+- **Gain_Enemy/Ally/Contact**: Add relationships
+- **Injury**: Roll on injury tables
+- **Automatic_Promotion**: Immediate rank advancement
+
+### Processing Flow
+1. Roll 2d6 on event/mishap tables
+2. Look up result in career data
+3. Process eventChain array sequentially
+4. Handle player choices and conditional outcomes
+5. Update character state with all changes
 
 ---
 
