@@ -53,8 +53,8 @@ describe('CareerSelectionTab', () => {
     expect(screen.getByText('Citizen')).toBeInTheDocument();
     
     // Should show qualification requirements
-    expect(screen.getByText(/Qualification:/)).toBeInTheDocument();
-    expect(screen.getByText(/Your modifier:/)).toBeInTheDocument();
+    expect(screen.getAllByText(/Qualification:/).length).toBeGreaterThan(0);
+    expect(screen.getAllByText(/Your modifier:/).length).toBeGreaterThan(0);
   });
 
   test('can select a career', () => {
@@ -79,7 +79,7 @@ describe('CareerSelectionTab', () => {
     // Should show assignment buttons in the assignment section
     const assignmentSection = screen.getByText('Select Assignment').closest('.assignment-selection');
     expect(assignmentSection.querySelector('button[class*="assignment-btn"]')).toBeInTheDocument();
-    expect(screen.getByText('Choose your specialization within the agent career')).toBeInTheDocument();
+    expect(screen.getByText(/Choose your specialization within the.*agent.*career/)).toBeInTheDocument();
   });
 
   test('can select assignment and shows qualification section', () => {

@@ -47,7 +47,7 @@ describe('AttributesTab', () => {
     
     // All attributes start at 0, which should have DM -2
     const modifiers = screen.getAllByText('DM: -2');
-    expect(modifiers).toHaveLength(6); // One for each attribute
+    expect(modifiers).toHaveLength(7); // One for each attribute (including PSI)
   });
 
   test('allows manual input of attributes', () => {

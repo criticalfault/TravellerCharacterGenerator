@@ -153,9 +153,10 @@ export default function AttributesTab() {
         <div className="attribute-grid">
           {Object.entries(character.attributes).map(([attr, value]) => (
             <div key={attr} className="attribute-control">
-              <label className="attr-label">{attr}</label>
+              <label className="attr-label" htmlFor={`attr-${attr}`}>{attr}</label>
               <div className="attr-input-group">
                 <input
+                  id={`attr-${attr}`}
                   type="number"
                   min="1"
                   max="18"
