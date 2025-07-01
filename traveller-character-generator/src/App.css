@@ -32,7 +32,7 @@
   background: white;
   border-radius: 8px;
   padding: 30px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   text-align: left;
 }
 
@@ -98,12 +98,14 @@
   color: #6c757d;
 }
 
-.skills ul, .career-history ul {
+.skills ul,
+.career-history ul {
   list-style: none;
   padding: 0;
 }
 
-.skills li, .career-history li {
+.skills li,
+.career-history li {
   background: #f8f9fa;
   margin: 8px 0;
   padding: 10px;
@@ -138,13 +140,23 @@
   background: #0056b3;
 }
 /* Tab Content Styles */
-.attributes-tab, .background-skills-tab, .career-selection-tab, 
-.career-terms-tab, .mustering-out-tab, .summary-tab, .save-load-tab {
+.attributes-tab,
+.background-skills-tab,
+.career-selection-tab,
+.career-terms-tab,
+.mustering-out-tab,
+.summary-tab,
+.save-load-tab {
   max-width: 100%;
 }
 
-.attributes-tab h2, .background-skills-tab h2, .career-selection-tab h2,
-.career-terms-tab h2, .mustering-out-tab h2, .summary-tab h2, .save-load-tab h2 {
+.attributes-tab h2,
+.background-skills-tab h2,
+.career-selection-tab h2,
+.career-terms-tab h2,
+.mustering-out-tab h2,
+.summary-tab h2,
+.save-load-tab h2 {
   color: #282c34;
   margin-bottom: 20px;
   border-bottom: 2px solid #61dafb;
@@ -353,9 +365,15 @@
   margin-bottom: 15px;
 }
 
-.points-available { color: #28a745; }
-.points-used { color: #dc3545; }
-.points-remaining { color: #007bff; }
+.points-available {
+  color: #28a745;
+}
+.points-used {
+  color: #dc3545;
+}
+.points-remaining {
+  color: #007bff;
+}
 
 .skill-actions {
   display: flex;
@@ -382,7 +400,7 @@
 
 .skill-item:hover {
   border-color: #007bff;
-  box-shadow: 0 2px 8px rgba(0,123,255,0.1);
+  box-shadow: 0 2px 8px rgba(0, 123, 255, 0.1);
 }
 
 .skill-item.skill-selected {
@@ -449,7 +467,7 @@
   font-size: 0.8rem;
   white-space: nowrap;
   z-index: 10;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
 .skill-tooltip::before {
@@ -524,7 +542,7 @@
 
 .career-card:hover {
   border-color: #007bff;
-  box-shadow: 0 4px 8px rgba(0,123,255,0.1);
+  box-shadow: 0 4px 8px rgba(0, 123, 255, 0.1);
 }
 
 .career-card.selected {
@@ -631,7 +649,7 @@
 .phase-card.active {
   border-color: #007bff;
   background: #e7f3ff;
-  box-shadow: 0 4px 8px rgba(0,123,255,0.1);
+  box-shadow: 0 4px 8px rgba(0, 123, 255, 0.1);
 }
 
 .phase-card.completed {
@@ -950,7 +968,7 @@
 .form-input:focus {
   outline: none;
   border-color: #007bff;
-  box-shadow: 0 0 0 2px rgba(0,123,255,0.25);
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
 }
 
 /* Summary Tab Styles */
@@ -1102,7 +1120,7 @@
 }
 
 .saved-character-item:hover {
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .character-info h4 {
@@ -1160,25 +1178,29 @@
 
 /* Responsive Design */
 @media (max-width: 768px) {
-  .attributes-grid, .skills-grid, .careers-grid {
+  .attributes-grid,
+  .skills-grid,
+  .careers-grid {
     grid-template-columns: 1fr;
   }
-  
-  .attribute-actions, .current-character-actions, .summary-actions {
+
+  .attribute-actions,
+  .current-character-actions,
+  .summary-actions {
     flex-direction: column;
   }
-  
+
   .saved-character-item {
     flex-direction: column;
     align-items: flex-start;
     gap: 15px;
   }
-  
+
   .character-actions {
     width: 100%;
     justify-content: flex-end;
   }
-}/* Sk
+} /* Sk
 ill Training Interface Styles */
 .skill-training-interface {
   padding: 20px;
@@ -1532,22 +1554,22 @@ ill Training Interface Styles */
     flex-direction: column;
     align-items: center;
   }
-  
+
   .choice-options {
     flex-direction: column;
   }
-  
+
   .choice-btn {
     width: 100%;
     text-align: center;
   }
-  
+
   .table-header {
     flex-direction: column;
     align-items: flex-start;
     gap: 5px;
   }
-  
+
   .skills-list {
     flex-direction: column;
     gap: 4px;
