@@ -4,6 +4,14 @@ import '@testing-library/jest-dom';
 import SkillTrainingInterface from './SkillTrainingInterface';
 import { CharacterProvider } from '../context/CharacterContext';
 
+import {
+  getAvailableSkillTables,
+  rollOnSkillTable,
+  applySkillTraining,
+  getFormattedSkills,
+  validateSkillTrainingPrerequisites,
+} from '../utils/skillTraining';
+
 // Mock the skill training utilities
 jest.mock('../utils/skillTraining', () => ({
   getAvailableSkillTables: jest.fn(),
@@ -11,36 +19,28 @@ jest.mock('../utils/skillTraining', () => ({
   applySkillTraining: jest.fn(),
   handleSkillChoice: jest.fn(),
   getFormattedSkills: jest.fn(),
-  validateSkillTrainingPrerequisites: jest.fn()
+  validateSkillTrainingPrerequisites: jest.fn(),
 }));
-
-import {
-  getAvailableSkillTables,
-  rollOnSkillTable,
-  applySkillTraining,
-  getFormattedSkills,
-  validateSkillTrainingPrerequisites
-} from '../utils/skillTraining';
 
 const mockCareer = {
   skills_and_training: {
     personal_development: {
-      "1": "STR +1",
-      "2": "DEX +1",
-      "3": "Gun Combat",
-      "4": "Melee",
-      "5": "Athletics",
-      "6": "END +1"
+      1: 'STR +1',
+      2: 'DEX +1',
+      3: 'Gun Combat',
+      4: 'Melee',
+      5: 'Athletics',
+      6: 'END +1',
     },
     service_skills: {
-      "1": "Drive",
-      "2": "Electronics",
-      "3": "Gun Combat",
-      "4": "Investigate",
-      "5": "Recon",
-      "6": "Streetwise"
-    }
-  }
+      1: 'Drive',
+      2: 'Electronics',
+      3: 'Gun Combat',
+      4: 'Investigate',
+      5: 'Recon',
+      6: 'Streetwise',
+    },
+  },
 };
 
 const mockTables = [
@@ -48,22 +48,18 @@ const mockTables = [
     name: 'Personal Development',
     key: 'personal_development',
     skills: mockCareer.skills_and_training.personal_development,
-    description: 'Basic personal improvement skills'
+    description: 'Basic personal improvement skills',
   },
   {
     name: 'Service Skills',
     key: 'service_skills',
     skills: mockCareer.skills_and_training.service_skills,
-    description: 'Core skills for your career'
-  }
+    description: 'Core skills for your career',
+  },
 ];
 
-const renderWithProvider = (component) => {
-  return render(
-    <CharacterProvider>
-      {component}
-    </CharacterProvider>
-  );
+const renderWithProvider = component => {
+  return render(<CharacterProvider>{component}</CharacterProvider>);
 };
 
 describe('SkillTrainingInterface', () => {
@@ -71,24 +67,34 @@ describe('SkillTrainingInterface', () => {
 
   beforeEach(() => {
     jest.clearAllMocks();
-    
+
     // Default mock implementations
     validateSkillTrainingPrerequisites.mockReturnValue({
       valid: true,
-      issues: []
+      issues: [],
     });
-    
+
     getAvailableSkillTables.mockReturnValue(mockTables);
-    
+
     getFormattedSkills.mockReturnValue([
-      { name: 'Gun Combat', level: 1, modifier: 0, displayName: 'Gun Combat 1' },
-      { name: 'Electronics', level: 2, modifier: 0, displayName: 'Electronics 2' }
+      {
+        name: 'Gun Combat',
+        level: 1,
+        modifier: 0,
+        displayName: 'Gun Combat 1',
+      },
+      {
+        name: 'Electronics',
+        level: 2,
+        modifier: 0,
+        displayName: 'Electronics 2',
+      },
     ]);
   });
 
   test('renders skill training interface', () => {
     renderWithProvider(
-      <SkillTrainingInterface 
+      <SkillTrainingInterface
         career={mockCareer}
         assignment="Law Enforcement"
         onComplete={mockOnComplete}
@@ -96,12 +102,14 @@ describe('SkillTrainingInterface', () => {
     );
 
     expect(screen.getByText('Skill Training')).toBeInTheDocument();
-    expect(screen.getByText('Select a skill table to roll for training this term.')).toBeInTheDocument();
+    expect(
+      screen.getByText('Select a skill table to roll for training this term.')
+    ).toBeInTheDocument();
   });
 
   test('displays available skill tables', () => {
     renderWithProvider(
-      <SkillTrainingInterface 
+      <SkillTrainingInterface
         career={mockCareer}
         assignment="Law Enforcement"
         onComplete={mockOnComplete}
@@ -110,13 +118,15 @@ describe('SkillTrainingInterface', () => {
 
     expect(screen.getByText('Personal Development')).toBeInTheDocument();
     expect(screen.getByText('Service Skills')).toBeInTheDocument();
-    expect(screen.getByText('Basic personal improvement skills')).toBeInTheDocument();
+    expect(
+      screen.getByText('Basic personal improvement skills')
+    ).toBeInTheDocument();
     expect(screen.getByText('Core skills for your career')).toBeInTheDocument();
   });
 
   test('shows table contents preview', () => {
     renderWithProvider(
-      <SkillTrainingInterface 
+      <SkillTrainingInterface
         career={mockCareer}
         assignment="Law Enforcement"
         onComplete={mockOnComplete}
@@ -130,18 +140,22 @@ describe('SkillTrainingInterface', () => {
 
   test('allows table selection', () => {
     renderWithProvider(
-      <SkillTrainingInterface 
+      <SkillTrainingInterface
         career={mockCareer}
         assignment="Law Enforcement"
         onComplete={mockOnComplete}
       />
     );
 
-    const personalDevTable = screen.getByText('Personal Development').closest('.table-option');
+    const personalDevTable = screen
+      .getByText('Personal Development')
+      .closest('.table-option');
     fireEvent.click(personalDevTable);
 
     expect(personalDevTable).toHaveClass('selected');
-    expect(screen.getByText('Selected: Personal Development')).toBeInTheDocument();
+    expect(
+      screen.getByText('Selected: Personal Development')
+    ).toBeInTheDocument();
     expect(screen.getByText('Roll for Training (2d6)')).toBeInTheDocument();
   });
 
@@ -153,19 +167,21 @@ describe('SkillTrainingInterface', () => {
       skillEntry: 'Gun Combat',
       skills: {
         type: 'skill',
-        skills: [{
-          name: 'Gun Combat',
-          level: 1,
-          isAttribute: false,
-          displayName: 'Gun Combat 1'
-        }]
-      }
+        skills: [
+          {
+            name: 'Gun Combat',
+            level: 1,
+            isAttribute: false,
+            displayName: 'Gun Combat 1',
+          },
+        ],
+      },
     };
 
     rollOnSkillTable.mockReturnValue(mockResult);
 
     renderWithProvider(
-      <SkillTrainingInterface 
+      <SkillTrainingInterface
         career={mockCareer}
         assignment="Law Enforcement"
         onComplete={mockOnComplete}
@@ -173,18 +189,22 @@ describe('SkillTrainingInterface', () => {
     );
 
     // Select table and roll
-    const personalDevTable = screen.getByText('Personal Development').closest('.table-option');
+    const personalDevTable = screen
+      .getByText('Personal Development')
+      .closest('.table-option');
     fireEvent.click(personalDevTable);
-    
+
     const rollButton = screen.getByText('Roll for Training (2d6)');
     fireEvent.click(rollButton);
 
     await waitFor(() => {
       expect(screen.getByText('Training Result')).toBeInTheDocument();
       expect(screen.getByText('7 on 2d6')).toBeInTheDocument();
-      expect(screen.getByText((content, element) => {
-        return element?.textContent === 'Result: Gun Combat';
-      })).toBeInTheDocument();
+      expect(
+        screen.getByText((content, element) => {
+          return element?.textContent === 'Result: Gun Combat';
+        })
+      ).toBeInTheDocument();
     });
 
     expect(applySkillTraining).toHaveBeenCalled();
@@ -199,16 +219,26 @@ describe('SkillTrainingInterface', () => {
       skills: {
         type: 'choice',
         options: [
-          { name: 'Pilot', level: 1, isAttribute: false, displayName: 'Pilot 1' },
-          { name: 'Flyer', level: 1, isAttribute: false, displayName: 'Flyer 1' }
-        ]
-      }
+          {
+            name: 'Pilot',
+            level: 1,
+            isAttribute: false,
+            displayName: 'Pilot 1',
+          },
+          {
+            name: 'Flyer',
+            level: 1,
+            isAttribute: false,
+            displayName: 'Flyer 1',
+          },
+        ],
+      },
     };
 
     rollOnSkillTable.mockReturnValue(mockResult);
 
     renderWithProvider(
-      <SkillTrainingInterface 
+      <SkillTrainingInterface
         career={mockCareer}
         assignment="Law Enforcement"
         onComplete={mockOnComplete}
@@ -216,9 +246,11 @@ describe('SkillTrainingInterface', () => {
     );
 
     // Select table and roll
-    const serviceTable = screen.getByText('Service Skills').closest('.table-option');
+    const serviceTable = screen
+      .getByText('Service Skills')
+      .closest('.table-option');
     fireEvent.click(serviceTable);
-    
+
     const rollButton = screen.getByText('Roll for Training (2d6)');
     fireEvent.click(rollButton);
 
@@ -239,7 +271,7 @@ describe('SkillTrainingInterface', () => {
 
   test('displays current character skills', () => {
     renderWithProvider(
-      <SkillTrainingInterface 
+      <SkillTrainingInterface
         career={mockCareer}
         assignment="Law Enforcement"
         onComplete={mockOnComplete}
@@ -255,7 +287,7 @@ describe('SkillTrainingInterface', () => {
 
   test('shows help section', () => {
     renderWithProvider(
-      <SkillTrainingInterface 
+      <SkillTrainingInterface
         career={mockCareer}
         assignment="Law Enforcement"
         onComplete={mockOnComplete}
@@ -264,10 +296,10 @@ describe('SkillTrainingInterface', () => {
 
     const helpSection = screen.getByText('Skill System Help');
     expect(helpSection).toBeInTheDocument();
-    
+
     // Click to expand help
     fireEvent.click(helpSection);
-    
+
     expect(screen.getByText('How Skill Training Works:')).toBeInTheDocument();
     expect(screen.getByText('Personal Development:')).toBeInTheDocument();
   });
@@ -275,11 +307,11 @@ describe('SkillTrainingInterface', () => {
   test('handles validation errors', () => {
     validateSkillTrainingPrerequisites.mockReturnValue({
       valid: false,
-      issues: ['No active career', 'Career data not found']
+      issues: ['No active career', 'Career data not found'],
     });
 
     renderWithProvider(
-      <SkillTrainingInterface 
+      <SkillTrainingInterface
         career={null}
         assignment="Law Enforcement"
         onComplete={mockOnComplete}
@@ -287,7 +319,9 @@ describe('SkillTrainingInterface', () => {
     );
 
     expect(screen.getByText('Skill Training - Error')).toBeInTheDocument();
-    expect(screen.getByText('Cannot proceed with skill training:')).toBeInTheDocument();
+    expect(
+      screen.getByText('Cannot proceed with skill training:')
+    ).toBeInTheDocument();
     expect(screen.getByText('No active career')).toBeInTheDocument();
     expect(screen.getByText('Career data not found')).toBeInTheDocument();
   });
@@ -300,19 +334,21 @@ describe('SkillTrainingInterface', () => {
       skillEntry: 'Gun Combat',
       skills: {
         type: 'skill',
-        skills: [{
-          name: 'Gun Combat',
-          level: 1,
-          isAttribute: false,
-          displayName: 'Gun Combat 1'
-        }]
-      }
+        skills: [
+          {
+            name: 'Gun Combat',
+            level: 1,
+            isAttribute: false,
+            displayName: 'Gun Combat 1',
+          },
+        ],
+      },
     };
 
     rollOnSkillTable.mockReturnValue(mockResult);
 
     renderWithProvider(
-      <SkillTrainingInterface 
+      <SkillTrainingInterface
         career={mockCareer}
         assignment="Law Enforcement"
         onComplete={mockOnComplete}
@@ -320,9 +356,11 @@ describe('SkillTrainingInterface', () => {
     );
 
     // Complete training process
-    const personalDevTable = screen.getByText('Personal Development').closest('.table-option');
+    const personalDevTable = screen
+      .getByText('Personal Development')
+      .closest('.table-option');
     fireEvent.click(personalDevTable);
-    
+
     const rollButton = screen.getByText('Roll for Training (2d6)');
     fireEvent.click(rollButton);
 
@@ -334,7 +372,7 @@ describe('SkillTrainingInterface', () => {
     expect(mockOnComplete).toHaveBeenCalledWith({
       table: 'Personal Development',
       result: mockResult,
-      completed: true
+      completed: true,
     });
   });
 
@@ -346,19 +384,21 @@ describe('SkillTrainingInterface', () => {
       skillEntry: 'Gun Combat',
       skills: {
         type: 'skill',
-        skills: [{
-          name: 'Gun Combat',
-          level: 1,
-          isAttribute: false,
-          displayName: 'Gun Combat 1'
-        }]
-      }
+        skills: [
+          {
+            name: 'Gun Combat',
+            level: 1,
+            isAttribute: false,
+            displayName: 'Gun Combat 1',
+          },
+        ],
+      },
     };
 
     rollOnSkillTable.mockReturnValue(mockResult);
 
     renderWithProvider(
-      <SkillTrainingInterface 
+      <SkillTrainingInterface
         career={mockCareer}
         assignment="Law Enforcement"
         onComplete={mockOnComplete}
@@ -366,9 +406,11 @@ describe('SkillTrainingInterface', () => {
     );
 
     // Complete training process
-    const personalDevTable = screen.getByText('Personal Development').closest('.table-option');
+    const personalDevTable = screen
+      .getByText('Personal Development')
+      .closest('.table-option');
     fireEvent.click(personalDevTable);
-    
+
     const rollButton = screen.getByText('Roll for Training (2d6)');
     fireEvent.click(rollButton);
 
@@ -378,7 +420,9 @@ describe('SkillTrainingInterface', () => {
     });
 
     // Should reset to initial state
-    expect(screen.getByText('Select a skill table to roll for training this term.')).toBeInTheDocument();
+    expect(
+      screen.getByText('Select a skill table to roll for training this term.')
+    ).toBeInTheDocument();
     expect(screen.queryByText('✅ Training Complete')).not.toBeInTheDocument();
   });
 
@@ -386,13 +430,17 @@ describe('SkillTrainingInterface', () => {
     getFormattedSkills.mockReturnValue([]);
 
     renderWithProvider(
-      <SkillTrainingInterface 
+      <SkillTrainingInterface
         career={mockCareer}
         assignment="Law Enforcement"
         onComplete={mockOnComplete}
       />
     );
 
-    expect(screen.getByText('No skills yet. Complete training to gain your first skills!')).toBeInTheDocument();
+    expect(
+      screen.getByText(
+        'No skills yet. Complete training to gain your first skills!'
+      )
+    ).toBeInTheDocument();
   });
 });

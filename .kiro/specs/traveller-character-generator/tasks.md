@@ -115,7 +115,7 @@
   - Ensure all career data structures are properly handled and processed
   - _Requirements: 1.1, 1.2, 2.1, 2.2, 3.1, 4.1, 4.2, 4.3a, 4.3b, 4.4a, 4.4b, 4.5a_
 
-- [ ] 16. Setup development dependencies and build optimization
+- [x] 16. Setup development dependencies and build optimization
   - Add pre-commit hooks using husky for code quality enforcement
   - Configure ESLint and Prettier for consistent code formatting
   - Add Jest configuration for improved test coverage reporting
@@ -123,7 +123,7 @@
   - Configure development server with proper error overlay and hot reloading
   - _Requirements: Development workflow improvement_
 
-- [ ] 17. Fix skill training dice roller bug
+- [x] 17. Fix skill training dice roller bug
   - Debug and fix the "skillResult.skills.forEach is not a function" error in applySkillTraining function
   - Verify that parseSkillEntry returns the correct data structure for skill processing
   - Update skill training interface to handle skill result data structure correctly
