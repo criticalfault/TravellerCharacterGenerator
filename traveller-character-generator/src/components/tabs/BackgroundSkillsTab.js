@@ -215,6 +215,7 @@ export default function BackgroundSkillsTab() {
                       currentLevel === 0 || character.backgroundSkillsSelected
                     }
                     title="Remove one level"
+                    aria-label={`Remove one level from ${skill}`}
                   >
                     -
                   </button>
@@ -232,6 +233,7 @@ export default function BackgroundSkillsTab() {
                     }
                     className="skill-level-input"
                     disabled={character.backgroundSkillsSelected}
+                    aria-label={`${skill} skill level`}
                   />
 
                   <button
@@ -243,6 +245,7 @@ export default function BackgroundSkillsTab() {
                       character.backgroundSkillsSelected
                     }
                     title="Add one level"
+                    aria-label={`Add one level to ${skill}`}
                   >
                     +
                   </button>

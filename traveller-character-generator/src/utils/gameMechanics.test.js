@@ -13,14 +13,14 @@ import {
   validateCareerPrerequisites,
 } from './gameMechanics';
 
+import { roll2d6, rollWithModifier, makeSkillCheck } from './dice';
+
 // Mock the dice module
 jest.mock('./dice', () => ({
   roll2d6: jest.fn(),
   rollWithModifier: jest.fn(),
   makeSkillCheck: jest.fn(),
 }));
-
-import { roll2d6, rollWithModifier, makeSkillCheck } from './dice';
 
 describe('Game Mechanics', () => {
   beforeEach(() => {

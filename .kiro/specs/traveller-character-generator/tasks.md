@@ -146,3 +146,12 @@
   - Ensure all imported modules and components are actually used or remove unused imports
   - Verify that `npm run build` completes without warnings after cleanup
   - _Requirements: Code quality and build optimization_
+
+- [x] 20. Fix Background Skills tab layout alignment issues
+  - Investigate and identify specific alignment problems with skill selection boxes in BackgroundSkillsTab
+  - Ensure consistent box sizing and positioning for all skill selection elements
+  - Fix any hidden buttons or overlapping elements in the skill selection interface
+  - Verify that all interactive elements (buttons, dropdowns, inputs) are properly visible and accessible
+  - Test responsive behavior to ensure layout works across different screen sizes
+  - Update CSS styling to maintain consistent spacing and alignment throughout the tab
+  - _Requirements: 3.1 (background skills selection interface usability)_
