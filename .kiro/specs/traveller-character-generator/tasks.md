@@ -1,0 +1,157 @@
+# Implementation Plan
+
+- [x] 1. Set up core character state management and context
+  - Create CharacterContext with useContext and useReducer for managing character state
+  - Define character data structure matching design specifications
+  - Implement character state reducer with actions for updating attributes, skills, careers
+  - _Requirements: 1.1, 2.1, 2.2, 4.1_
+
+- [x] 2. Create tabbed navigation system
+  - Implement tab navigation component with state management for active tab
+  - Create tab components structure for each character creation step
+  - Add navigation controls to move between tabs with validation
+  - _Requirements: 2.1, 2.2, 3.1, 4.1_
+
+- [x] 3. Implement dice rolling utilities and game mechanics
+  - Create dice rolling functions (2d6, 3d6 drop lowest, etc.)
+  - Implement attribute modifier calculations (DM system)
+  - Create skill check functions with target numbers
+  - Write unit tests for dice and calculation functions
+  - _Requirements: 2.1, 4.2, 4.3a, 4.3b_
+
+- [x] 4. Build character attributes generation system
+  - Create AttributesTab component with roll/reroll functionality
+  - Implement multiple rolling methods (2d6, 3d6 drop lowest)
+  - Add attribute display with modifiers and validation
+  - Include lock/finalize attributes functionality
+  - _Requirements: 2.1, 2.2_
+
+- [x] 5. Implement background skills selection
+  - Create BackgroundSkillsTab component
+  - Calculate available skill points based on Education DM
+  - Implement skill selection from predefined list
+  - Add skill point allocation and validation
+  - _Requirements: 3.1_
+
+- [x] 6. Create career selection and qualification system
+  - Build CareerSelectionTab with career list and descriptions
+  - Implement qualification rolls using character attributes (2d6 + attribute DM)
+  - Handle qualification success/failure paths and draft mechanics
+  - Add basic training skill assignment (all service skills at level 0)
+  - Implement career assignment selection (specialization paths within careers)
+  - Handle commission qualification for military careers
+  - _Requirements: 4.1, 4.2_
+
+- [x] 7. Implement career term progression mechanics
+  - Create CareerTermsTab for managing career progression
+  - Implement survival rolls with assignment-specific attribute requirements
+  - Add advancement roll system with promotion tracking for enlisted/officer tracks
+  - Handle rank progression and rank-based skill bonuses from career data
+  - Implement aging effects and term-by-term character aging
+  - Add term continuation vs career change decision points
+  - _Requirements: 4.3a, 4.3b, 4.4a, 4.4b_
+
+- [x] 8. Build event and mishap system
+  - Implement event table rolling and processing with 2d6 rolls
+  - Create mishap table handling with consequences and career ejection
+  - Add complex event chain processing system for multi-step events
+  - Handle conditional event outcomes, player choices, and branching logic
+  - Implement skill gains, injuries, enemies, allies, and other event outcomes
+  - Create event chain interpreter for processing eventChain arrays from career data
+  - _Requirements: 4.3a, 4.3b, 4.4b_
+
+- [x] 9. Create skill training and advancement system
+  - Implement multiple skill table rolling (personal development, service skills, advanced education, specialist)
+  - Add skill level tracking and advancement with proper skill stacking
+  - Handle education requirements for advanced education tables
+  - Implement choice-based skill selection from arrays in career data
+  - Create skill display and management interface with skill descriptions
+  - Handle attribute increases as skills (+1 STR, +1 DEX, etc.)
+  - _Requirements: 4.1, 4.4a_
+
+- [x] 10. Implement mustering out benefits
+  - Create MusteringOutTab for final character benefits
+  - Implement benefit roll system with cash and material benefits
+  - Handle benefit table processing and item assignment
+  - Add final character equipment and money calculation
+  - _Requirements: 4.5a_
+
+- [x] 11. Build character summary and sheet display
+  - Create SummaryTab showing complete character information
+  - Display all attributes, skills, career history, and equipment
+  - Add character sheet formatting and organization
+  - Include character export functionality
+  - _Requirements: 1.2, 2.2_
+
+- [x] 12. Implement save/load functionality
+  - Add localStorage integration for character persistence
+  - Create save/load interface in SaveLoadTab
+  - Implement character data serialization and validation
+  - Add character management (multiple characters, delete, etc.)
+  - _Requirements: 2.2_
+
+- [x] 13. Add race/species selection system
+  - Create race selection interface with available species
+  - Implement racial attribute modifiers and special abilities
+  - Add racial ability tracking and display
+  - Integrate race selection with character creation flow
+  - _Requirements: 1.1, 1.2_
+
+- [x] 14. Create event chain processing engine
+  - Build event chain interpreter to process complex eventChain arrays from career data
+  - Implement event type handlers (Gain_Skill, Increase_Skill, Roll_Skill, etc.)
+  - Add player choice system for events with multiple options
+  - Handle conditional event outcomes and branching logic
+  - Implement cross-career event references (rolling on other career tables)
+  - Create injury table system and injury tracking
+  - Add ally, enemy, rival, and contact management systems
+  - _Requirements: 4.3a, 4.3b, 4.4b_
+
+- [x] 15. Integrate all components and finalize application
+  - Connect all tab components through the main App component
+  - Implement proper state flow between all character creation steps
+  - Add final validation and error handling throughout the application
+  - Test complete character creation workflow end-to-end with complex career paths
+  - Ensure all career data structures are properly handled and processed
+  - _Requirements: 1.1, 1.2, 2.1, 2.2, 3.1, 4.1, 4.2, 4.3a, 4.3b, 4.4a, 4.4b, 4.5a_
+
+- [x] 16. Setup development dependencies and build optimization
+  - Add pre-commit hooks using husky for code quality enforcement
+  - Configure ESLint and Prettier for consistent code formatting
+  - Add Jest configuration for improved test coverage reporting
+  - Setup build optimization with proper environment variable handling
+  - Configure development server with proper error overlay and hot reloading
+  - _Requirements: Development workflow improvement_
+
+- [x] 17. Fix skill training dice roller bug
+  - Debug and fix the "skillResult.skills.forEach is not a function" error in applySkillTraining function
+  - Verify that parseSkillEntry returns the correct data structure for skill processing
+  - Update skill training interface to handle skill result data structure correctly
+  - Add proper error handling and validation for skill training results
+  - Test skill training workflow end-to-end to ensure dice rolling works correctly during career terms
+  - _Requirements: 4.1, 4.4a (skill training system functionality)_
+
+- [x] 18. Fix Career Terms display and dice rolling bugs
+  - Fix duplicate career history display issue where events are shown twice in Career History section
+  - Correct skill training dice roll from 2d6 to 1d6 in step 4 (skill training phase)
+  - Verify career history data structure to prevent duplicate entries
+  - Update skill training interface to use correct dice rolling method for skill table rolls
+  - Test career progression workflow to ensure proper display and dice mechanics
+  - _Requirements: 4.3a, 4.3b, 4.4a (career progression and skill training functionality)_
+
+- [x] 19. Clean up unused variables and values to eliminate build warnings
+  - Run `npm run build` to identify all unused variables and imports showing warnings
+  - Remove or fix unused variables, imports, and function parameters throughout the codebase
+  - Clean up any unreachable code or unused function declarations
+  - Ensure all imported modules and components are actually used or remove unused imports
+  - Verify that `npm run build` completes without warnings after cleanup
+  - _Requirements: Code quality and build optimization_
+
+- [x] 20. Fix Background Skills tab layout alignment issues
+  - Investigate and identify specific alignment problems with skill selection boxes in BackgroundSkillsTab
+  - Ensure consistent box sizing and positioning for all skill selection elements
+  - Fix any hidden buttons or overlapping elements in the skill selection interface
+  - Verify that all interactive elements (buttons, dropdowns, inputs) are properly visible and accessible
+  - Test responsive behavior to ensure layout works across different screen sizes
+  - Update CSS styling to maintain consistent spacing and alignment throughout the tab
+  - _Requirements: 3.1 (background skills selection interface usability)_
