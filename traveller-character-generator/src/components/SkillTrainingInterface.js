@@ -4,7 +4,6 @@ import {
   getAvailableSkillTables,
   rollOnSkillTable,
   applySkillTraining,
-  handleSkillChoice,
   getFormattedSkills,
   validateSkillTrainingPrerequisites,
 } from '../utils/skillTraining';
@@ -95,24 +94,27 @@ export default function SkillTrainingInterface({
 
     const selectedSkill = pendingChoice.options[optionIndex];
 
-    // Apply the chosen skill
-    if (selectedSkill.isAttribute) {
-      const currentValue = character.attributes[selectedSkill.name] || 0;
-      updateAttribute(selectedSkill.name, currentValue + selectedSkill.level);
-    } else {
-      addSkill(selectedSkill.name, selectedSkill.level);
-    }
-
-    // Add training event to career history
-    dispatch({
-      type: CHARACTER_ACTIONS.ADD_CAREER_EVENT,
-      payload: {
-        type: 'skill_training',
-        table: pendingChoice.result.table,
-        roll: pendingChoice.result.roll,
-        description: `Trained on ${pendingChoice.result.table} (chose ${selectedSkill.displayName})`,
+    // Create a skill result with the chosen skill for applySkillTraining
+    const choiceResult = {
+      roll: pendingChoice.result.roll,
+      table: pendingChoice.result.table,
+      tableKey: pendingChoice.result.tableKey,
+      skillEntry: selectedSkill.displayName,
+      skills: {
+        type: 'skill',
+        skills: [selectedSkill],
       },
-    });
+    };
+
+    // Apply the chosen skill through the standard training function
+    applySkillTraining(
+      character,
+      choiceResult,
+      dispatch,
+      CHARACTER_ACTIONS,
+      addSkill,
+      updateAttribute
+    );
 
     setPendingChoice(null);
     setTrainingComplete(true);
@@ -197,7 +199,7 @@ export default function SkillTrainingInterface({
           <h5>Selected: {selectedTable.name}</h5>
           <p>{selectedTable.description}</p>
           <button className="btn btn-primary" onClick={handleRollTraining}>
-            Roll for Training (2d6)
+            Roll for Training (1d6)
           </button>
         </div>
       )}
@@ -211,7 +213,7 @@ export default function SkillTrainingInterface({
               <strong>Table:</strong> {trainingResult.table}
             </p>
             <p>
-              <strong>Roll:</strong> {trainingResult.roll} on 2d6
+              <strong>Roll:</strong> {trainingResult.roll} on 1d6
             </p>
             <p>
               <strong>Result:</strong> {trainingResult.skillEntry}

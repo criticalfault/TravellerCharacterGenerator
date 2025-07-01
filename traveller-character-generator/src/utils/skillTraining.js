@@ -1,4 +1,4 @@
-import { roll2d6 } from './dice';
+import { roll1d6 } from './dice';
 
 /**
  * Skill Training and Advancement System
@@ -84,7 +84,7 @@ export const getAvailableSkillTables = (career, assignment, character) => {
  * Roll on a skill table and return the result
  */
 export const rollOnSkillTable = skillTable => {
-  const rollResult = roll2d6();
+  const rollResult = roll1d6();
   const roll = rollResult.total;
   const skillEntry = skillTable.skills[roll.toString()];
 

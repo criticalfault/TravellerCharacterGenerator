@@ -3,16 +3,15 @@ import {
   rollOnSkillTable,
   parseSkillEntry,
   applySkillTraining,
-  handleSkillChoice,
   getFormattedSkills,
   canAccessAdvancedEducation,
   validateSkillTrainingPrerequisites,
 } from './skillTraining';
-import { roll2d6 } from './dice';
+import { roll1d6 } from './dice';
 
 // Mock dice rolling for consistent testing
 jest.mock('./dice', () => ({
-  roll2d6: jest.fn(),
+  roll1d6: jest.fn(),
 }));
 
 describe('Skill Training System', () => {
@@ -187,10 +186,10 @@ describe('Skill Training System', () => {
 
   describe('rollOnSkillTable', () => {
     beforeEach(() => {
-      roll2d6.mockReturnValue({
+      roll1d6.mockReturnValue({
         total: 4,
-        dice: [2, 2],
-        formatted: '4 (2, 2)',
+        dice: [4],
+        formatted: '4',
       });
     });
 
@@ -210,10 +209,10 @@ describe('Skill Training System', () => {
     });
 
     test('handles missing skill entries gracefully', () => {
-      roll2d6.mockReturnValue({
-        total: 7,
-        dice: [3, 4],
-        formatted: '7 (3, 4)',
+      roll1d6.mockReturnValue({
+        total: 5,
+        dice: [5],
+        formatted: '5',
       });
 
       const table = {

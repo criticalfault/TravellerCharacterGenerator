@@ -156,7 +156,7 @@ describe('SkillTrainingInterface', () => {
     expect(
       screen.getByText('Selected: Personal Development')
     ).toBeInTheDocument();
-    expect(screen.getByText('Roll for Training (2d6)')).toBeInTheDocument();
+    expect(screen.getByText('Roll for Training (1d6)')).toBeInTheDocument();
   });
 
   test('handles skill training roll with direct result', async () => {
@@ -194,12 +194,12 @@ describe('SkillTrainingInterface', () => {
       .closest('.table-option');
     fireEvent.click(personalDevTable);
 
-    const rollButton = screen.getByText('Roll for Training (2d6)');
+    const rollButton = screen.getByText('Roll for Training (1d6)');
     fireEvent.click(rollButton);
 
     await waitFor(() => {
       expect(screen.getByText('Training Result')).toBeInTheDocument();
-      expect(screen.getByText('7 on 2d6')).toBeInTheDocument();
+      expect(screen.getByText('7 on 1d6')).toBeInTheDocument();
       expect(
         screen.getByText((content, element) => {
           return element?.textContent === 'Result: Gun Combat';
@@ -251,7 +251,7 @@ describe('SkillTrainingInterface', () => {
       .closest('.table-option');
     fireEvent.click(serviceTable);
 
-    const rollButton = screen.getByText('Roll for Training (2d6)');
+    const rollButton = screen.getByText('Roll for Training (1d6)');
     fireEvent.click(rollButton);
 
     await waitFor(() => {
@@ -361,7 +361,7 @@ describe('SkillTrainingInterface', () => {
       .closest('.table-option');
     fireEvent.click(personalDevTable);
 
-    const rollButton = screen.getByText('Roll for Training (2d6)');
+    const rollButton = screen.getByText('Roll for Training (1d6)');
     fireEvent.click(rollButton);
 
     await waitFor(() => {
@@ -411,7 +411,7 @@ describe('SkillTrainingInterface', () => {
       .closest('.table-option');
     fireEvent.click(personalDevTable);
 
-    const rollButton = screen.getByText('Roll for Training (2d6)');
+    const rollButton = screen.getByText('Roll for Training (1d6)');
     fireEvent.click(rollButton);
 
     await waitFor(() => {
