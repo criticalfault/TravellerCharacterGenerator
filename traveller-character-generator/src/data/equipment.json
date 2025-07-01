@@ -1,0 +1,311 @@
+{
+  "equipment": [
+    {
+      "name": "Backpack",
+      "tech_level": 1,
+      "cost": 50,
+      "mass": 1,
+      "description": "Carries up to 20 kg of gear comfortably."
+    },
+    {
+      "name": "Binoculars",
+      "tech_level": 5,
+      "cost": 500,
+      "mass": 0.5,
+      "description": "Zoom optics with rangefinding. +1 to Recon in long range environments."
+    },
+    {
+      "name": "Field Kit",
+      "tech_level": 5,
+      "cost": 250,
+      "mass": 2,
+      "description": "Basic camp tools, rations, water purifier, and small stove."
+    },
+    {
+      "name": "Grav Belt",
+      "tech_level": 11,
+      "cost": 25000,
+      "mass": 5,
+      "description": "Allows the user to fly short distances at walking speed."
+    },
+    {
+      "name": "Lockpicks",
+      "tech_level": 6,
+      "cost": 1000,
+      "mass": 0.5,
+      "description": "Tools and electronics used to bypass locks. Used with Mechanics or Electronics."
+    },
+    {
+      "name": "Medkit",
+      "tech_level": 8,
+      "cost": 500,
+      "mass": 1,
+      "description": "+1 DM to Medic checks to stabilize or treat injury."
+    },
+    {
+      "name": "Portable Computer",
+      "tech_level": 8,
+      "cost": 3000,
+      "mass": 1,
+      "description": "Handheld system with programmable AI. May run software."
+    },
+    {
+      "name": "Rope (20m)",
+      "tech_level": 1,
+      "cost": 20,
+      "mass": 2,
+      "description": "Strong enough for climbing or securing cargo."
+    },
+    {
+      "name": "Tool Kit",
+      "tech_level": 4,
+      "cost": 500,
+      "mass": 2,
+      "description": "Required for repair and maintenance tasks. Used with Mechanic."
+    },
+    {
+      "name": "Universal Translator",
+      "tech_level": 12,
+      "cost": 20000,
+      "mass": 1,
+      "description": "Real-time speech and text translation between most known languages."
+    },
+    {
+      "name": "Vacc Skin",
+      "tech_level": 10,
+      "cost": 10000,
+      "mass": 1,
+      "description": "Sealed environmental layer. Grants minimal vacuum protection (1 hr air)."
+    },
+    {
+      "name": "Tent",
+      "tech_level": 1,
+      "cost": 100,
+      "mass": 2,
+      "description": "Shelter for two. Durable against basic environments."
+    },
+    {
+      "name": "Torch",
+      "tech_level": 1,
+      "cost": 10,
+      "mass": 0.5,
+      "description": "Flashlight for dark environments."
+    },
+    {
+      "name": "Air Filter Mask",
+      "tech_level": 5,
+      "cost": 50,
+      "mass": 0.2,
+      "description": "Grants +1 DM to END checks against airborne hazards."
+    },
+    {
+      "name": "Radiation Badge",
+      "tech_level": 6,
+      "cost": 100,
+      "mass": 0.1,
+      "description": "Changes color to indicate dangerous radiation levels."
+    }
+  ], 
+  "medical_gear": [
+    {
+      "name": "Medkit",
+      "tech_level": 8,
+      "cost": 500,
+      "mass": 1,
+      "description": "Standard medical kit. Grants +1 DM to Medic checks for first aid and stabilization."
+    },
+    {
+      "name": "AutoDoc",
+      "tech_level": 12,
+      "cost": 20000,
+      "mass": 20,
+      "description": "Automated surgical unit. Can perform most procedures autonomously. Grants +2 DM to Medic checks when used correctly."
+    },
+    {
+      "name": "First Aid Pack",
+      "tech_level": 6,
+      "cost": 100,
+      "mass": 0.5,
+      "description": "Basic emergency pack for minor injuries. Used for quick stabilization."
+    },
+    {
+      "name": "Surgical Tools",
+      "tech_level": 9,
+      "cost": 3000,
+      "mass": 1,
+      "description": "Precise instruments used in operating procedures. Required for complex surgery."
+    },
+    {
+      "name": "Anagathics",
+      "tech_level": 15,
+      "cost": 200000,
+      "mass": 0.1,
+      "description": "Slows aging process. Regular use required. Illegal or restricted on many worlds."
+    },
+    {
+      "name": "Life Support System",
+      "tech_level": 10,
+      "cost": 10000,
+      "mass": 10,
+      "description": "Used to keep a patient stable and breathing for extended periods. Often installed in hospitals or vehicles."
+    },
+    {
+      "name": "Antirad",
+      "tech_level": 7,
+      "cost": 250,
+      "mass": 0.2,
+      "description": "Medication to reduce radiation damage. Grants bonus to END checks against radiation exposure."
+    }
+  ],
+  "comms_and_scanners": [
+    {
+      "name": "Hand Computer",
+      "tech_level": 8,
+      "cost": 2000,
+      "mass": 0.5,
+      "description": "Portable, wrist-mounted computer system. Supports various apps and software."
+    },
+    {
+      "name": "Communicator (Short Range)",
+      "tech_level": 8,
+      "cost": 150,
+      "mass": 0.5,
+      "description": "Basic personal comms, range approx. 5 km line of sight. Voice-only."
+    },
+    {
+      "name": "Communicator (Medium Range)",
+      "tech_level": 8,
+      "cost": 500,
+      "mass": 1,
+      "description": "Enhanced communication range of 50 km, includes audio and encrypted data."
+    },
+    {
+      "name": "Communicator (Long Range)",
+      "tech_level": 9,
+      "cost": 2000,
+      "mass": 2,
+      "description": "Satellite relays enable global or orbital communications."
+    },
+    {
+      "name": "CommDot",
+      "tech_level": 11,
+      "cost": 500,
+      "mass": 0.1,
+      "description": "Tiny implant or stick-on patch allowing low-volume, short-range secure communication."
+    },
+    {
+      "name": "Sensor Pack",
+      "tech_level": 9,
+      "cost": 5000,
+      "mass": 5,
+      "description": "Portable scanning device with motion, heat, and EM sensors. Useful for Recon or Science."
+    },
+    {
+      "name": "Field Sensor",
+      "tech_level": 10,
+      "cost": 2000,
+      "mass": 2,
+      "description": "Worn or mounted sensor suite for atmospheric or terrain scanning. Often used in Survey or Scout roles."
+    },
+    {
+      "name": "Bioscanner",
+      "tech_level": 10,
+      "cost": 3000,
+      "mass": 1,
+      "description": "Medical scanner for biological signatures and lifeform detection."
+    },
+    {
+      "name": "Radiation Detector",
+      "tech_level": 7,
+      "cost": 300,
+      "mass": 1,
+      "description": "Alerts user to radiation sources and levels. Grants +2 DM to detect radiation."
+    },
+    {
+      "name": "Infrared Goggles",
+      "tech_level": 9,
+      "cost": 1000,
+      "mass": 1,
+      "description": "Allows user to see heat signatures in total darkness. Useful in stealth and recon."
+    }
+  ],
+  "survival_gear": [
+    {
+      "name": "Survival Tent",
+      "tech_level": 1,
+      "cost": 100,
+      "mass": 2,
+      "description": "Compact shelter for two individuals. Insulated for most environments."
+    },
+    {
+      "name": "Filter Mask",
+      "tech_level": 5,
+      "cost": 50,
+      "mass": 0.2,
+      "description": "Protects against smoke, dust, and common airborne toxins."
+    },
+    {
+      "name": "Vacc Suit",
+      "tech_level": 10,
+      "cost": 10000,
+      "mass": 10,
+      "description": "Pressurized suit for vacuum environments. Armor 8."
+    },
+    {
+      "name": "Cold Weather Clothing",
+      "tech_level": 3,
+      "cost": 250,
+      "mass": 2,
+      "description": "Heavy insulation for frigid environments. +2 to END checks vs cold."
+    },
+    {
+      "name": "Desert Robes",
+      "tech_level": 3,
+      "cost": 250,
+      "mass": 1,
+      "description": "Protects against heatstroke and dehydration in desert environments. +2 to END checks vs heat."
+    },
+    {
+      "name": "Survival Kit",
+      "tech_level": 5,
+      "cost": 500,
+      "mass": 5,
+      "description": "Contains rations, fire starter, water purifier, emergency beacon, and tools for foraging or shelter building."
+    },
+    {
+      "name": "Grav Chute",
+      "tech_level": 9,
+      "cost": 2000,
+      "mass": 2,
+      "description": "Controlled descent parachute for atmospheric drops from orbit or high altitude."
+    },
+    {
+      "name": "Emergency Beacon",
+      "tech_level": 9,
+      "cost": 1000,
+      "mass": 0.5,
+      "description": "Sends distress signal across planetary surface or to orbital ships. Battery lasts 48 hours."
+    },
+    {
+      "name": "Thermal Blanket",
+      "tech_level": 1,
+      "cost": 10,
+      "mass": 0.1,
+      "description": "Mylar insulation used to preserve body heat. Common in medkits."
+    },
+    {
+      "name": "Water Purifier",
+      "tech_level": 5,
+      "cost": 100,
+      "mass": 1,
+      "description": "Removes biological and chemical contaminants from water sources."
+    },
+    {
+      "name": "Climbing Gear",
+      "tech_level": 1,
+      "cost": 250,
+      "mass": 3,
+      "description": "Includes ropes, harnesses, pitons, and gloves. Required for mountaineering tasks."
+    }
+  ]
+}
