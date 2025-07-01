@@ -1,0 +1,81 @@
+{
+  "augmentations": [
+    {
+      "name": "Characteristic Augmentation",
+      "category": "Cybernetic",
+      "tech_level": 10,
+      "cost": 25000,
+      "description": "Raises any one physical characteristic (STR, DEX, or END) by +1 permanently. Can only be taken once per characteristic."
+    },
+    {
+      "name": "Skill Augmentation",
+      "category": "Cybernetic",
+      "tech_level": 11,
+      "cost": 10000,
+      "description": "Provides +1 to a specific skill via neural or muscle interface. Must already have at least level 0 in the skill. Does not stack."
+    },
+    {
+      "name": "Adrenal Pump",
+      "category": "Biological",
+      "tech_level": 11,
+      "cost": 15000,
+      "description": "Once per day, grants +2 to all physical checks (STR, DEX, END) for 1D6 rounds. Must rest after use."
+    },
+    {
+      "name": "Dermal Armor",
+      "category": "Biological",
+      "tech_level": 11,
+      "cost": 10000,
+      "description": "Provides Armor 2 at all times. Counts as worn armor for stacking effects."
+    },
+    {
+      "name": "Internal Comp",
+      "category": "Cybernetic",
+      "tech_level": 10,
+      "cost": 7500,
+      "description": "Embedded computer interface with heads-up display and basic software."
+    },
+    {
+      "name": "Vision Enhancement",
+      "category": "Cybernetic",
+      "tech_level": 9,
+      "cost": 4000,
+      "description": "Infrared, low-light, and magnification vision modes. Can be toggled at will."
+    },
+    {
+      "name": "Hearing Enhancement",
+      "category": "Cybernetic",
+      "tech_level": 9,
+      "cost": 4000,
+      "description": "Enhanced auditory range and clarity. May include sound filtering software."
+    },
+    {
+      "name": "Lung Filter",
+      "category": "Biological",
+      "tech_level": 9,
+      "cost": 5000,
+      "description": "Protects against most toxins, airborne diseases, and pollution. Grants +2 DM to END checks to resist."
+    },
+    {
+      "name": "Interface Ports",
+      "category": "Cybernetic",
+      "tech_level": 9,
+      "cost": 2000,
+      "description": "Allows direct neural connection to compatible computer systems."
+    },
+    {
+      "name": "Neural Link",
+      "category": "Cybernetic",
+      "tech_level": 11,
+      "cost": 10000,
+      "description": "Enables instant communication with ship systems and robotic devices."
+    },
+    {
+      "name": "Reflex Booster",
+      "category": "Cybernetic",
+      "tech_level": 12,
+      "cost": 40000,
+      "description": "Grants +1 DM to INIT and DEX-based tasks."
+    }
+  ]
+}
