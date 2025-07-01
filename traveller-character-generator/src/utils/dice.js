@@ -36,7 +36,7 @@ export const roll2d6 = () => {
   return {
     total,
     dice,
-    formatted: `${total} (${dice.join(', ')})`
+    formatted: `${total} (${dice.join(', ')})`,
   };
 };
 
@@ -50,13 +50,13 @@ export const roll3d6DropLowest = () => {
   const kept = sorted.slice(0, 2); // Keep highest 2
   const dropped = sorted[2]; // Lowest die
   const total = kept.reduce((sum, die) => sum + die, 0);
-  
+
   return {
     total,
     allDice: dice,
     keptDice: kept,
     droppedDie: dropped,
-    formatted: `${total} (kept: ${kept.join(', ')}, dropped: ${dropped})`
+    formatted: `${total} (kept: ${kept.join(', ')}, dropped: ${dropped})`,
   };
 };
 
@@ -69,7 +69,7 @@ export const roll1d6 = () => {
   return {
     total: result,
     dice: [result],
-    formatted: `${result}`
+    formatted: `${result}`,
   };
 };
 
@@ -82,7 +82,7 @@ export const roll1d3 = () => {
   return {
     total: result,
     dice: [result],
-    formatted: `${result}`
+    formatted: `${result}`,
   };
 };
 
@@ -94,13 +94,13 @@ export const roll1d3 = () => {
 export const rollWithModifier = (modifier = 0) => {
   const baseRoll = roll2d6();
   const total = baseRoll.total + modifier;
-  
+
   return {
     total,
     baseRoll: baseRoll.total,
     modifier,
     dice: baseRoll.dice,
-    formatted: `${total} (${baseRoll.dice.join(', ')}${modifier >= 0 ? '+' : ''}${modifier})`
+    formatted: `${total} (${baseRoll.dice.join(', ')}${modifier >= 0 ? '+' : ''}${modifier})`,
   };
 };
 
@@ -113,13 +113,13 @@ export const rollWithModifier = (modifier = 0) => {
 export const checkSuccess = (roll, target) => {
   const success = roll >= target;
   const margin = roll - target;
-  
+
   return {
     success,
     roll,
     target,
     margin,
-    formatted: `${roll} vs ${target}: ${success ? 'SUCCESS' : 'FAILURE'} (margin: ${margin >= 0 ? '+' : ''}${margin})`
+    formatted: `${roll} vs ${target}: ${success ? 'SUCCESS' : 'FAILURE'} (margin: ${margin >= 0 ? '+' : ''}${margin})`,
   };
 };
 
@@ -131,20 +131,25 @@ export const checkSuccess = (roll, target) => {
  * @param {number} additionalDM - Additional dice modifiers
  * @returns {object} Complete skill check result
  */
-export const makeSkillCheck = (attributeValue, skillLevel = 0, target = 8, additionalDM = 0) => {
+export const makeSkillCheck = (
+  attributeValue,
+  skillLevel = 0,
+  target = 8,
+  additionalDM = 0
+) => {
   // Calculate attribute modifier (Traveller: (attribute - 6) / 3 rounded down)
   const attributeDM = Math.floor((attributeValue - 6) / 3);
-  
+
   // Unskilled penalty: -3 DM if skill level is 0
   const unskilledPenalty = skillLevel === 0 ? -3 : 0;
-  
+
   // Total modifier
   const totalDM = attributeDM + skillLevel + additionalDM + unskilledPenalty;
-  
+
   // Make the roll
   const rollResult = rollWithModifier(totalDM);
   const successCheck = checkSuccess(rollResult.total, target);
-  
+
   return {
     ...successCheck,
     attributeValue,
@@ -160,9 +165,9 @@ export const makeSkillCheck = (attributeValue, skillLevel = 0, target = 8, addit
       skillLevel: skillLevel > 0 ? skillLevel : 0,
       unskilledPenalty,
       additionalDM,
-      total: rollResult.total
+      total: rollResult.total,
     },
-    formatted: `Skill Check: ${rollResult.formatted} vs ${target} = ${successCheck.success ? 'SUCCESS' : 'FAILURE'}`
+    formatted: `Skill Check: ${rollResult.formatted} vs ${target} = ${successCheck.success ? 'SUCCESS' : 'FAILURE'}`,
   };
 };
 
@@ -177,7 +182,7 @@ export const generateAttributes2d6 = () => {
     END: roll2d6().total,
     INT: roll2d6().total,
     EDU: roll2d6().total,
-    SOC: roll2d6().total
+    SOC: roll2d6().total,
   };
 };
 
@@ -192,7 +197,7 @@ export const generateAttributes3d6DropLowest = () => {
   const int = roll3d6DropLowest();
   const edu = roll3d6DropLowest();
   const soc = roll3d6DropLowest();
-  
+
   return {
     attributes: {
       STR: str.total,
@@ -200,9 +205,9 @@ export const generateAttributes3d6DropLowest = () => {
       END: end.total,
       INT: int.total,
       EDU: edu.total,
-      SOC: soc.total
+      SOC: soc.total,
     },
-    details: { str, dex, end, int, edu, soc }
+    details: { str, dex, end, int, edu, soc },
   };
 };
 
@@ -211,15 +216,15 @@ export const generateAttributes3d6DropLowest = () => {
  * @param {object} table - Table object with keys 2-12 or ranges
  * @returns {object} Result with roll and table entry
  */
-export const rollOnTable = (table) => {
+export const rollOnTable = table => {
   const roll = roll2d6();
   const result = table[roll.total] || table['default'] || 'No result found';
-  
+
   return {
     roll: roll.total,
     dice: roll.dice,
     result,
-    formatted: `Rolled ${roll.formatted}: ${result}`
+    formatted: `Rolled ${roll.formatted}: ${result}`,
   };
 };
 
@@ -228,26 +233,26 @@ export const rollOnTable = (table) => {
  * @param {string} diceNotation - Dice notation like "2d6", "1d3", etc.
  * @returns {object} Roll result with total and dice details
  */
-export const rollDiceNotation = (diceNotation) => {
+export const rollDiceNotation = diceNotation => {
   const match = diceNotation.match(/(\d+)d(\d+)([+-]\d+)?/i);
   if (!match) {
     throw new Error(`Invalid dice notation: ${diceNotation}`);
   }
-  
+
   const count = parseInt(match[1]);
   const sides = parseInt(match[2]);
   const modifier = match[3] ? parseInt(match[3]) : 0;
-  
+
   const dice = rollDice(count, sides);
   const baseTotal = dice.reduce((sum, die) => sum + die, 0);
   const total = baseTotal + modifier;
-  
+
   return {
     total,
     baseTotal,
     modifier,
     dice,
     notation: diceNotation,
-    formatted: `${total} (${dice.join(', ')}${modifier !== 0 ? (modifier >= 0 ? '+' : '') + modifier : ''})`
+    formatted: `${total} (${dice.join(', ')}${modifier !== 0 ? (modifier >= 0 ? '+' : '') + modifier : ''})`,
   };
 };

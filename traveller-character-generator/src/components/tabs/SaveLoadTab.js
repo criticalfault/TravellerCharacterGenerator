@@ -23,14 +23,20 @@ export default function SaveLoadTab() {
     const characterToSave = {
       ...character,
       name: characterName,
-      savedAt: new Date().toISOString()
+      savedAt: new Date().toISOString(),
     };
 
     const updatedSaved = [...savedCharacters];
-    const existingIndex = updatedSaved.findIndex(char => char.name === characterName);
-    
+    const existingIndex = updatedSaved.findIndex(
+      char => char.name === characterName
+    );
+
     if (existingIndex >= 0) {
-      if (window.confirm(`A character named "${characterName}" already exists. Overwrite?`)) {
+      if (
+        window.confirm(
+          `A character named "${characterName}" already exists. Overwrite?`
+        )
+      ) {
         updatedSaved[existingIndex] = characterToSave;
       } else {
         return;
@@ -47,26 +53,42 @@ export default function SaveLoadTab() {
       alert('Error saving character. Please try again.');
       return;
     }
-    
+
     // Update current character name
     dispatch({ type: CHARACTER_ACTIONS.SET_NAME, payload: characterName });
-    
+
     alert('Character saved successfully!');
   };
 
-  const loadCharacter = (savedCharacter) => {
-    if (window.confirm(`Load character "${savedCharacter.name}"? This will replace your current character.`)) {
-      dispatch({ type: CHARACTER_ACTIONS.LOAD_CHARACTER, payload: savedCharacter });
+  const loadCharacter = savedCharacter => {
+    if (
+      window.confirm(
+        `Load character "${savedCharacter.name}"? This will replace your current character.`
+      )
+    ) {
+      dispatch({
+        type: CHARACTER_ACTIONS.LOAD_CHARACTER,
+        payload: savedCharacter,
+      });
       setCharacterName(savedCharacter.name);
     }
   };
 
-  const deleteCharacter = (characterName) => {
-    if (window.confirm(`Delete character "${characterName}"? This cannot be undone.`)) {
+  const deleteCharacter = characterName => {
+    if (
+      window.confirm(
+        `Delete character "${characterName}"? This cannot be undone.`
+      )
+    ) {
       try {
-        const updatedSaved = savedCharacters.filter(char => char.name !== characterName);
+        const updatedSaved = savedCharacters.filter(
+          char => char.name !== characterName
+        );
         setSavedCharacters(updatedSaved);
-        localStorage.setItem('travellerCharacters', JSON.stringify(updatedSaved));
+        localStorage.setItem(
+          'travellerCharacters',
+          JSON.stringify(updatedSaved)
+        );
       } catch (error) {
         console.error('Error deleting character:', error);
         alert('Error deleting character. Please try again.');
@@ -74,7 +96,7 @@ export default function SaveLoadTab() {
     }
   };
 
-  const exportCharacter = (savedCharacter) => {
+  const exportCharacter = savedCharacter => {
     const characterData = JSON.stringify(savedCharacter, null, 2);
     const blob = new Blob([characterData], { type: 'application/json' });
     const url = URL.createObjectURL(blob);
@@ -87,38 +109,51 @@ export default function SaveLoadTab() {
     URL.revokeObjectURL(url);
   };
 
-  const importCharacter = (event) => {
+  const importCharacter = event => {
     const file = event.target.files[0];
     if (!file) return;
 
     const reader = new FileReader();
-    reader.onload = (e) => {
+    reader.onload = e => {
       try {
         const characterData = JSON.parse(e.target.result);
-        
+
         // Basic validation of character data
         if (!characterData || typeof characterData !== 'object') {
           throw new Error('Invalid character data structure');
         }
-        
-        if (window.confirm(`Import character "${characterData.name || 'Unknown'}"? This will replace your current character.`)) {
-          dispatch({ type: CHARACTER_ACTIONS.LOAD_CHARACTER, payload: characterData });
+
+        if (
+          window.confirm(
+            `Import character "${characterData.name || 'Unknown'}"? This will replace your current character.`
+          )
+        ) {
+          dispatch({
+            type: CHARACTER_ACTIONS.LOAD_CHARACTER,
+            payload: characterData,
+          });
           setCharacterName(characterData.name || '');
           alert('Character imported successfully!');
         }
       } catch (error) {
         console.error('Error importing character:', error);
-        alert('Error importing character: Invalid file format or corrupted data');
+        alert(
+          'Error importing character: Invalid file format or corrupted data'
+        );
       }
     };
     reader.readAsText(file);
-    
+
     // Reset file input
     event.target.value = '';
   };
 
   const newCharacter = () => {
-    if (window.confirm('Create a new character? This will clear your current character.')) {
+    if (
+      window.confirm(
+        'Create a new character? This will clear your current character.'
+      )
+    ) {
       dispatch({ type: CHARACTER_ACTIONS.RESET_CHARACTER });
       setCharacterName('');
     }
@@ -127,8 +162,11 @@ export default function SaveLoadTab() {
   return (
     <div className="save-load-tab">
       <h2>Save & Load Characters</h2>
-      <p>Manage your Traveller characters with save, load, and export functionality.</p>
-      
+      <p>
+        Manage your Traveller characters with save, load, and export
+        functionality.
+      </p>
+
       <div className="current-character-section">
         <h3>Current Character</h3>
         <div className="current-character-info">
@@ -138,7 +176,7 @@ export default function SaveLoadTab() {
               id="characterName"
               type="text"
               value={characterName}
-              onChange={(e) => setCharacterName(e.target.value)}
+              onChange={e => setCharacterName(e.target.value)}
               placeholder="Enter character name"
               className="form-input"
             />
@@ -153,7 +191,7 @@ export default function SaveLoadTab() {
           </div>
         </div>
       </div>
-      
+
       <div className="saved-characters-section">
         <h3>Saved Characters</h3>
         {savedCharacters.length > 0 ? (
@@ -162,26 +200,33 @@ export default function SaveLoadTab() {
               <div key={index} className="saved-character-item">
                 <div className="character-info">
                   <h4>{savedChar.name}</h4>
-                  <p>Age: {savedChar.age} | Species: {savedChar.species}</p>
-                  <p>Saved: {new Date(savedChar.savedAt).toLocaleDateString()}</p>
+                  <p>
+                    Age: {savedChar.age} | Species: {savedChar.species}
+                  </p>
+                  <p>
+                    Saved: {new Date(savedChar.savedAt).toLocaleDateString()}
+                  </p>
                   {savedChar.careerHistory.length > 0 && (
-                    <p>Careers: {savedChar.careerHistory.map(c => c.career).join(', ')}</p>
+                    <p>
+                      Careers:{' '}
+                      {savedChar.careerHistory.map(c => c.career).join(', ')}
+                    </p>
                   )}
                 </div>
                 <div className="character-actions">
-                  <button 
+                  <button
                     className="btn btn-sm btn-primary"
                     onClick={() => loadCharacter(savedChar)}
                   >
                     Load
                   </button>
-                  <button 
+                  <button
                     className="btn btn-sm btn-secondary"
                     onClick={() => exportCharacter(savedChar)}
                   >
                     Export
                   </button>
-                  <button 
+                  <button
                     className="btn btn-sm btn-danger"
                     onClick={() => deleteCharacter(savedChar.name)}
                   >
@@ -195,7 +240,7 @@ export default function SaveLoadTab() {
           <p>No saved characters found.</p>
         )}
       </div>
-      
+
       <div className="import-export-section">
         <h3>Import/Export</h3>
         <div className="import-export-actions">
@@ -213,16 +258,18 @@ export default function SaveLoadTab() {
           </div>
         </div>
       </div>
-      
+
       <div className="save-load-info">
         <h3>Save/Load Information</h3>
         <p>
-          Characters are saved to your browser's local storage and will persist between sessions. 
-          You can also export characters as JSON files for backup or sharing.
+          Characters are saved to your browser's local storage and will persist
+          between sessions. You can also export characters as JSON files for
+          backup or sharing.
         </p>
         <p>
-          <strong>Note:</strong> Clearing your browser data will remove saved characters. 
-          Use the export function to create backups of important characters.
+          <strong>Note:</strong> Clearing your browser data will remove saved
+          characters. Use the export function to create backups of important
+          characters.
         </p>
       </div>
     </div>

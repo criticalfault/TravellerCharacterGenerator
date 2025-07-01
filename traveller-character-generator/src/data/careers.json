@@ -1,2771 +1,2857 @@
 {
-    "agent": {
-        "hasCommission":false,
-        "qualification": {"INT":6},
-        "assignments":[
-            "Law Enforcement",
-            "Intelligence",
-            "Corporate"
-        ],
-        "career_progress":{
-            "survival":{
-                "Law Enforcement":{"END":6},
-                "Intelligence":{"INT":7},
-                "Corporate":{"INT":5}
+  "agent": {
+    "hasCommission": false,
+    "qualification": { "INT": 6 },
+    "assignments": ["Law Enforcement", "Intelligence", "Corporate"],
+    "career_progress": {
+      "survival": {
+        "Law Enforcement": { "END": 6 },
+        "Intelligence": { "INT": 7 },
+        "Corporate": { "INT": 5 }
+      },
+      "advancement": {
+        "Law enforcement": { "INT": 6 },
+        "Intelligence": { "INT": 5 },
+        "Corporate": { "INT": 7 }
+      }
+    },
+    "muster_out_benefits": {
+      "cash": {
+        "1": 1000,
+        "2": 2000,
+        "3": 5000,
+        "4": 7500,
+        "5": 10000,
+        "6": 25000,
+        "7": 50000
+      },
+      "benefits": {
+        "1": "Scientific Equipment",
+        "2": "INT +1",
+        "3": "Ship Share",
+        "4": "Weapon",
+        "5": "Cybernetic Implant",
+        "6": ["SOC +1", "Cybernetic Implant"],
+        "7": "TAS Membership"
+      }
+    },
+    "skills_and_training": {
+      "personal_development": {
+        "1": "Gun Combat",
+        "2": "DEX +1",
+        "3": "END +1",
+        "4": "Melee",
+        "5": "INT +1",
+        "6": "Athletics"
+      },
+      "service_skills": {
+        "1": "Streetwise",
+        "2": "Drive",
+        "3": "Investigate",
+        "4": "Flyer",
+        "5": "Recon",
+        "6": "Gun Combat"
+      },
+      "advanced_education_requirements": { "EDU": 8 },
+      "advanced_education": {
+        "1": "Advocate",
+        "2": "Language",
+        "3": "Explosives",
+        "4": "Medic",
+        "5": "Vacc Suit",
+        "6": "Electronics"
+      },
+      "law_enforcement": {
+        "1": "Investigate",
+        "2": "Recon",
+        "3": "Streetwise",
+        "4": "Stealth",
+        "5": "Melee",
+        "6": "Advocate"
+      },
+      "intelligence": {
+        "1": "Investigate",
+        "2": "Recon",
+        "3": "Electronics (comms)",
+        "4": "Stealth",
+        "5": "Persuade",
+        "6": "Deception"
+      },
+      "corporate": {
+        "1": "Investigate",
+        "2": "Electronics (computers)",
+        "3": "Stealth",
+        "4": "Carouse",
+        "5": "Deception",
+        "6": "Streetwise"
+      }
+    },
+    "ranks": {
+      "law_enforcement": {
+        "0": "Rookie",
+        "1": "Corporal",
+        "2": "Sergeant",
+        "3": "Detective",
+        "4": "Lietenant",
+        "5": "Chief",
+        "6": "Commissioner"
+      },
+      "intelligence": {
+        "0": "-",
+        "1": "Agent",
+        "2": "Field Agent",
+        "3": "-",
+        "4": "Special Agent",
+        "5": "Assistant Director",
+        "6": "Director"
+      },
+      "corporate": {
+        "0": "-",
+        "1": "Agent",
+        "2": "Field Agent",
+        "3": "-",
+        "4": "Special Agent",
+        "5": "Assistant Director",
+        "6": "Director"
+      }
+    },
+    "rank_bonus": {
+      "law_enforcement": {
+        "0": "-",
+        "1": "Streetwise 1",
+        "2": "-",
+        "3": "-",
+        "4": "Investigate 1",
+        "5": "Admin 1",
+        "6": "SOC +1"
+      },
+      "intelligence": {
+        "0": "-",
+        "1": "Deception 1",
+        "2": "Investigate 1",
+        "3": "-",
+        "4": "Gun Combat 1",
+        "5": "-",
+        "6": "-"
+      },
+      "corporate": {
+        "0": "-",
+        "1": "Deception 1",
+        "2": "Investigate 1",
+        "3": "-",
+        "4": "Gun Combat 1",
+        "5": "-",
+        "6": "-"
+      }
+    },
+    "mishaps": {
+      "1": {
+        "description": "Severely injuried (this is the same result as a result of 2 on the injury table). Alternatively, roll twice on the injury table and take the lower result.",
+        "eventChain": [{ "type": "Severe_Injury" }]
+      },
+      "2": {
+        "description": "A criminal or other figure under investigation offers you a deal. Accept and you leave this career without further penalty (although you lose the benefit roll as normal). Refuse and you must roll twice on the injury table and take the lower result. You gain an Enemy and one level in any skill you choose."
+      },
+      "3": {
+        "description": "An investigation goes critically wrong or leads to the top, ruining your career. Roll Advocate 8+. If you succeed, you may keep the benefit roll from this term. If you roll 2, you must take the Prisoner career in your next term."
+      },
+      "4": {
+        "description": "You learn something you should not know and people want to kill you for it. Gain an Enemy and Deception 1",
+        "eventChain": ["Gain_Enemy", "Gain Skill ~ Deception 1"]
+      },
+      "5": {
+        "description": "Your work ends up coming home with you and someone get hurts. Choose one of your Contacts, Allies or Family members and roll twice on the injury table for them, taking the lower result."
+      },
+      "6": {
+        "description": "Injured. Roll on the Injury Table.",
+        "eventChain": [{ "type": "Injury" }]
+      }
+    },
+    "events": {
+      "2": {
+        "description": "Disaster! Roll on the Mishap Table but you are not ejected from this career.",
+        "eventChain": [{ "type": "Disaster" }]
+      },
+      "3": {
+        "description": "An investigation takes on a dangerous turn. Roll Investigate 8+ or Streetwise at 8+. If you fail, roll on the mishap table. If you succeed, increase one of these skills by one level, Deception, Jack of All Trades, Persuade, or Tactics",
+        "eventChain": [
+          {
+            "type": "Roll_Skill",
+            "SkillsAbleToRoll": [{ "Investigate": 8 }, { "Streetwise": 8 }],
+            "Success": {
+              "type": "Increase_Skill",
+              "Skills_To_Increase": [
+                "Deception",
+                "Persuade",
+                "Jack of All Trades",
+                "Tactics"
+              ]
             },
-            "advancement":{
-                "Law enforcement":{"INT":6},
-                "Intelligence":{"INT":5},
-                "Corporate":{"INT":7}
+            "Failure": {
+              "type": "Roll_On_Mishaps_Table",
+              "Events_Tables": ["agent"]
             }
-        },
-        "muster_out_benefits":{
-            "cash":{
-                "1":1000,
-                "2":2000,
-                "3":5000,
-                "4":7500,
-                "5":10000,
-                "6":25000,
-                "7":50000
-            },
-            "benefits":{
-                "1":"Scientific Equipment",
-                "2":"INT +1",
-                "3":"Ship Share",
-                "4":"Weapon",
-                "5":"Cybernetic Implant",
-                "6":["SOC +1","Cybernetic Implant"],
-                "7":"TAS Membership"
-            }
-        },
-        "skills_and_training":{
-            "personal_development":{
-                "1":"Gun Combat",
-                "2":"DEX +1",
-                "3":"END +1",
-                "4":"Melee",
-                "5":"INT +1",
-                "6":"Athletics"
-            },
-            "service_skills":{
-                "1":"Streetwise",
-                "2":"Drive",
-                "3":"Investigate",
-                "4":"Flyer",
-                "5":"Recon",
-                "6":"Gun Combat"
-            },
-            "advanced_education_requirements":{"EDU":8 },
-            "advanced_education":{
-                "1":"Advocate",
-                "2":"Language",
-                "3":"Explosives",
-                "4":"Medic",
-                "5":"Vacc Suit",
-                "6":"Electronics"
-            },
-            "law_enforcement":{
-                "1":"Investigate",
-                "2":"Recon",
-                "3":"Streetwise",
-                "4":"Stealth",
-                "5":"Melee",
-                "6":"Advocate"
-            },
-            "intelligence":{
-                "1":"Investigate",
-                "2":"Recon",
-                "3":"Electronics (comms)",
-                "4":"Stealth",
-                "5":"Persuade",
-                "6":"Deception"
-            },
-            "corporate":{
-                "1":"Investigate",
-                "2":"Electronics (computers)",
-                "3":"Stealth",
-                "4":"Carouse",
-                "5":"Deception",
-                "6":"Streetwise"
-            }
-        },
-        "ranks":{
-            "law_enforcement":{
-                "0":"Rookie",
-                "1":"Corporal",
-                "2":"Sergeant",
-                "3":"Detective",
-                "4":"Lietenant",
-                "5":"Chief",
-                "6":"Commissioner"
-            },
-            "intelligence":{
-                "0":"-",
-                "1":"Agent",
-                "2":"Field Agent",
-                "3":"-",
-                "4":"Special Agent",
-                "5":"Assistant Director",
-                "6":"Director"
-            },
-            "corporate":{
-                "0":"-",
-                "1":"Agent",
-                "2":"Field Agent",
-                "3":"-",
-                "4":"Special Agent",
-                "5":"Assistant Director",
-                "6":"Director"
-            }
-        },
-        "rank_bonus":{
-            "law_enforcement":{ 
-                "0":"-",
-                "1":"Streetwise 1",
-                "2":"-",
-                "3":"-",
-                "4":"Investigate 1",
-                "5":"Admin 1",
-                "6":"SOC +1"
-            },
-            "intelligence":{
-                "0":"-",
-                "1":"Deception 1",
-                "2":"Investigate 1",
-                "3":"-",
-                "4":"Gun Combat 1",
-                "5":"-",
-                "6":"-"
-            },
-            "corporate":{
-                "0":"-",
-                "1":"Deception 1",
-                "2":"Investigate 1",
-                "3":"-",
-                "4":"Gun Combat 1",
-                "5":"-",
-                "6":"-"
-            }
-        },
-        "mishaps":{
-            "1":{"description":"Severely injuried (this is the same result as a result of 2 on the injury table). Alternatively, roll twice on the injury table and take the lower result.","eventChain":[{"type":"Severe_Injury"}]},
-            "2":{"description":"A criminal or other figure under investigation offers you a deal. Accept and you leave this career without further penalty (although you lose the benefit roll as normal). Refuse and you must roll twice on the injury table and take the lower result. You gain an Enemy and one level in any skill you choose."},
-            "3":{"description":"An investigation goes critically wrong or leads to the top, ruining your career. Roll Advocate 8+. If you succeed, you may keep the benefit roll from this term. If you roll 2, you must take the Prisoner career in your next term."},
-            "4":{"description":"You learn something you should not know and people want to kill you for it. Gain an Enemy and Deception 1","eventChain":["Gain_Enemy","Gain Skill ~ Deception 1"]},
-            "5":{"description":"Your work ends up coming home with you and someone get hurts. Choose one of your Contacts, Allies or Family members and roll twice on the injury table for them, taking the lower result."},
-            "6":{"description":"Injured. Roll on the Injury Table.","eventChain":[{"type":"Injury"}]}
-        },
-        "events":{
-            "2": {  
-                    "description":"Disaster! Roll on the Mishap Table but you are not ejected from this career.",
-                    "eventChain":[{"type":"Disaster"}]
-                },
-            "3": {
-                    "description":"An investigation takes on a dangerous turn. Roll Investigate 8+ or Streetwise at 8+. If you fail, roll on the mishap table. If you succeed, increase one of these skills by one level, Deception, Jack of All Trades, Persuade, or Tactics",
-                    "eventChain":[
-                        {   
-                            "type":"Roll_Skill",
-                            "SkillsAbleToRoll":[
-                                    {"Investigate":8},
-                                    {"Streetwise":8}
-                                ],
-                            "Success":
-                                {
-                                    "type":"Increase_Skill",
-                                    "Skills_To_Increase":["Deception","Persuade","Jack of All Trades","Tactics"]
-                                },
-                            "Failure":{
-                                "type":"Roll_On_Mishaps_Table",
-                                "Events_Tables":["agent"]
-                            }
-                        }
-                    ]
-                },
-            "4": {  
-                    "description":"You complete a mission for you superiors and are suitably rewarded. Gain DM+1 to any one Benefit roll from this career.",
-                    "eventChain":[{"type":"Benefit_DM","DM":1}]
-                },
-            "5": {"description":"You establish a network of contacts. Gain D3 Contacts.","eventChain":[{"type":"Gain_Contacts","amount":"D3"}]},
-            "6": {"description":"You are already given advanced training in a specialist field. Roll Education 8+ to increase any one skill you already have one level in."},
-            "7": {  "description":"Life Event.",
-                    "eventChain":[{"type":"Life_Event"}]
-                },
-            "8": {
-                    "description":"You go undercover to investigate an Enemy. Roll Deception 8+. If you succeed, roll immediately on the Rogue or Citizen Events table and make one roll on any Specialist skill table for that career. If you fail, roll immediately on the Rogue or Citizen mishap Tables.",
-                    "eventChain":[
-                        {"type":"Roll_Skill",
-                            "SkillsAbleToRoll":[
-                                    {"Deception":8}
-                                ],
-                            "Success":[
-                                {
-                                    "type":"Roll_On_Events_Table",
-                                    "Events_Tables":["Rogue","Citizen"]
-                                },
-                                {
-                                    "type":"Roll_On_Specialist_Table",
-                                    "Events_Tables":["Rogue","Citizen"]
-                                }
-                            ],
-                        "Failure":{
-                            "type":"Roll_On_Mishaps_Table",
-                            "Events_Tables":["Rogue","Citizen"]
-                        }
-                    }
-                ]
-                },
-            "9": {"description":"You go above and beyond the call of duty. Gain DM+2 on to your next advancement roll.","eventChain":[{"type":"Advancement_DM","DM":2}]},
-            "10":{
-                "description":"You are given a specialist training in vehicles. Gain one of Drive 1, Flyer 1, Pilot 1 or Gunner 1.",
-                "eventChain":[{"type":"Gain_Skill","skills_list":["Drive 1","Flyer 1","Gunner 1"]}]
-            },
-            "11":{
-                    "description":"You are brefriended by a senior agent. Either increase Investigate by one level or DM+4 to advancement roll thanks to their aid.",
-                    "eventChain":[
-                                    {
-                                        "type":"choice", 
-                                        "choices":
-                                        [
-                                            {
-                                                "type": "Increase_Skill",
-                                                "skills_list":["Investigate"]
-                                            },
-                                            {
-                                                "type":"Advancement_DM","DM":4
-                                            }
-                                        ]
-                                    }
-                                ]
-            },
-            "12":{
-                    "description":"Your efforts uncover a major conspiracy against your employers. You are automatically promoted.",
-                    "eventChain":[
-                        {
-                            "type": "Automatic_Promotion"
-                        }
-                    ]
-                }
-            }
-        
-    },
-    "army":{
-        "hasCommission":true,
-        "comission":{"SOC":8},
-        "qualification": {"END":5},
-        "assignments":[
-            "Support",
-            "Infantry",
-            "Cavalry"
-        ],
-        "career_progress":{
-            "survival":{
-                "Support":{"END":5},
-                "Infantry":{"STR":6},
-                "Cavalry":{"DEX":7}
-            },
-            "advancement":{
-                "Support":{"EDU":7},
-                "Infantry":{"EDU":6},
-                "Cavalry":{"INT":5}
-            }
-        },
-        "muster_out_benefits":{
-            "cash":{
-                "1":2000,
-                "2":5000,
-                "3":10000,
-                "4":10000,
-                "5":10000,
-                "6":20000,
-                "7":30000
-            },
-            "benefits":{
-                "1":"Cybernetic Implant",
-                "2":"INT +1",
-                "3":"EDU +1",
-                "4":"Weapon",
-                "5":"Armour",
-                "6":["END +1","Cybernetic Implant"],
-                "7":"SOC +1"
-            }
-        },
-        "skills_and_training":{
-            "personal_development":{
-                "1":"STR +1",
-                "2":"DEX +1",
-                "3":"END +1",
-                "4":"Gambler",
-                "5":"Medic",
-                "6":"Melee"
-            },
-            "service_skills":{
-                "1":["Drive","Vacc Suit"],
-                "2":"Athletics",
-                "3":"Gun Combat",
-                "4":"Recon",
-                "5":"Melee",
-                "6":"Heavy Weapons"
-            },
-            "advanced_education_requirements":{"INT":8},
-            "advanced_education":{
-                "1":"Tactics (Military)",
-                "2":"Electronics",
-                "3":"Navigation",
-                "4":"Explosives",
-                "5":"Engineer",
-                "6":"Survival"
-            },
-            "officer":{
-                "1":"Tactics (Military)",
-                "2":"Leadership",
-                "3":"Advocate",
-                "4":"Diplomat",
-                "5":"Electronics",
-                "6":"Admin"
-            },
-            "support":{
-                "1":"Mechanic",
-                "2":["Drive","Flyer"],
-                "3":"Profession",
-                "4":"Explosives",
-                "5":"Electronics (comms)",
-                "6":"Medic"
-            },
-            "infantry":{
-                "1":"Gun Combat",
-                "2":"Melee",
-                "3":"Heavy Weapons",
-                "4":"Stealth",
-                "5":"Athletics",
-                "6":"Recon"
-            },
-            "cavalry":{
-                "1":"Mechanic",
-                "2":"Drive",
-                "3":"Flyer",
-                "4":"Recon",
-                "5":"Heavy Weapons (vehicles)",
-                "6":"Electronics (sensors)"
-            }
-        },
-        "ranks":{
-            "enlisted":{
-                "0":"Private",
-                "1":"Lance Corporal",
-                "2":"Corporal",
-                "3":"Lance Sergeant",
-                "4":"Sergant",
-                "5":"Gunnery Sergant",
-                "6":"Sergant Major"
-            },
-            "officer":{
-                "1":"Lieutenant",
-                "2":"Captain",
-                "3":"Major",
-                "4":"Lieutenant Colonel",
-                "5":"Colonel",
-                "6":"General"
-            }
-        },
-        "rank_bonus":{ 
-            "enlisted":{
-                "0":"Gun Combat 1",
-                "1":"Reacon 1",
-                "2":"-",
-                "3":"Leadership 1",
-                "4":"-",
-                "5":"-",
-                "6":"-"
-            },
-            "officer":{
-                "1":"Leadership 1",
-                "2":"-",
-                "3":"Tactics (military) 1",
-                "4":"-",
-                "5":"-",
-                "6":["SOC 10","SOC +1"]
-            }
-        },
-        "mishaps":{
-            "1":{
-                "description":"Severely injuried (this is the same result as a result of 2 on the injury table). Alternatively, roll twice on the injury table and take the lower result.",
-                "eventChain":[{"type":"Severe_Injury"}]
-                },
-            "2":{
-                    "description":"Your unit is slaughtered in a disastrous battle, for which you blame your commander. Gain them as an Enemy as they have you removed from service.",
-                    "eventChain":[{"type":"Gain_Enemy","amount":1},{"type":"Removed_From_Career_No_Benefits"}]
-                },
-            "3":{
-                    "description":"You are sent to a very unpleasant region (jungle, swamp, desert, ice cap, urban, etc) to battle against guerrilla fighters and rebels. You are discharged because of stress, injury, or because the government wishes to bury the whole incident. Increase recon or survival by one level but also gain the rebels as an Enemy.",
-                    "eventChain":[{"type":"Gain_Enemy","amount":1, "type_of_enemy":"Rebels"},{"type": "Increase_Skill","skills_list":["Recon","Survival"]}]
-                },
-            "4":{
-                    "description":"You discover that your commanding officer is engage in some illegal activity, such as weapon smuggling. You can join their ring and gain them as an Ally before the inevitable investigation gets you discharged or you can co-operate with the military police - the official whitewash gets you discharged anyway but you may keep your benefits roll you this term of service.",
-                    "eventChain":[
-                        {
-                            "type":"choice",
-                            "choices":
-                            [
-                                {
-                                    "type": "Gain_Ally",
-                                    "amount":1
-                                },
-                                {
-                                    "type":"Removed_From_Career"
-                                }
-                            ]
-                        }
-                    ]
-                }, 
-            "5":{
-                    "description":"You are tormented by or qurrel with an officer or fellow soldier. Gain that officer as a Rival as they drive you out of the service",
-                    "eventChain":[{"type":"Gain_Rival","amount":1},{"type":"Removed_From_Career_No_Benefits"}]
-                },
-            "6":{
-                    "description":"Injured. Roll on the Injury Table.",
-                    "eventChain":[{"type":"Injury"}]
-                }
-        },
-        "events":{
-            "2": {  
-                "description":"Disaster! Roll on the Mishap Table but you are not ejected from this career.",
-                "eventChain":[{"type":"Disaster"}]
-            },
-            "3":{ 
-                "description":"You are assigned to a planet with a hostile or wild environment. Gain one of Vacc Suit 1, Engineer 1, Animals (Riding or Training) 1 or Recon 1",
-                "eventChain":[{"type":"Gain_Skill","skills_list":["Vacc Suit 1","Engineer 1","Animals (Riding) 1","Animals (Training) 1","Recon 1"]}]
-            },
-            "4":{ 
-                "description":"You are assigned to an urbanized planet torn by war. Gain one of Stealth 1, Streetwise 1, Persuade 1, or Recon 1",
-                "eventChain":[{"type":"Gain_Skill","skills_list":["Stealth 1","Streetwise 1","Persuade 1","Recon 1"]}]
-            },
-            "5": {  
-                "description":"You are given a special assignment or duty in your unit. Gain DM+1 to any one Benefit Roll.",
-                "eventChain":[{"type":"Benefit_DM", "DM":1}]
-            },
-            "6": {  
-                "description":"You are thrown into a brutal ground war. Roll EDU 8+ to avoid injury; if you succeed, you gain one level in Gun Combat or Leadership",
-                "eventChain":[{"type":"Increase_Skill","skills_list":["Gun Combat","Leadership"]}]
-            },
-            "7": {  
-                "description":"Life Event.",
-                "eventChain":[{"type":"Life_Event"}]
-            },
-            "8": {  
-                "description":"You are given advanced training in a specialist field. EDU 8+ to increase any one skill you already have by one level",
-                "eventChain":[{"type":"Increase_Skill","skills_list":["Any"]}]
-            },
-            "9":{  
-                "description":"Surrounded and outnumbered by the enemy, you hold out until relief arrives. Gain DM+2 on your next advancement roll",
-                "eventChain":[{"type":"Advancement_DM","DM":2}]
-            },
-            "10":{  
-                "description":"You are assigned to a peacekeepering role. Gain one of Admin 1, Investigate 1, Deception 1, or Recon 1",
-                "eventChain":[{"type":"Gain_Skill","skills_list":["Admin 1","Investigate 1","Deception 1","Recon 1"]}]
-            },
-            "11":{  
-                "description":"Your commanding office takes an interest in your career. Ether gain Tactics (Military) 1, or DM+4 to your next advancement roll thanks to their aid.",
-                "eventChain":
-                [
-                    {
-                        "type":"choice",
-                        "choices":
-                        [
-                            {
-                                "type": "Gain_Skill",
-                                "skills_list":["Tactics (Military) 1"]
-                            },
-                            {
-                                "type":"Advancement_DM",
-                                "DM":4
-                            }
-                        ]
-                    }
-                ]
-            },
-            "12":{
-                "description":"You display heroism in battle. You may gain a promotion or a comission automatically.",
-                "eventChain":[{"type": "Automatic_Promotion_Or_Comission"}]
-            }
-        }
-    },
-    "citizen": {
-  "hasCommission": false,
-  "qualification": { "EDU": 5 },
-  "assignments": [
-    "Corporate",
-    "Worker",
-    "Colonist"
-  ],
-  "career_progress": {
-    "survival": {
-      "Corporate": { "INT": 5 },
-      "Worker": { "END": 5 },
-      "Colonist": { "EDU": 5 }
-    },
-    "advancement": {
-      "Corporate": { "INT": 6 },
-      "Worker": { "STR": 6 },
-      "Colonist": { "SOC": 6 }
-    }
-  },
-  "muster_out_benefits": {
-    "cash": {
-      "1": 1000,
-      "2": 5000,
-      "3": 5000,
-      "4": 10000,
-      "5": 10000,
-      "6": 20000,
-      "7": 30000
-    },
-    "benefits": {
-      "1": "Contact",
-      "2": "INT +1",
-      "3": "EDU +1",
-      "4": "Weapon",
-      "5": "SOC +1",
-      "6": "Ship Share",
-      "7": "TAS Membership"
-    }
-  },
-  "skills_and_training": {
-    "personal_development": {
-      "1": "STR +1",
-      "2": "DEX +1",
-      "3": "END +1",
-      "4": "INT +1",
-      "5": "EDU +1",
-      "6": "Gambler"
-    },
-    "service_skills": {
-      "1": "Drive",
-      "2": "Streetwise",
-      "3": "Profession",
-      "4": "Admin",
-      "5": "Carouse",
-      "6": "Language"
-    },
-    "advanced_education_requirements": { "EDU": 8 },
-    "advanced_education": {
-      "1": "Advocate",
-      "2": "Diplomat",
-      "3": "Leadership",
-      "4": "Persuade",
-      "5": "Trader",
-      "6": "Electronics"
-    },
-    "corporate": {
-      "1": "Admin",
-      "2": "Advocate",
-      "3": "Persuade",
-      "4": "Diplomat",
-      "5": "Broker",
-      "6": "Electronics"
-    },
-    "worker": {
-      "1": "Profession",
-      "2": "Drive",
-      "3": "Mechanic",
-      "4": "Streetwise",
-      "5": "Athletics",
-      "6": "Melee"
-    },
-    "colonist": {
-      "1": "Survival",
-      "2": "Animals",
-      "3": "Drive",
-      "4": "Medic",
-      "5": "Profession",
-      "6": "Recon"
-    }
-  },
-  "ranks": {},
-  "rank_bonus": {},
-  "mishaps": {
-    "1": {
-      "description": "Severely injured. Treat this as 2 on the Injury Table or roll twice and take the lower result.",
-      "eventChain": [ { "type": "Severe_Injury" } ]
-    },
-    "2": {
-      "description": "You are downsized and lose your job. You may not take a benefit roll this term."
-    },
-    "3": {
-      "description": "Your company goes bankrupt or your settlement fails. You are stranded and must find a way home. Gain Streetwise 1."
-    },
-    "4": {
-      "description": "You are blamed for a workplace accident. Gain an Enemy.",
-      "eventChain": [ { "type": "Gain_Enemy", "amount": 1 } ]
-    },
-    "5": {
-      "description": "You suffer a mental breakdown or crisis. Reduce any one mental stat by 1 (INT, EDU, or SOC)."
-    },
-    "6": {
-      "description": "Injured. Roll on the Injury Table.",
-      "eventChain": [ { "type": "Injury" } ]
-    }
-  },
-  "events": {
-    "2": {
-      "description": "Disaster! Roll on the Mishap Table but do not leave the career.",
-      "eventChain": [ { "type": "Disaster" } ]
-    },
-    "3": {
-      "description": "You make an important connection. Gain an Ally or Contact.",
-      "eventChain": [
-        {
-          "type": "choice",
-          "choices": [
-            { "type": "Gain_Ally", "amount": 1 },
-            { "type": "Gain_Contact", "amount": 1 }
-          ]
-        }
-      ]
-    },
-    "4": {
-      "description": "You are offered a promotion or raise. Gain DM+2 to next advancement roll.",
-      "eventChain": [ { "type": "Advancement_DM", "DM": 2 } ]
-    },
-    "5": {
-      "description": "You take part in a community project or political movement. Gain Persuade 1 or Leadership 1.",
-      "eventChain": [ { "type": "Gain_Skill", "skills_list": [ "Persuade 1", "Leadership 1" ] } ]
-    },
-    "6": {
-      "description": "You are cross-trained in a different department. Gain any skill from another Citizen assignment table.",
-      "eventChain": [ { "type": "Gain_Skill_From_Other_Assignment" } ]
-    },
-    "7": {
-      "description": "Life Event.",
-      "eventChain": [ { "type": "Life_Event" } ]
-    },
-    "8": {
-      "description": "You’re offered an opportunity to retrain or study. Roll EDU 8+ to gain any one skill you already have by +1.",
-      "eventChain": [ { "type": "Increase_Skill", "skills_list": [ "Any" ] } ]
-    },
-    "9": {
-      "description": "You get caught up in a local political conflict. Gain either Diplomat 1 or Deception 1.",
-      "eventChain": [ { "type": "Gain_Skill", "skills_list": [ "Diplomat 1", "Deception 1" ] } ]
-    },
-    "10": {
-      "description": "You are mentored by a senior colleague. Gain EDU +1 or Admin 1.",
-      "eventChain": [
-        {
-          "type": "choice",
-          "choices": [
-            { "type": "Increase_Stat", "stat": "EDU", "amount": 1 },
-            { "type": "Gain_Skill", "skills_list": [ "Admin 1" ] }
-          ]
-        }
-      ]
-    },
-    "11": {
-      "description": "You uncover corruption or embezzlement. Gain Advocate 1 and an Enemy.",
-      "eventChain": [
-        { "type": "Gain_Skill", "skills_list": [ "Advocate 1" ] },
-        { "type": "Gain_Enemy", "amount": 1 }
-      ]
-    },
-    "12": {
-      "description": "You do something extraordinary in a mundane setting. Automatically promoted or gain a permanent +1 to one skill of your choice.",
-      "eventChain": [
-        {
-          "type": "choice",
-          "choices": [
-            { "type": "Automatic_Promotion" },
-            { "type": "Increase_Skill", "skills_list": [ "Any" ] }
-          ]
-        }
-      ]
-    }
-  }
-},
-    "drifter": {
-  "hasCommission": false,
-  "qualification": { "STR": 4 },
-  "assignments": [
-    "Wanderer",
-    "Scavenger",
-    "Hunter"
-  ],
-  "career_progress": {
-    "survival": {
-      "Wanderer": { "END": 6 },
-      "Scavenger": { "INT": 6 },
-      "Hunter": { "DEX": 6 }
-    },
-    "advancement": {
-      "Wanderer": { "SOC": 6 },
-      "Scavenger": { "INT": 7 },
-      "Hunter": { "EDU": 5 }
-    }
-  },
-  "muster_out_benefits": {
-    "cash": {
-      "1": 500,
-      "2": 1000,
-      "3": 1000,
-      "4": 2000,
-      "5": 5000,
-      "6": 5000,
-      "7": 10000
-    },
-    "benefits": {
-      "1": "Weapon",
-      "2": "INT +1",
-      "3": "Ship Share",
-      "4": "END +1",
-      "5": "Low Passage",
-      "6": "EDU +1",
-      "7": "TAS Membership"
-    }
-  },
-  "skills_and_training": {
-    "personal_development": {
-      "1": "STR +1",
-      "2": "DEX +1",
-      "3": "END +1",
-      "4": "Streetwise",
-      "5": "Melee",
-      "6": "Survival"
-    },
-    "service_skills": {
-      "1": "Athletics",
-      "2": "Recon",
-      "3": "Melee",
-      "4": "Stealth",
-      "5": "Streetwise",
-      "6": "Survival"
-    },
-    "advanced_education_requirements": { "EDU": 8 },
-    "advanced_education": {
-      "1": "Mechanic",
-      "2": "Electronics",
-      "3": "Language",
-      "4": "Medic",
-      "5": "Navigation",
-      "6": "Profession"
-    },
-    "wanderer": {
-      "1": "Athletics",
-      "2": "Carouse",
-      "3": "Streetwise",
-      "4": "Survival",
-      "5": "Melee",
-      "6": "Stealth"
-    },
-    "scavenger": {
-      "1": "Mechanic",
-      "2": "Streetwise",
-      "3": "Profession",
-      "4": "Recon",
-      "5": "Electronics",
-      "6": "Stealth"
-    },
-    "hunter": {
-      "1": "Animals",
-      "2": "Recon",
-      "3": "Survival",
-      "4": "Gun Combat",
-      "5": "Stealth",
-      "6": "Melee"
-    }
-  },
-  "ranks": {},
-  "rank_bonus": {},
-  "mishaps": {
-    "1": {
-      "description": "You are severely injured. Treat as 2 on the injury table or roll twice and take the lower result.",
-      "eventChain": [ { "type": "Severe_Injury" } ]
-    },
-    "2": {
-      "description": "You offend a powerful local. Gain an Enemy and are forced to move on.",
-      "eventChain": [ { "type": "Gain_Enemy", "amount": 1 } ]
-    },
-    "3": {
-      "description": "A storm, collapse, or other accident ruins your shelter or equipment. Roll END 8+ or lose one benefit roll from this career.",
-      "eventChain": [
-        {
-          "type": "Roll_Stat",
-          "stat": "END",
-          "target": 8,
-          "Failure": { "type": "Lose_Benefit_Roll", "amount": 1 }
-        }
-      ]
-    },
-    "4": {
-      "description": "You are hunted by a predator or local threat. Gain Gun Combat 1 or Melee 1, but suffer an Injury.",
-      "eventChain": [
-        { "type": "Gain_Skill", "skills_list": [ "Gun Combat 1", "Melee 1" ] },
-        { "type": "Injury" }
-      ]
-    },
-    "5": {
-      "description": "Your community or group is displaced. Lose one Contact or Ally if you have one."
-    },
-    "6": {
-      "description": "Injured. Roll on the Injury Table.",
-      "eventChain": [ { "type": "Injury" } ]
-    }
-  },
-  "events": {
-    "2": {
-      "description": "Disaster! Roll on the Mishap Table but you are not ejected from the career.",
-      "eventChain": [ { "type": "Disaster" } ]
-    },
-    "3": {
-      "description": "You are attacked by wild animals or raiders. Gain Melee 1 or Gun Combat 1.",
-      "eventChain": [ { "type": "Gain_Skill", "skills_list": [ "Melee 1", "Gun Combat 1" ] } ]
-    },
-    "4": {
-      "description": "You salvage a significant find. Gain 1d3 Contacts and DM+1 to your next Benefit roll.",
-      "eventChain": [
-        { "type": "Gain_Contacts", "amount": "D3" },
-        { "type": "Benefit_DM", "DM": 1 }
-      ]
-    },
-    "5": {
-      "description": "You gain insight from hardship. Gain Survival 1 or increase INT by 1.",
-      "eventChain": [
-        {
-          "type": "choice",
-          "choices": [
-            { "type": "Gain_Skill", "skills_list": [ "Survival 1" ] },
-            { "type": "Increase_Stat", "stat": "INT", "amount": 1 }
-          ]
-        }
-      ]
-    },
-    "6": {
-      "description": "You meet a seasoned drifter who teaches you valuable tricks. Gain one level in any skill you already have.",
-      "eventChain": [ { "type": "Increase_Skill", "skills_list": [ "Any" ] } ]
-    },
-    "7": {
-      "description": "Life Event.",
-      "eventChain": [ { "type": "Life_Event" } ]
-    },
-    "8": {
-      "description": "You travel far and wide. Gain Language 1 and one extra Contact.",
-      "eventChain": [
-        { "type": "Gain_Skill", "skills_list": [ "Language 1" ] },
-        { "type": "Gain_Contact", "amount": 1 }
-      ]
-    },
-    "9": {
-      "description": "You become a folk hero in a local community. Gain one Ally and +1 SOC.",
-      "eventChain": [
-        { "type": "Gain_Ally", "amount": 1 },
-        { "type": "Increase_Stat", "stat": "SOC", "amount": 1 }
-      ]
-    },
-    "10": {
-      "description": "You scavenge high-tech salvage. Gain Electronics 1 or Mechanic 1.",
-      "eventChain": [ { "type": "Gain_Skill", "skills_list": [ "Electronics 1", "Mechanic 1" ] } ]
-    },
-    "11": {
-      "description": "You find a mysterious artifact or data cache. Roll INT 8+ to decode it. If successful, gain EDU +1 or 10,000 credits.",
-      "eventChain": [
-        {
-          "type": "Roll_Stat",
-          "stat": "INT",
-          "target": 8,
-          "Success": {
-            "type": "choice",
-            "choices": [
-              { "type": "Increase_Stat", "stat": "EDU", "amount": 1 },
-              { "type": "Gain_Money", "amount": 10000 }
-            ]
           }
-        }
-      ]
-    },
-    "12": {
-      "description": "You overcome incredible odds. You may increase any one skill by +2 or gain a Ship Share.",
-      "eventChain": [
-        {
-          "type": "choice",
-          "choices": [
-            { "type": "Increase_Skill", "skills_list": [ "Any" ], "amount": 2 },
-            { "type": "Gain_Benefit", "benefit": "Ship Share" }
-          ]
-        }
-      ]
-    }
-  }
-},
-    "entertainer": {
-  "hasCommission": false,
-  "qualification": { "SOC": 5 },
-  "assignments": [
-    "Artist",
-    "Performer",
-    "Journalist"
-  ],
-  "career_progress": {
-    "survival": {
-      "Artist": { "DEX": 5 },
-      "Performer": { "END": 5 },
-      "Journalist": { "INT": 6 }
-    },
-    "advancement": {
-      "Artist": { "EDU": 6 },
-      "Performer": { "SOC": 6 },
-      "Journalist": { "EDU": 7 }
-    }
-  },
-  "muster_out_benefits": {
-    "cash": {
-      "1": 1000,
-      "2": 5000,
-      "3": 10000,
-      "4": 10000,
-      "5": 10000,
-      "6": 20000,
-      "7": 30000
-    },
-    "benefits": {
-      "1": "Weapon",
-      "2": "INT +1",
-      "3": "SOC +1",
-      "4": "TAS Membership",
-      "5": "Contact",
-      "6": "EDU +1",
-      "7": "Ship Share"
-    }
-  },
-  "skills_and_training": {
-    "personal_development": {
-      "1": "DEX +1",
-      "2": "END +1",
-      "3": "SOC +1",
-      "4": "Carouse",
-      "5": "Gambler",
-      "6": "Streetwise"
-    },
-    "service_skills": {
-      "1": "Art",
-      "2": "Carouse",
-      "3": "Deception",
-      "4": "Persuade",
-      "5": "Streetwise",
-      "6": "Electronics"
-    },
-    "advanced_education_requirements": { "EDU": 8 },
-    "advanced_education": {
-      "1": "Admin",
-      "2": "Art",
-      "3": "Advocate",
-      "4": "Language",
-      "5": "Electronics",
-      "6": "Leadership"
-    },
-    "artist": {
-      "1": "Art",
-      "2": "Language",
-      "3": "Streetwise",
-      "4": "Electronics",
-      "5": "Persuade",
-      "6": "Carouse"
-    },
-    "performer": {
-      "1": "Art",
-      "2": "Carouse",
-      "3": "Deception",
-      "4": "Gambler",
-      "5": "Streetwise",
-      "6": "Persuade"
-    },
-    "journalist": {
-      "1": "Art",
-      "2": "Investigate",
-      "3": "Electronics (comms)",
-      "4": "Persuade",
-      "5": "Language",
-      "6": "Streetwise"
-    }
-  },
-  "ranks": {},
-  "rank_bonus": {},
-  "mishaps": {
-    "1": {
-      "description": "Severely injured. Treat this as 2 on the Injury Table or roll twice and take the lower result.",
-      "eventChain": [ { "type": "Severe_Injury" } ]
-    },
-    "2": {
-      "description": "You are caught up in a scandal. Gain a Rival and lose all benefit rolls from this term.",
-      "eventChain": [
-        { "type": "Gain_Rival", "amount": 1 },
-        { "type": "Lose_Benefit_Roll", "amount": 1 }
-      ]
-    },
-    "3": {
-      "description": "Your performance bombs or your work is rejected. Roll SOC 8+ or suffer -1 to SOC.",
-      "eventChain": [
-        {
-          "type": "Roll_Stat",
-          "stat": "SOC",
-          "target": 8,
-          "Failure": { "type": "Decrease_Stat", "stat": "SOC", "amount": 1 }
-        }
-      ]
-    },
-    "4": {
-      "description": "You are injured during a stunt, show, or field assignment. Roll on the Injury Table.",
-      "eventChain": [ { "type": "Injury" } ]
-    },
-    "5": {
-      "description": "A powerful patron or agency drops you. Gain an Enemy.",
-      "eventChain": [ { "type": "Gain_Enemy", "amount": 1 } ]
-    },
-    "6": {
-      "description": "Injured. Roll on the Injury Table.",
-      "eventChain": [ { "type": "Injury" } ]
-    }
-  },
-  "events": {
-    "2": {
-      "description": "Disaster! Roll on the Mishap Table but do not leave the career.",
-      "eventChain": [ { "type": "Disaster" } ]
-    },
-    "3": {
-      "description": "Your work gains you a notable contact. Gain one Ally or Contact.",
-      "eventChain": [
-        {
-          "type": "choice",
-          "choices": [
-            { "type": "Gain_Ally", "amount": 1 },
-            { "type": "Gain_Contact", "amount": 1 }
-          ]
-        }
-      ]
-    },
-    "4": {
-      "description": "You perform at a major venue or publish something notable. Gain DM+1 on one benefit roll.",
-      "eventChain": [ { "type": "Benefit_DM", "DM": 1 } ]
-    },
-    "5": {
-      "description": "You are invited to mingle with the elite. Gain one of Carouse 1, SOC +1, or a TAS Membership.",
-      "eventChain": [
-        {
-          "type": "choice",
-          "choices": [
-            { "type": "Gain_Skill", "skills_list": [ "Carouse 1" ] },
-            { "type": "Increase_Stat", "stat": "SOC", "amount": 1 },
-            { "type": "Gain_Benefit", "benefit": "TAS Membership" }
-          ]
-        }
-      ]
-    },
-    "6": {
-      "description": "You spend time perfecting your craft. Gain any Art specialty at 1 or increase Art by one level.",
-      "eventChain": [ { "type": "Increase_Skill", "skills_list": [ "Art" ] } ]
-    },
-    "7": {
-      "description": "Life Event.",
-      "eventChain": [ { "type": "Life_Event" } ]
-    },
-    "8": {
-      "description": "You uncover a political scandal or forbidden truth. Gain Investigate 1 and an Enemy.",
-      "eventChain": [
-        { "type": "Gain_Skill", "skills_list": [ "Investigate 1" ] },
-        { "type": "Gain_Enemy", "amount": 1 }
-      ]
-    },
-    "9": {
-      "description": "You are invited to tour or go on assignment across the sector. Gain Language 1 and one Contact.",
-      "eventChain": [
-        { "type": "Gain_Skill", "skills_list": [ "Language 1" ] },
-        { "type": "Gain_Contact", "amount": 1 }
-      ]
-    },
-    "10": {
-      "description": "You collaborate with another artist. Gain Art 1 or Advocate 1.",
-      "eventChain": [ { "type": "Gain_Skill", "skills_list": [ "Art 1", "Advocate 1" ] } ]
-    },
-    "11": {
-      "description": "Your work is nominated for a major award. Gain +1 SOC or gain 1d3 Ship Shares.",
-      "eventChain": [
-        {
-          "type": "choice",
-          "choices": [
-            { "type": "Increase_Stat", "stat": "SOC", "amount": 1 },
-            { "type": "Gain_Benefit", "benefit": "Ship Share", "amount": "D3" }
-          ]
-        }
-      ]
-    },
-    "12": {
-      "description": "You achieve fame across multiple worlds. Gain +2 SOC or a permanent TAS Membership.",
-      "eventChain": [
-        {
-          "type": "choice",
-          "choices": [
-            { "type": "Increase_Stat", "stat": "SOC", "amount": 2 },
-            { "type": "Gain_Benefit", "benefit": "TAS Membership" }
-          ]
-        }
-      ]
-    }
-  }
-},
-    "mariner": {
-  "hasCommission": true,
-  "comission": { "SOC": 7 },
-  "qualification": { "END": 5 },
-  "assignments": [
-    "Engineer/Gunner",
-    "Sailor",
-    "Submariner"
-  ],
-  "career_progress": {
-    "survival": {
-      "Engineer/Gunner": { "EDU": 6 },
-      "Sailor": { "END": 6 },
-      "Submariner": { "INT": 6 }
-    },
-    "advancement": {
-      "Engineer/Gunner": { "EDU": 7 },
-      "Sailor": { "SOC": 6 },
-      "Submariner": { "INT": 7 }
-    }
-  },
-  "muster_out_benefits": {
-    "cash": {
-      "1": 2000,
-      "2": 5000,
-      "3": 10000,
-      "4": 10000,
-      "5": 10000,
-      "6": 20000,
-      "7": 30000
-    },
-    "benefits": {
-      "1": "Weapon",
-      "2": "SOC +1",
-      "3": "INT +1",
-      "4": "Ship Share",
-      "5": "EDU +1",
-      "6": "Low Passage",
-      "7": "TAS Membership"
-    }
-  },
-  "skills_and_training": {
-    "personal_development": {
-      "1": "STR +1",
-      "2": "DEX +1",
-      "3": "END +1",
-      "4": "INT +1",
-      "5": "EDU +1",
-      "6": "Carouse"
-    },
-    "service_skills": {
-      "1": "Mechanic",
-      "2": "Gun Combat",
-      "3": "Vacc Suit",
-      "4": "Athletics",
-      "5": "Pilot (small craft)",
-      "6": "Electronics"
-    },
-    "advanced_education_requirements": { "EDU": 8 },
-    "advanced_education": {
-      "1": "Engineer",
-      "2": "Leadership",
-      "3": "Admin",
-      "4": "Navigation",
-      "5": "Tactics (Naval)",
-      "6": "Medic"
-    },
-    "engineer/gunner": {
-      "1": "Mechanic",
-      "2": "Engineer",
-      "3": "Electronics",
-      "4": "Gun Combat",
-      "5": "Heavy Weapons",
-      "6": "Vacc Suit"
-    },
-    "sailor": {
-      "1": "Pilot (small craft)",
-      "2": "Athletics",
-      "3": "Seafarer",
-      "4": "Gun Combat",
-      "5": "Carouse",
-      "6": "Stealth"
-    },
-    "submariner": {
-      "1": "Electronics (sensors)",
-      "2": "Mechanic",
-      "3": "Stealth",
-      "4": "Vacc Suit",
-      "5": "Pilot (small craft)",
-      "6": "Navigation"
-    }
-  },
-  "ranks": {
-    "enlisted": {
-      "0": "Crewman",
-      "1": "Able Seaman",
-      "2": "Petty Officer",
-      "3": "Chief Petty Officer",
-      "4": "Senior Chief",
-      "5": "Master Chief",
-      "6": "Fleet Chief"
-    },
-    "officer": {
-      "1": "Ensign",
-      "2": "Lieutenant",
-      "3": "Lieutenant Commander",
-      "4": "Commander",
-      "5": "Captain",
-      "6": "Admiral"
-    }
-  },
-  "rank_bonus": {
-    "enlisted": {
-      "0": "Mechanic 1",
-      "1": "-",
-      "2": "Vacc Suit 1",
-      "3": "-",
-      "4": "Leadership 1",
-      "5": "-",
-      "6": "SOC +1"
-    },
-    "officer": {
-      "1": "Leadership 1",
-      "2": "Tactics (Naval) 1",
-      "3": "-",
-      "4": "-",
-      "5": "-",
-      "6": "SOC +1"
-    }
-  },
-  "mishaps": {
-    "1": {
-      "description": "Severely injured. Treat this as a 2 on the Injury Table or roll twice and take the lower result.",
-      "eventChain": [ { "type": "Severe_Injury" } ]
-    },
-    "2": {
-      "description": "A serious accident occurs on duty. Roll END 8+ or suffer an Injury.",
-      "eventChain": [
-        {
-          "type": "Roll_Stat",
-          "stat": "END",
-          "target": 8,
-          "Failure": { "type": "Injury" }
-        }
-      ]
-    },
-    "3": {
-      "description": "You are blamed for a mistake on a mission. Gain an Enemy and -1 SOC.",
-      "eventChain": [
-        { "type": "Gain_Enemy", "amount": 1 },
-        { "type": "Decrease_Stat", "stat": "SOC", "amount": 1 }
-      ]
-    },
-    "4": {
-      "description": "You are discharged for insubordination or poor conduct. Lose any Benefit Rolls from this term.",
-      "eventChain": [ { "type": "Lose_Benefit_Roll", "amount": 1 } ]
-    },
-    "5": {
-      "description": "A commanding officer has it in for you. Gain a Rival.",
-      "eventChain": [ { "type": "Gain_Rival", "amount": 1 } ]
-    },
-    "6": {
-      "description": "Injured. Roll on the Injury Table.",
-      "eventChain": [ { "type": "Injury" } ]
-    }
-  },
-  "events": {
-    "2": {
-      "description": "Disaster! Roll on the Mishap Table but you are not ejected from the career.",
-      "eventChain": [ { "type": "Disaster" } ]
-    },
-    "3": {
-      "description": "You are sent on a dangerous mission. Roll INT 8+. If successful, gain +1 EDU or Electronics 1.",
-      "eventChain": [
-        {
-          "type": "Roll_Stat",
-          "stat": "INT",
-          "target": 8,
-          "Success": {
-            "type": "choice",
-            "choices": [
-              { "type": "Increase_Stat", "stat": "EDU", "amount": 1 },
-              { "type": "Gain_Skill", "skills_list": [ "Electronics 1" ] }
-            ]
+        ]
+      },
+      "4": {
+        "description": "You complete a mission for you superiors and are suitably rewarded. Gain DM+1 to any one Benefit roll from this career.",
+        "eventChain": [{ "type": "Benefit_DM", "DM": 1 }]
+      },
+      "5": {
+        "description": "You establish a network of contacts. Gain D3 Contacts.",
+        "eventChain": [{ "type": "Gain_Contacts", "amount": "D3" }]
+      },
+      "6": {
+        "description": "You are already given advanced training in a specialist field. Roll Education 8+ to increase any one skill you already have one level in."
+      },
+      "7": {
+        "description": "Life Event.",
+        "eventChain": [{ "type": "Life_Event" }]
+      },
+      "8": {
+        "description": "You go undercover to investigate an Enemy. Roll Deception 8+. If you succeed, roll immediately on the Rogue or Citizen Events table and make one roll on any Specialist skill table for that career. If you fail, roll immediately on the Rogue or Citizen mishap Tables.",
+        "eventChain": [
+          {
+            "type": "Roll_Skill",
+            "SkillsAbleToRoll": [{ "Deception": 8 }],
+            "Success": [
+              {
+                "type": "Roll_On_Events_Table",
+                "Events_Tables": ["Rogue", "Citizen"]
+              },
+              {
+                "type": "Roll_On_Specialist_Table",
+                "Events_Tables": ["Rogue", "Citizen"]
+              }
+            ],
+            "Failure": {
+              "type": "Roll_On_Mishaps_Table",
+              "Events_Tables": ["Rogue", "Citizen"]
+            }
           }
-        }
-      ]
-    },
-    "4": {
-      "description": "You take part in a successful military operation. Gain Tactics (Naval) 1 or SOC +1.",
-      "eventChain": [
-        {
-          "type": "choice",
-          "choices": [
-            { "type": "Gain_Skill", "skills_list": [ "Tactics (Naval) 1" ] },
-            { "type": "Increase_Stat", "stat": "SOC", "amount": 1 }
-          ]
-        }
-      ]
-    },
-    "5": {
-      "description": "You bond with your crewmates. Gain 1d3 Allies.",
-      "eventChain": [ { "type": "Gain_Ally", "amount": "D3" } ]
-    },
-    "6": {
-      "description": "You receive advanced training. Increase any skill you already have by one level.",
-      "eventChain": [ { "type": "Increase_Skill", "skills_list": [ "Any" ] } ]
-    },
-    "7": {
-      "description": "Life Event.",
-      "eventChain": [ { "type": "Life_Event" } ]
-    },
-    "8": {
-      "description": "You are given command responsibility. Gain Leadership 1 or Admin 1.",
-      "eventChain": [ { "type": "Gain_Skill", "skills_list": [ "Leadership 1", "Admin 1" ] } ]
-    },
-    "9": {
-      "description": "You impress a superior. Gain DM+2 on your next advancement roll.",
-      "eventChain": [ { "type": "Advancement_DM", "DM": 2 } ]
-    },
-    "10": {
-      "description": "You are offered a chance to participate in a high-profile operation. Gain one level in any service skill.",
-      "eventChain": [ { "type": "Gain_Skill", "skills_list": [ "Service_Skill" ] } ]
-    },
-    "11": {
-      "description": "You foil an act of sabotage or betrayal. Gain an Ally and a +1 DM to next Benefit Roll.",
-      "eventChain": [
-        { "type": "Gain_Ally", "amount": 1 },
-        { "type": "Benefit_DM", "DM": 1 }
-      ]
-    },
-    "12": {
-      "description": "You distinguish yourself in a campaign. Automatically promoted.",
-      "eventChain": [ { "type": "Automatic_Promotion" } ]
-    }
-  }
-},
-    "merchant": {
-  "hasCommission": true,
-  "comission": { "SOC": 7 },
-  "qualification": { "INT": 6 },
-  "assignments": [
-    "Free Trader",
-    "Broker",
-    "Merchant Marine"
-  ],
-  "career_progress": {
-    "survival": {
-      "Free Trader": { "END": 5 },
-      "Broker": { "INT": 6 },
-      "Merchant Marine": { "EDU": 5 }
-    },
-    "advancement": {
-      "Free Trader": { "SOC": 6 },
-      "Broker": { "INT": 7 },
-      "Merchant Marine": { "EDU": 6 }
-    }
-  },
-  "muster_out_benefits": {
-    "cash": {
-      "1": 1000,
-      "2": 5000,
-      "3": 10000,
-      "4": 10000,
-      "5": 20000,
-      "6": 20000,
-      "7": 30000
-    },
-    "benefits": {
-      "1": "EDU +1",
-      "2": "SOC +1",
-      "3": "TAS Membership",
-      "4": "Ship Share",
-      "5": "Contact",
-      "6": "INT +1",
-      "7": "Weapon"
-    }
-  },
-  "skills_and_training": {
-    "personal_development": {
-      "1": "STR +1",
-      "2": "DEX +1",
-      "3": "END +1",
-      "4": "INT +1",
-      "5": "SOC +1",
-      "6": "Carouse"
-    },
-    "service_skills": {
-      "1": "Drive",
-      "2": "Electronics",
-      "3": "Flyer",
-      "4": "Streetwise",
-      "5": "Trade",
-      "6": "Admin"
-    },
-    "advanced_education_requirements": { "EDU": 8 },
-    "advanced_education": {
-      "1": "Advocate",
-      "2": "Broker",
-      "3": "Electronics",
-      "4": "Leadership",
-      "5": "Diplomat",
-      "6": "Navigation"
-    },
-    "free trader": {
-      "1": "Pilot",
-      "2": "Vacc Suit",
-      "3": "Mechanic",
-      "4": "Electronics",
-      "5": "Streetwise",
-      "6": "Gun Combat"
-    },
-    "broker": {
-      "1": "Admin",
-      "2": "Advocate",
-      "3": "Broker",
-      "4": "Diplomat",
-      "5": "Streetwise",
-      "6": "Trade"
-    },
-    "merchant marine": {
-      "1": "Drive",
-      "2": "Mechanic",
-      "3": "Navigation",
-      "4": "Vacc Suit",
-      "5": "Pilot",
-      "6": "Gun Combat"
-    }
-  },
-  "ranks": {
-    "enlisted": {
-      "0": "Deckhand",
-      "1": "Cargo Handler",
-      "2": "Quartermaster",
-      "3": "Chief Steward",
-      "4": "Chief Engineer",
-      "5": "Executive Officer",
-      "6": "Fleet Manager"
-    },
-    "officer": {
-      "1": "Third Officer",
-      "2": "Second Officer",
-      "3": "First Officer",
-      "4": "Captain",
-      "5": "Regional Director",
-      "6": "CEO"
-    }
-  },
-  "rank_bonus": {
-    "enlisted": {
-      "0": "Trade 1",
-      "1": "Vacc Suit 1",
-      "2": "Pilot 1",
-      "3": "Electronics 1",
-      "4": "-",
-      "5": "-",
-      "6": "SOC +1"
-    },
-    "officer": {
-      "1": "Leadership 1",
-      "2": "Admin 1",
-      "3": "-",
-      "4": "Tactics (Naval) 1",
-      "5": "-",
-      "6": "SOC +1"
-    }
-  },
-  "mishaps": {
-    "1": {
-      "description": "Severely injured. Treat as 2 on the Injury Table or roll twice and take the lower result.",
-      "eventChain": [ { "type": "Severe_Injury" } ]
-    },
-    "2": {
-      "description": "Your ship is lost due to an accident, piracy, or misjump. You are blamed and discharged.",
-      "eventChain": [
-        { "type": "Removed_From_Career_No_Benefits" },
-        { "type": "Gain_Enemy", "amount": 1 }
-      ]
-    },
-    "3": {
-      "description": "You are investigated for smuggling or fraud. Roll Advocate 8+ or lose all benefit rolls this term.",
-      "eventChain": [
-        {
-          "type": "Roll_Skill",
-          "SkillsAbleToRoll": [ { "Advocate": 8 } ],
-          "Failure": { "type": "Lose_Benefit_Roll", "amount": 1 }
-        }
-      ]
-    },
-    "4": {
-      "description": "A trade deal goes bad and you are left in debt. Lose 1d6×1000 credits.",
-      "eventChain": [ { "type": "Lose_Money", "amount": "1d6*1000" } ]
-    },
-    "5": {
-      "description": "You make a powerful rival in the business world.",
-      "eventChain": [ { "type": "Gain_Rival", "amount": 1 } ]
-    },
-    "6": {
-      "description": "Injured. Roll on the Injury Table.",
-      "eventChain": [ { "type": "Injury" } ]
-    }
-  },
-  "events": {
-    "2": {
-      "description": "Disaster! Roll on the Mishap Table but you are not ejected from the career.",
-      "eventChain": [ { "type": "Disaster" } ]
-    },
-    "3": {
-      "description": "You close a major trade deal. Gain DM+1 to next benefit roll.",
-      "eventChain": [ { "type": "Benefit_DM", "DM": 1 } ]
-    },
-    "4": {
-      "description": "You are involved in a piracy-related incident. Gain Gun Combat 1 or Stealth 1.",
-      "eventChain": [ { "type": "Gain_Skill", "skills_list": [ "Gun Combat 1", "Stealth 1" ] } ]
-    },
-    "5": {
-      "description": "You make a great contact. Gain an Ally or Contact.",
-      "eventChain": [
-        {
-          "type": "choice",
-          "choices": [
-            { "type": "Gain_Ally", "amount": 1 },
-            { "type": "Gain_Contact", "amount": 1 }
-          ]
-        }
-      ]
-    },
-    "6": {
-      "description": "You are promoted to an administrative or command role. Gain Admin 1 or Leadership 1.",
-      "eventChain": [ { "type": "Gain_Skill", "skills_list": [ "Admin 1", "Leadership 1" ] } ]
-    },
-    "7": {
-      "description": "Life Event.",
-      "eventChain": [ { "type": "Life_Event" } ]
-    },
-    "8": {
-      "description": "You help broker a planetary trade alliance. Gain Broker 1 or Advocate 1.",
-      "eventChain": [ { "type": "Gain_Skill", "skills_list": [ "Broker 1", "Advocate 1" ] } ]
-    },
-    "9": {
-      "description": "You catch a subordinate stealing or smuggling. Gain an Enemy or +1 SOC.",
-      "eventChain": [
-        {
-          "type": "choice",
-          "choices": [
-            { "type": "Gain_Enemy", "amount": 1 },
-            { "type": "Increase_Stat", "stat": "SOC", "amount": 1 }
-          ]
-        }
-      ]
-    },
-    "10": {
-      "description": "You land a very profitable deal. Gain 1d6×1000 credits or a Ship Share.",
-      "eventChain": [
-        {
-          "type": "choice",
-          "choices": [
-            { "type": "Gain_Money", "amount": "1d6*1000" },
-            { "type": "Gain_Benefit", "benefit": "Ship Share" }
-          ]
-        }
-      ]
-    },
-    "11": {
-      "description": "You make the cover of a major business journal. Gain +1 SOC or TAS Membership.",
-      "eventChain": [
-        {
-          "type": "choice",
-          "choices": [
-            { "type": "Increase_Stat", "stat": "SOC", "amount": 1 },
-            { "type": "Gain_Benefit", "benefit": "TAS Membership" }
-          ]
-        }
-      ]
-    },
-    "12": {
-      "description": "You are awarded a prestigious trade medal. Automatically promoted or gain a permanent Broker +1.",
-      "eventChain": [
-        {
-          "type": "choice",
-          "choices": [
-            { "type": "Automatic_Promotion" },
-            { "type": "Increase_Skill", "skills_list": [ "Broker" ] }
-          ]
-        }
-      ]
-    }
-  }
-},
-    "navy": {
-  "hasCommission": true,
-  "comission": { "SOC": 8 },
-  "qualification": { "INT": 6 },
-  "assignments": [
-    "Line/Crew",
-    "Engineer/Gunner",
-    "Flight"
-  ],
-  "career_progress": {
-    "survival": {
-      "Line/Crew": { "END": 6 },
-      "Engineer/Gunner": { "EDU": 7 },
-      "Flight": { "DEX": 7 }
-    },
-    "advancement": {
-      "Line/Crew": { "SOC": 7 },
-      "Engineer/Gunner": { "INT": 6 },
-      "Flight": { "EDU": 6 }
-    }
-  },
-  "muster_out_benefits": {
-    "cash": {
-      "1": 2000,
-      "2": 5000,
-      "3": 10000,
-      "4": 10000,
-      "5": 20000,
-      "6": 30000,
-      "7": 50000
-    },
-    "benefits": {
-      "1": "Weapon",
-      "2": "INT +1",
-      "3": "EDU +1",
-      "4": "TAS Membership",
-      "5": "SOC +1",
-      "6": "Ship Share",
-      "7": "Ship Share"
-    }
-  },
-  "skills_and_training": {
-    "personal_development": {
-      "1": "STR +1",
-      "2": "DEX +1",
-      "3": "END +1",
-      "4": "INT +1",
-      "5": "EDU +1",
-      "6": "SOC +1"
-    },
-    "service_skills": {
-      "1": "Vacc Suit",
-      "2": "Athletics",
-      "3": "Gun Combat",
-      "4": "Heavy Weapons",
-      "5": "Mechanic",
-      "6": "Electronics"
-    },
-    "advanced_education_requirements": { "EDU": 8 },
-    "advanced_education": {
-      "1": "Admin",
-      "2": "Advocate",
-      "3": "Leadership",
-      "4": "Navigation",
-      "5": "Tactics (Naval)",
-      "6": "Medic"
-    },
-    "line/crew": {
-      "1": "Gun Combat",
-      "2": "Heavy Weapons",
-      "3": "Vacc Suit",
-      "4": "Athletics",
-      "5": "Tactics (Naval)",
-      "6": "Leadership"
-    },
-    "engineer/gunner": {
-      "1": "Mechanic",
-      "2": "Engineer",
-      "3": "Electronics",
-      "4": "Gunner",
-      "5": "Vacc Suit",
-      "6": "Heavy Weapons"
-    },
-    "flight": {
-      "1": "Pilot",
-      "2": "Mechanic",
-      "3": "Electronics",
-      "4": "Navigation",
-      "5": "Vacc Suit",
-      "6": "Tactics (Naval)"
-    }
-  },
-  "ranks": {
-    "enlisted": {
-      "0": "Crewman",
-      "1": "Able Spacehand",
-      "2": "Petty Officer",
-      "3": "Chief Petty Officer",
-      "4": "Senior Chief",
-      "5": "Master Chief",
-      "6": "Fleet Chief"
-    },
-    "officer": {
-      "1": "Ensign",
-      "2": "Lieutenant",
-      "3": "Lieutenant Commander",
-      "4": "Commander",
-      "5": "Captain",
-      "6": "Admiral"
-    }
-  },
-  "rank_bonus": {
-    "enlisted": {
-      "0": "Vacc Suit 1",
-      "1": "-",
-      "2": "Leadership 1",
-      "3": "Tactics (Naval) 1",
-      "4": "-",
-      "5": "-",
-      "6": "SOC +1"
-    },
-    "officer": {
-      "1": "Leadership 1",
-      "2": "Admin 1",
-      "3": "-",
-      "4": "Tactics (Naval) 1",
-      "5": "-",
-      "6": "SOC +1"
-    }
-  },
-  "mishaps": {
-    "1": {
-      "description": "Severely injured. Treat as 2 on the Injury Table or roll twice and take the lower result.",
-      "eventChain": [ { "type": "Severe_Injury" } ]
-    },
-    "2": {
-      "description": "A disaster destroys your ship. You survive, but are discharged and gain an Enemy.",
-      "eventChain": [
-        { "type": "Removed_From_Career_No_Benefits" },
-        { "type": "Gain_Enemy", "amount": 1 }
-      ]
-    },
-    "3": {
-      "description": "You are investigated for misconduct or incompetence. Roll Admin 8+ or lose all Benefit Rolls.",
-      "eventChain": [
-        {
-          "type": "Roll_Skill",
-          "SkillsAbleToRoll": [ { "Admin": 8 } ],
-          "Failure": { "type": "Lose_Benefit_Roll", "amount": 1 }
-        }
-      ]
-    },
-    "4": {
-      "description": "You disobey orders and are court-martialed. Lose SOC -1 and gain a Rival.",
-      "eventChain": [
-        { "type": "Decrease_Stat", "stat": "SOC", "amount": 1 },
-        { "type": "Gain_Rival", "amount": 1 }
-      ]
-    },
-    "5": {
-      "description": "You are injured in a battle or drill. Roll on the Injury Table.",
-      "eventChain": [ { "type": "Injury" } ]
-    },
-    "6": {
-      "description": "Injured. Roll on the Injury Table.",
-      "eventChain": [ { "type": "Injury" } ]
-    }
-  },
-  "events": {
-    "2": {
-      "description": "Disaster! Roll on the Mishap Table but do not leave the career.",
-      "eventChain": [ { "type": "Disaster" } ]
-    },
-    "3": {
-      "description": "You distinguish yourself in a shipboard emergency. Gain Mechanic 1 or Vacc Suit 1.",
-      "eventChain": [ { "type": "Gain_Skill", "skills_list": [ "Mechanic 1", "Vacc Suit 1" ] } ]
-    },
-    "4": {
-      "description": "You serve with distinction. Gain DM+1 to any one Benefit Roll.",
-      "eventChain": [ { "type": "Benefit_DM", "DM": 1 } ]
-    },
-    "5": {
-      "description": "You bond with your crewmates. Gain 1d3 Allies.",
-      "eventChain": [ { "type": "Gain_Ally", "amount": "D3" } ]
-    },
-    "6": {
-      "description": "You are given advanced training. Increase any skill you already have by one level.",
-      "eventChain": [ { "type": "Increase_Skill", "skills_list": [ "Any" ] } ]
-    },
-    "7": {
-      "description": "Life Event.",
-      "eventChain": [ { "type": "Life_Event" } ]
-    },
-    "8": {
-      "description": "You distinguish yourself in battle. Gain Gun Combat 1 or Leadership 1.",
-      "eventChain": [ { "type": "Gain_Skill", "skills_list": [ "Gun Combat 1", "Leadership 1" ] } ]
-    },
-    "9": {
-      "description": "You impress a superior officer. Gain +2 DM to your next Advancement roll.",
-      "eventChain": [ { "type": "Advancement_DM", "DM": 2 } ]
-    },
-    "10": {
-      "description": "You are assigned to a prestigious command. Gain Admin 1 or SOC +1.",
-      "eventChain": [
-        {
-          "type": "choice",
-          "choices": [
-            { "type": "Gain_Skill", "skills_list": [ "Admin 1" ] },
-            { "type": "Increase_Stat", "stat": "SOC", "amount": 1 }
-          ]
-        }
-      ]
-    },
-    "11": {
-      "description": "You participate in a major space battle. Roll INT 8+ to gain Tactics (Naval) 1 or Leadership 1.",
-      "eventChain": [
-        {
-          "type": "Roll_Stat",
-          "stat": "INT",
-          "target": 8,
-          "Success": {
+        ]
+      },
+      "9": {
+        "description": "You go above and beyond the call of duty. Gain DM+2 on to your next advancement roll.",
+        "eventChain": [{ "type": "Advancement_DM", "DM": 2 }]
+      },
+      "10": {
+        "description": "You are given a specialist training in vehicles. Gain one of Drive 1, Flyer 1, Pilot 1 or Gunner 1.",
+        "eventChain": [
+          {
             "type": "Gain_Skill",
-            "skills_list": [ "Tactics (Naval) 1", "Leadership 1" ]
+            "skills_list": ["Drive 1", "Flyer 1", "Gunner 1"]
           }
-        }
-      ]
+        ]
+      },
+      "11": {
+        "description": "You are brefriended by a senior agent. Either increase Investigate by one level or DM+4 to advancement roll thanks to their aid.",
+        "eventChain": [
+          {
+            "type": "choice",
+            "choices": [
+              {
+                "type": "Increase_Skill",
+                "skills_list": ["Investigate"]
+              },
+              {
+                "type": "Advancement_DM",
+                "DM": 4
+              }
+            ]
+          }
+        ]
+      },
+      "12": {
+        "description": "Your efforts uncover a major conspiracy against your employers. You are automatically promoted.",
+        "eventChain": [
+          {
+            "type": "Automatic_Promotion"
+          }
+        ]
+      }
+    }
+  },
+  "army": {
+    "hasCommission": true,
+    "comission": { "SOC": 8 },
+    "qualification": { "END": 5 },
+    "assignments": ["Support", "Infantry", "Cavalry"],
+    "career_progress": {
+      "survival": {
+        "Support": { "END": 5 },
+        "Infantry": { "STR": 6 },
+        "Cavalry": { "DEX": 7 }
+      },
+      "advancement": {
+        "Support": { "EDU": 7 },
+        "Infantry": { "EDU": 6 },
+        "Cavalry": { "INT": 5 }
+      }
     },
-    "12": {
-      "description": "You are awarded a medal for valor. Automatically promoted or SOC +1.",
-      "eventChain": [
-        {
-          "type": "choice",
-          "choices": [
-            { "type": "Automatic_Promotion" },
-            { "type": "Increase_Stat", "stat": "SOC", "amount": 1 }
-          ]
-        }
-      ]
+    "muster_out_benefits": {
+      "cash": {
+        "1": 2000,
+        "2": 5000,
+        "3": 10000,
+        "4": 10000,
+        "5": 10000,
+        "6": 20000,
+        "7": 30000
+      },
+      "benefits": {
+        "1": "Cybernetic Implant",
+        "2": "INT +1",
+        "3": "EDU +1",
+        "4": "Weapon",
+        "5": "Armour",
+        "6": ["END +1", "Cybernetic Implant"],
+        "7": "SOC +1"
+      }
+    },
+    "skills_and_training": {
+      "personal_development": {
+        "1": "STR +1",
+        "2": "DEX +1",
+        "3": "END +1",
+        "4": "Gambler",
+        "5": "Medic",
+        "6": "Melee"
+      },
+      "service_skills": {
+        "1": ["Drive", "Vacc Suit"],
+        "2": "Athletics",
+        "3": "Gun Combat",
+        "4": "Recon",
+        "5": "Melee",
+        "6": "Heavy Weapons"
+      },
+      "advanced_education_requirements": { "INT": 8 },
+      "advanced_education": {
+        "1": "Tactics (Military)",
+        "2": "Electronics",
+        "3": "Navigation",
+        "4": "Explosives",
+        "5": "Engineer",
+        "6": "Survival"
+      },
+      "officer": {
+        "1": "Tactics (Military)",
+        "2": "Leadership",
+        "3": "Advocate",
+        "4": "Diplomat",
+        "5": "Electronics",
+        "6": "Admin"
+      },
+      "support": {
+        "1": "Mechanic",
+        "2": ["Drive", "Flyer"],
+        "3": "Profession",
+        "4": "Explosives",
+        "5": "Electronics (comms)",
+        "6": "Medic"
+      },
+      "infantry": {
+        "1": "Gun Combat",
+        "2": "Melee",
+        "3": "Heavy Weapons",
+        "4": "Stealth",
+        "5": "Athletics",
+        "6": "Recon"
+      },
+      "cavalry": {
+        "1": "Mechanic",
+        "2": "Drive",
+        "3": "Flyer",
+        "4": "Recon",
+        "5": "Heavy Weapons (vehicles)",
+        "6": "Electronics (sensors)"
+      }
+    },
+    "ranks": {
+      "enlisted": {
+        "0": "Private",
+        "1": "Lance Corporal",
+        "2": "Corporal",
+        "3": "Lance Sergeant",
+        "4": "Sergant",
+        "5": "Gunnery Sergant",
+        "6": "Sergant Major"
+      },
+      "officer": {
+        "1": "Lieutenant",
+        "2": "Captain",
+        "3": "Major",
+        "4": "Lieutenant Colonel",
+        "5": "Colonel",
+        "6": "General"
+      }
+    },
+    "rank_bonus": {
+      "enlisted": {
+        "0": "Gun Combat 1",
+        "1": "Reacon 1",
+        "2": "-",
+        "3": "Leadership 1",
+        "4": "-",
+        "5": "-",
+        "6": "-"
+      },
+      "officer": {
+        "1": "Leadership 1",
+        "2": "-",
+        "3": "Tactics (military) 1",
+        "4": "-",
+        "5": "-",
+        "6": ["SOC 10", "SOC +1"]
+      }
+    },
+    "mishaps": {
+      "1": {
+        "description": "Severely injuried (this is the same result as a result of 2 on the injury table). Alternatively, roll twice on the injury table and take the lower result.",
+        "eventChain": [{ "type": "Severe_Injury" }]
+      },
+      "2": {
+        "description": "Your unit is slaughtered in a disastrous battle, for which you blame your commander. Gain them as an Enemy as they have you removed from service.",
+        "eventChain": [
+          { "type": "Gain_Enemy", "amount": 1 },
+          { "type": "Removed_From_Career_No_Benefits" }
+        ]
+      },
+      "3": {
+        "description": "You are sent to a very unpleasant region (jungle, swamp, desert, ice cap, urban, etc) to battle against guerrilla fighters and rebels. You are discharged because of stress, injury, or because the government wishes to bury the whole incident. Increase recon or survival by one level but also gain the rebels as an Enemy.",
+        "eventChain": [
+          { "type": "Gain_Enemy", "amount": 1, "type_of_enemy": "Rebels" },
+          { "type": "Increase_Skill", "skills_list": ["Recon", "Survival"] }
+        ]
+      },
+      "4": {
+        "description": "You discover that your commanding officer is engage in some illegal activity, such as weapon smuggling. You can join their ring and gain them as an Ally before the inevitable investigation gets you discharged or you can co-operate with the military police - the official whitewash gets you discharged anyway but you may keep your benefits roll you this term of service.",
+        "eventChain": [
+          {
+            "type": "choice",
+            "choices": [
+              {
+                "type": "Gain_Ally",
+                "amount": 1
+              },
+              {
+                "type": "Removed_From_Career"
+              }
+            ]
+          }
+        ]
+      },
+      "5": {
+        "description": "You are tormented by or qurrel with an officer or fellow soldier. Gain that officer as a Rival as they drive you out of the service",
+        "eventChain": [
+          { "type": "Gain_Rival", "amount": 1 },
+          { "type": "Removed_From_Career_No_Benefits" }
+        ]
+      },
+      "6": {
+        "description": "Injured. Roll on the Injury Table.",
+        "eventChain": [{ "type": "Injury" }]
+      }
+    },
+    "events": {
+      "2": {
+        "description": "Disaster! Roll on the Mishap Table but you are not ejected from this career.",
+        "eventChain": [{ "type": "Disaster" }]
+      },
+      "3": {
+        "description": "You are assigned to a planet with a hostile or wild environment. Gain one of Vacc Suit 1, Engineer 1, Animals (Riding or Training) 1 or Recon 1",
+        "eventChain": [
+          {
+            "type": "Gain_Skill",
+            "skills_list": [
+              "Vacc Suit 1",
+              "Engineer 1",
+              "Animals (Riding) 1",
+              "Animals (Training) 1",
+              "Recon 1"
+            ]
+          }
+        ]
+      },
+      "4": {
+        "description": "You are assigned to an urbanized planet torn by war. Gain one of Stealth 1, Streetwise 1, Persuade 1, or Recon 1",
+        "eventChain": [
+          {
+            "type": "Gain_Skill",
+            "skills_list": [
+              "Stealth 1",
+              "Streetwise 1",
+              "Persuade 1",
+              "Recon 1"
+            ]
+          }
+        ]
+      },
+      "5": {
+        "description": "You are given a special assignment or duty in your unit. Gain DM+1 to any one Benefit Roll.",
+        "eventChain": [{ "type": "Benefit_DM", "DM": 1 }]
+      },
+      "6": {
+        "description": "You are thrown into a brutal ground war. Roll EDU 8+ to avoid injury; if you succeed, you gain one level in Gun Combat or Leadership",
+        "eventChain": [
+          {
+            "type": "Increase_Skill",
+            "skills_list": ["Gun Combat", "Leadership"]
+          }
+        ]
+      },
+      "7": {
+        "description": "Life Event.",
+        "eventChain": [{ "type": "Life_Event" }]
+      },
+      "8": {
+        "description": "You are given advanced training in a specialist field. EDU 8+ to increase any one skill you already have by one level",
+        "eventChain": [{ "type": "Increase_Skill", "skills_list": ["Any"] }]
+      },
+      "9": {
+        "description": "Surrounded and outnumbered by the enemy, you hold out until relief arrives. Gain DM+2 on your next advancement roll",
+        "eventChain": [{ "type": "Advancement_DM", "DM": 2 }]
+      },
+      "10": {
+        "description": "You are assigned to a peacekeepering role. Gain one of Admin 1, Investigate 1, Deception 1, or Recon 1",
+        "eventChain": [
+          {
+            "type": "Gain_Skill",
+            "skills_list": [
+              "Admin 1",
+              "Investigate 1",
+              "Deception 1",
+              "Recon 1"
+            ]
+          }
+        ]
+      },
+      "11": {
+        "description": "Your commanding office takes an interest in your career. Ether gain Tactics (Military) 1, or DM+4 to your next advancement roll thanks to their aid.",
+        "eventChain": [
+          {
+            "type": "choice",
+            "choices": [
+              {
+                "type": "Gain_Skill",
+                "skills_list": ["Tactics (Military) 1"]
+              },
+              {
+                "type": "Advancement_DM",
+                "DM": 4
+              }
+            ]
+          }
+        ]
+      },
+      "12": {
+        "description": "You display heroism in battle. You may gain a promotion or a comission automatically.",
+        "eventChain": [{ "type": "Automatic_Promotion_Or_Comission" }]
+      }
+    }
+  },
+  "citizen": {
+    "hasCommission": false,
+    "qualification": { "EDU": 5 },
+    "assignments": ["Corporate", "Worker", "Colonist"],
+    "career_progress": {
+      "survival": {
+        "Corporate": { "INT": 5 },
+        "Worker": { "END": 5 },
+        "Colonist": { "EDU": 5 }
+      },
+      "advancement": {
+        "Corporate": { "INT": 6 },
+        "Worker": { "STR": 6 },
+        "Colonist": { "SOC": 6 }
+      }
+    },
+    "muster_out_benefits": {
+      "cash": {
+        "1": 1000,
+        "2": 5000,
+        "3": 5000,
+        "4": 10000,
+        "5": 10000,
+        "6": 20000,
+        "7": 30000
+      },
+      "benefits": {
+        "1": "Contact",
+        "2": "INT +1",
+        "3": "EDU +1",
+        "4": "Weapon",
+        "5": "SOC +1",
+        "6": "Ship Share",
+        "7": "TAS Membership"
+      }
+    },
+    "skills_and_training": {
+      "personal_development": {
+        "1": "STR +1",
+        "2": "DEX +1",
+        "3": "END +1",
+        "4": "INT +1",
+        "5": "EDU +1",
+        "6": "Gambler"
+      },
+      "service_skills": {
+        "1": "Drive",
+        "2": "Streetwise",
+        "3": "Profession",
+        "4": "Admin",
+        "5": "Carouse",
+        "6": "Language"
+      },
+      "advanced_education_requirements": { "EDU": 8 },
+      "advanced_education": {
+        "1": "Advocate",
+        "2": "Diplomat",
+        "3": "Leadership",
+        "4": "Persuade",
+        "5": "Trader",
+        "6": "Electronics"
+      },
+      "corporate": {
+        "1": "Admin",
+        "2": "Advocate",
+        "3": "Persuade",
+        "4": "Diplomat",
+        "5": "Broker",
+        "6": "Electronics"
+      },
+      "worker": {
+        "1": "Profession",
+        "2": "Drive",
+        "3": "Mechanic",
+        "4": "Streetwise",
+        "5": "Athletics",
+        "6": "Melee"
+      },
+      "colonist": {
+        "1": "Survival",
+        "2": "Animals",
+        "3": "Drive",
+        "4": "Medic",
+        "5": "Profession",
+        "6": "Recon"
+      }
+    },
+    "ranks": {},
+    "rank_bonus": {},
+    "mishaps": {
+      "1": {
+        "description": "Severely injured. Treat this as 2 on the Injury Table or roll twice and take the lower result.",
+        "eventChain": [{ "type": "Severe_Injury" }]
+      },
+      "2": {
+        "description": "You are downsized and lose your job. You may not take a benefit roll this term."
+      },
+      "3": {
+        "description": "Your company goes bankrupt or your settlement fails. You are stranded and must find a way home. Gain Streetwise 1."
+      },
+      "4": {
+        "description": "You are blamed for a workplace accident. Gain an Enemy.",
+        "eventChain": [{ "type": "Gain_Enemy", "amount": 1 }]
+      },
+      "5": {
+        "description": "You suffer a mental breakdown or crisis. Reduce any one mental stat by 1 (INT, EDU, or SOC)."
+      },
+      "6": {
+        "description": "Injured. Roll on the Injury Table.",
+        "eventChain": [{ "type": "Injury" }]
+      }
+    },
+    "events": {
+      "2": {
+        "description": "Disaster! Roll on the Mishap Table but do not leave the career.",
+        "eventChain": [{ "type": "Disaster" }]
+      },
+      "3": {
+        "description": "You make an important connection. Gain an Ally or Contact.",
+        "eventChain": [
+          {
+            "type": "choice",
+            "choices": [
+              { "type": "Gain_Ally", "amount": 1 },
+              { "type": "Gain_Contact", "amount": 1 }
+            ]
+          }
+        ]
+      },
+      "4": {
+        "description": "You are offered a promotion or raise. Gain DM+2 to next advancement roll.",
+        "eventChain": [{ "type": "Advancement_DM", "DM": 2 }]
+      },
+      "5": {
+        "description": "You take part in a community project or political movement. Gain Persuade 1 or Leadership 1.",
+        "eventChain": [
+          {
+            "type": "Gain_Skill",
+            "skills_list": ["Persuade 1", "Leadership 1"]
+          }
+        ]
+      },
+      "6": {
+        "description": "You are cross-trained in a different department. Gain any skill from another Citizen assignment table.",
+        "eventChain": [{ "type": "Gain_Skill_From_Other_Assignment" }]
+      },
+      "7": {
+        "description": "Life Event.",
+        "eventChain": [{ "type": "Life_Event" }]
+      },
+      "8": {
+        "description": "You’re offered an opportunity to retrain or study. Roll EDU 8+ to gain any one skill you already have by +1.",
+        "eventChain": [{ "type": "Increase_Skill", "skills_list": ["Any"] }]
+      },
+      "9": {
+        "description": "You get caught up in a local political conflict. Gain either Diplomat 1 or Deception 1.",
+        "eventChain": [
+          { "type": "Gain_Skill", "skills_list": ["Diplomat 1", "Deception 1"] }
+        ]
+      },
+      "10": {
+        "description": "You are mentored by a senior colleague. Gain EDU +1 or Admin 1.",
+        "eventChain": [
+          {
+            "type": "choice",
+            "choices": [
+              { "type": "Increase_Stat", "stat": "EDU", "amount": 1 },
+              { "type": "Gain_Skill", "skills_list": ["Admin 1"] }
+            ]
+          }
+        ]
+      },
+      "11": {
+        "description": "You uncover corruption or embezzlement. Gain Advocate 1 and an Enemy.",
+        "eventChain": [
+          { "type": "Gain_Skill", "skills_list": ["Advocate 1"] },
+          { "type": "Gain_Enemy", "amount": 1 }
+        ]
+      },
+      "12": {
+        "description": "You do something extraordinary in a mundane setting. Automatically promoted or gain a permanent +1 to one skill of your choice.",
+        "eventChain": [
+          {
+            "type": "choice",
+            "choices": [
+              { "type": "Automatic_Promotion" },
+              { "type": "Increase_Skill", "skills_list": ["Any"] }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "drifter": {
+    "hasCommission": false,
+    "qualification": { "STR": 4 },
+    "assignments": ["Wanderer", "Scavenger", "Hunter"],
+    "career_progress": {
+      "survival": {
+        "Wanderer": { "END": 6 },
+        "Scavenger": { "INT": 6 },
+        "Hunter": { "DEX": 6 }
+      },
+      "advancement": {
+        "Wanderer": { "SOC": 6 },
+        "Scavenger": { "INT": 7 },
+        "Hunter": { "EDU": 5 }
+      }
+    },
+    "muster_out_benefits": {
+      "cash": {
+        "1": 500,
+        "2": 1000,
+        "3": 1000,
+        "4": 2000,
+        "5": 5000,
+        "6": 5000,
+        "7": 10000
+      },
+      "benefits": {
+        "1": "Weapon",
+        "2": "INT +1",
+        "3": "Ship Share",
+        "4": "END +1",
+        "5": "Low Passage",
+        "6": "EDU +1",
+        "7": "TAS Membership"
+      }
+    },
+    "skills_and_training": {
+      "personal_development": {
+        "1": "STR +1",
+        "2": "DEX +1",
+        "3": "END +1",
+        "4": "Streetwise",
+        "5": "Melee",
+        "6": "Survival"
+      },
+      "service_skills": {
+        "1": "Athletics",
+        "2": "Recon",
+        "3": "Melee",
+        "4": "Stealth",
+        "5": "Streetwise",
+        "6": "Survival"
+      },
+      "advanced_education_requirements": { "EDU": 8 },
+      "advanced_education": {
+        "1": "Mechanic",
+        "2": "Electronics",
+        "3": "Language",
+        "4": "Medic",
+        "5": "Navigation",
+        "6": "Profession"
+      },
+      "wanderer": {
+        "1": "Athletics",
+        "2": "Carouse",
+        "3": "Streetwise",
+        "4": "Survival",
+        "5": "Melee",
+        "6": "Stealth"
+      },
+      "scavenger": {
+        "1": "Mechanic",
+        "2": "Streetwise",
+        "3": "Profession",
+        "4": "Recon",
+        "5": "Electronics",
+        "6": "Stealth"
+      },
+      "hunter": {
+        "1": "Animals",
+        "2": "Recon",
+        "3": "Survival",
+        "4": "Gun Combat",
+        "5": "Stealth",
+        "6": "Melee"
+      }
+    },
+    "ranks": {},
+    "rank_bonus": {},
+    "mishaps": {
+      "1": {
+        "description": "You are severely injured. Treat as 2 on the injury table or roll twice and take the lower result.",
+        "eventChain": [{ "type": "Severe_Injury" }]
+      },
+      "2": {
+        "description": "You offend a powerful local. Gain an Enemy and are forced to move on.",
+        "eventChain": [{ "type": "Gain_Enemy", "amount": 1 }]
+      },
+      "3": {
+        "description": "A storm, collapse, or other accident ruins your shelter or equipment. Roll END 8+ or lose one benefit roll from this career.",
+        "eventChain": [
+          {
+            "type": "Roll_Stat",
+            "stat": "END",
+            "target": 8,
+            "Failure": { "type": "Lose_Benefit_Roll", "amount": 1 }
+          }
+        ]
+      },
+      "4": {
+        "description": "You are hunted by a predator or local threat. Gain Gun Combat 1 or Melee 1, but suffer an Injury.",
+        "eventChain": [
+          { "type": "Gain_Skill", "skills_list": ["Gun Combat 1", "Melee 1"] },
+          { "type": "Injury" }
+        ]
+      },
+      "5": {
+        "description": "Your community or group is displaced. Lose one Contact or Ally if you have one."
+      },
+      "6": {
+        "description": "Injured. Roll on the Injury Table.",
+        "eventChain": [{ "type": "Injury" }]
+      }
+    },
+    "events": {
+      "2": {
+        "description": "Disaster! Roll on the Mishap Table but you are not ejected from the career.",
+        "eventChain": [{ "type": "Disaster" }]
+      },
+      "3": {
+        "description": "You are attacked by wild animals or raiders. Gain Melee 1 or Gun Combat 1.",
+        "eventChain": [
+          { "type": "Gain_Skill", "skills_list": ["Melee 1", "Gun Combat 1"] }
+        ]
+      },
+      "4": {
+        "description": "You salvage a significant find. Gain 1d3 Contacts and DM+1 to your next Benefit roll.",
+        "eventChain": [
+          { "type": "Gain_Contacts", "amount": "D3" },
+          { "type": "Benefit_DM", "DM": 1 }
+        ]
+      },
+      "5": {
+        "description": "You gain insight from hardship. Gain Survival 1 or increase INT by 1.",
+        "eventChain": [
+          {
+            "type": "choice",
+            "choices": [
+              { "type": "Gain_Skill", "skills_list": ["Survival 1"] },
+              { "type": "Increase_Stat", "stat": "INT", "amount": 1 }
+            ]
+          }
+        ]
+      },
+      "6": {
+        "description": "You meet a seasoned drifter who teaches you valuable tricks. Gain one level in any skill you already have.",
+        "eventChain": [{ "type": "Increase_Skill", "skills_list": ["Any"] }]
+      },
+      "7": {
+        "description": "Life Event.",
+        "eventChain": [{ "type": "Life_Event" }]
+      },
+      "8": {
+        "description": "You travel far and wide. Gain Language 1 and one extra Contact.",
+        "eventChain": [
+          { "type": "Gain_Skill", "skills_list": ["Language 1"] },
+          { "type": "Gain_Contact", "amount": 1 }
+        ]
+      },
+      "9": {
+        "description": "You become a folk hero in a local community. Gain one Ally and +1 SOC.",
+        "eventChain": [
+          { "type": "Gain_Ally", "amount": 1 },
+          { "type": "Increase_Stat", "stat": "SOC", "amount": 1 }
+        ]
+      },
+      "10": {
+        "description": "You scavenge high-tech salvage. Gain Electronics 1 or Mechanic 1.",
+        "eventChain": [
+          {
+            "type": "Gain_Skill",
+            "skills_list": ["Electronics 1", "Mechanic 1"]
+          }
+        ]
+      },
+      "11": {
+        "description": "You find a mysterious artifact or data cache. Roll INT 8+ to decode it. If successful, gain EDU +1 or 10,000 credits.",
+        "eventChain": [
+          {
+            "type": "Roll_Stat",
+            "stat": "INT",
+            "target": 8,
+            "Success": {
+              "type": "choice",
+              "choices": [
+                { "type": "Increase_Stat", "stat": "EDU", "amount": 1 },
+                { "type": "Gain_Money", "amount": 10000 }
+              ]
+            }
+          }
+        ]
+      },
+      "12": {
+        "description": "You overcome incredible odds. You may increase any one skill by +2 or gain a Ship Share.",
+        "eventChain": [
+          {
+            "type": "choice",
+            "choices": [
+              { "type": "Increase_Skill", "skills_list": ["Any"], "amount": 2 },
+              { "type": "Gain_Benefit", "benefit": "Ship Share" }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "entertainer": {
+    "hasCommission": false,
+    "qualification": { "SOC": 5 },
+    "assignments": ["Artist", "Performer", "Journalist"],
+    "career_progress": {
+      "survival": {
+        "Artist": { "DEX": 5 },
+        "Performer": { "END": 5 },
+        "Journalist": { "INT": 6 }
+      },
+      "advancement": {
+        "Artist": { "EDU": 6 },
+        "Performer": { "SOC": 6 },
+        "Journalist": { "EDU": 7 }
+      }
+    },
+    "muster_out_benefits": {
+      "cash": {
+        "1": 1000,
+        "2": 5000,
+        "3": 10000,
+        "4": 10000,
+        "5": 10000,
+        "6": 20000,
+        "7": 30000
+      },
+      "benefits": {
+        "1": "Weapon",
+        "2": "INT +1",
+        "3": "SOC +1",
+        "4": "TAS Membership",
+        "5": "Contact",
+        "6": "EDU +1",
+        "7": "Ship Share"
+      }
+    },
+    "skills_and_training": {
+      "personal_development": {
+        "1": "DEX +1",
+        "2": "END +1",
+        "3": "SOC +1",
+        "4": "Carouse",
+        "5": "Gambler",
+        "6": "Streetwise"
+      },
+      "service_skills": {
+        "1": "Art",
+        "2": "Carouse",
+        "3": "Deception",
+        "4": "Persuade",
+        "5": "Streetwise",
+        "6": "Electronics"
+      },
+      "advanced_education_requirements": { "EDU": 8 },
+      "advanced_education": {
+        "1": "Admin",
+        "2": "Art",
+        "3": "Advocate",
+        "4": "Language",
+        "5": "Electronics",
+        "6": "Leadership"
+      },
+      "artist": {
+        "1": "Art",
+        "2": "Language",
+        "3": "Streetwise",
+        "4": "Electronics",
+        "5": "Persuade",
+        "6": "Carouse"
+      },
+      "performer": {
+        "1": "Art",
+        "2": "Carouse",
+        "3": "Deception",
+        "4": "Gambler",
+        "5": "Streetwise",
+        "6": "Persuade"
+      },
+      "journalist": {
+        "1": "Art",
+        "2": "Investigate",
+        "3": "Electronics (comms)",
+        "4": "Persuade",
+        "5": "Language",
+        "6": "Streetwise"
+      }
+    },
+    "ranks": {},
+    "rank_bonus": {},
+    "mishaps": {
+      "1": {
+        "description": "Severely injured. Treat this as 2 on the Injury Table or roll twice and take the lower result.",
+        "eventChain": [{ "type": "Severe_Injury" }]
+      },
+      "2": {
+        "description": "You are caught up in a scandal. Gain a Rival and lose all benefit rolls from this term.",
+        "eventChain": [
+          { "type": "Gain_Rival", "amount": 1 },
+          { "type": "Lose_Benefit_Roll", "amount": 1 }
+        ]
+      },
+      "3": {
+        "description": "Your performance bombs or your work is rejected. Roll SOC 8+ or suffer -1 to SOC.",
+        "eventChain": [
+          {
+            "type": "Roll_Stat",
+            "stat": "SOC",
+            "target": 8,
+            "Failure": { "type": "Decrease_Stat", "stat": "SOC", "amount": 1 }
+          }
+        ]
+      },
+      "4": {
+        "description": "You are injured during a stunt, show, or field assignment. Roll on the Injury Table.",
+        "eventChain": [{ "type": "Injury" }]
+      },
+      "5": {
+        "description": "A powerful patron or agency drops you. Gain an Enemy.",
+        "eventChain": [{ "type": "Gain_Enemy", "amount": 1 }]
+      },
+      "6": {
+        "description": "Injured. Roll on the Injury Table.",
+        "eventChain": [{ "type": "Injury" }]
+      }
+    },
+    "events": {
+      "2": {
+        "description": "Disaster! Roll on the Mishap Table but do not leave the career.",
+        "eventChain": [{ "type": "Disaster" }]
+      },
+      "3": {
+        "description": "Your work gains you a notable contact. Gain one Ally or Contact.",
+        "eventChain": [
+          {
+            "type": "choice",
+            "choices": [
+              { "type": "Gain_Ally", "amount": 1 },
+              { "type": "Gain_Contact", "amount": 1 }
+            ]
+          }
+        ]
+      },
+      "4": {
+        "description": "You perform at a major venue or publish something notable. Gain DM+1 on one benefit roll.",
+        "eventChain": [{ "type": "Benefit_DM", "DM": 1 }]
+      },
+      "5": {
+        "description": "You are invited to mingle with the elite. Gain one of Carouse 1, SOC +1, or a TAS Membership.",
+        "eventChain": [
+          {
+            "type": "choice",
+            "choices": [
+              { "type": "Gain_Skill", "skills_list": ["Carouse 1"] },
+              { "type": "Increase_Stat", "stat": "SOC", "amount": 1 },
+              { "type": "Gain_Benefit", "benefit": "TAS Membership" }
+            ]
+          }
+        ]
+      },
+      "6": {
+        "description": "You spend time perfecting your craft. Gain any Art specialty at 1 or increase Art by one level.",
+        "eventChain": [{ "type": "Increase_Skill", "skills_list": ["Art"] }]
+      },
+      "7": {
+        "description": "Life Event.",
+        "eventChain": [{ "type": "Life_Event" }]
+      },
+      "8": {
+        "description": "You uncover a political scandal or forbidden truth. Gain Investigate 1 and an Enemy.",
+        "eventChain": [
+          { "type": "Gain_Skill", "skills_list": ["Investigate 1"] },
+          { "type": "Gain_Enemy", "amount": 1 }
+        ]
+      },
+      "9": {
+        "description": "You are invited to tour or go on assignment across the sector. Gain Language 1 and one Contact.",
+        "eventChain": [
+          { "type": "Gain_Skill", "skills_list": ["Language 1"] },
+          { "type": "Gain_Contact", "amount": 1 }
+        ]
+      },
+      "10": {
+        "description": "You collaborate with another artist. Gain Art 1 or Advocate 1.",
+        "eventChain": [
+          { "type": "Gain_Skill", "skills_list": ["Art 1", "Advocate 1"] }
+        ]
+      },
+      "11": {
+        "description": "Your work is nominated for a major award. Gain +1 SOC or gain 1d3 Ship Shares.",
+        "eventChain": [
+          {
+            "type": "choice",
+            "choices": [
+              { "type": "Increase_Stat", "stat": "SOC", "amount": 1 },
+              {
+                "type": "Gain_Benefit",
+                "benefit": "Ship Share",
+                "amount": "D3"
+              }
+            ]
+          }
+        ]
+      },
+      "12": {
+        "description": "You achieve fame across multiple worlds. Gain +2 SOC or a permanent TAS Membership.",
+        "eventChain": [
+          {
+            "type": "choice",
+            "choices": [
+              { "type": "Increase_Stat", "stat": "SOC", "amount": 2 },
+              { "type": "Gain_Benefit", "benefit": "TAS Membership" }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "mariner": {
+    "hasCommission": true,
+    "comission": { "SOC": 7 },
+    "qualification": { "END": 5 },
+    "assignments": ["Engineer/Gunner", "Sailor", "Submariner"],
+    "career_progress": {
+      "survival": {
+        "Engineer/Gunner": { "EDU": 6 },
+        "Sailor": { "END": 6 },
+        "Submariner": { "INT": 6 }
+      },
+      "advancement": {
+        "Engineer/Gunner": { "EDU": 7 },
+        "Sailor": { "SOC": 6 },
+        "Submariner": { "INT": 7 }
+      }
+    },
+    "muster_out_benefits": {
+      "cash": {
+        "1": 2000,
+        "2": 5000,
+        "3": 10000,
+        "4": 10000,
+        "5": 10000,
+        "6": 20000,
+        "7": 30000
+      },
+      "benefits": {
+        "1": "Weapon",
+        "2": "SOC +1",
+        "3": "INT +1",
+        "4": "Ship Share",
+        "5": "EDU +1",
+        "6": "Low Passage",
+        "7": "TAS Membership"
+      }
+    },
+    "skills_and_training": {
+      "personal_development": {
+        "1": "STR +1",
+        "2": "DEX +1",
+        "3": "END +1",
+        "4": "INT +1",
+        "5": "EDU +1",
+        "6": "Carouse"
+      },
+      "service_skills": {
+        "1": "Mechanic",
+        "2": "Gun Combat",
+        "3": "Vacc Suit",
+        "4": "Athletics",
+        "5": "Pilot (small craft)",
+        "6": "Electronics"
+      },
+      "advanced_education_requirements": { "EDU": 8 },
+      "advanced_education": {
+        "1": "Engineer",
+        "2": "Leadership",
+        "3": "Admin",
+        "4": "Navigation",
+        "5": "Tactics (Naval)",
+        "6": "Medic"
+      },
+      "engineer/gunner": {
+        "1": "Mechanic",
+        "2": "Engineer",
+        "3": "Electronics",
+        "4": "Gun Combat",
+        "5": "Heavy Weapons",
+        "6": "Vacc Suit"
+      },
+      "sailor": {
+        "1": "Pilot (small craft)",
+        "2": "Athletics",
+        "3": "Seafarer",
+        "4": "Gun Combat",
+        "5": "Carouse",
+        "6": "Stealth"
+      },
+      "submariner": {
+        "1": "Electronics (sensors)",
+        "2": "Mechanic",
+        "3": "Stealth",
+        "4": "Vacc Suit",
+        "5": "Pilot (small craft)",
+        "6": "Navigation"
+      }
+    },
+    "ranks": {
+      "enlisted": {
+        "0": "Crewman",
+        "1": "Able Seaman",
+        "2": "Petty Officer",
+        "3": "Chief Petty Officer",
+        "4": "Senior Chief",
+        "5": "Master Chief",
+        "6": "Fleet Chief"
+      },
+      "officer": {
+        "1": "Ensign",
+        "2": "Lieutenant",
+        "3": "Lieutenant Commander",
+        "4": "Commander",
+        "5": "Captain",
+        "6": "Admiral"
+      }
+    },
+    "rank_bonus": {
+      "enlisted": {
+        "0": "Mechanic 1",
+        "1": "-",
+        "2": "Vacc Suit 1",
+        "3": "-",
+        "4": "Leadership 1",
+        "5": "-",
+        "6": "SOC +1"
+      },
+      "officer": {
+        "1": "Leadership 1",
+        "2": "Tactics (Naval) 1",
+        "3": "-",
+        "4": "-",
+        "5": "-",
+        "6": "SOC +1"
+      }
+    },
+    "mishaps": {
+      "1": {
+        "description": "Severely injured. Treat this as a 2 on the Injury Table or roll twice and take the lower result.",
+        "eventChain": [{ "type": "Severe_Injury" }]
+      },
+      "2": {
+        "description": "A serious accident occurs on duty. Roll END 8+ or suffer an Injury.",
+        "eventChain": [
+          {
+            "type": "Roll_Stat",
+            "stat": "END",
+            "target": 8,
+            "Failure": { "type": "Injury" }
+          }
+        ]
+      },
+      "3": {
+        "description": "You are blamed for a mistake on a mission. Gain an Enemy and -1 SOC.",
+        "eventChain": [
+          { "type": "Gain_Enemy", "amount": 1 },
+          { "type": "Decrease_Stat", "stat": "SOC", "amount": 1 }
+        ]
+      },
+      "4": {
+        "description": "You are discharged for insubordination or poor conduct. Lose any Benefit Rolls from this term.",
+        "eventChain": [{ "type": "Lose_Benefit_Roll", "amount": 1 }]
+      },
+      "5": {
+        "description": "A commanding officer has it in for you. Gain a Rival.",
+        "eventChain": [{ "type": "Gain_Rival", "amount": 1 }]
+      },
+      "6": {
+        "description": "Injured. Roll on the Injury Table.",
+        "eventChain": [{ "type": "Injury" }]
+      }
+    },
+    "events": {
+      "2": {
+        "description": "Disaster! Roll on the Mishap Table but you are not ejected from the career.",
+        "eventChain": [{ "type": "Disaster" }]
+      },
+      "3": {
+        "description": "You are sent on a dangerous mission. Roll INT 8+. If successful, gain +1 EDU or Electronics 1.",
+        "eventChain": [
+          {
+            "type": "Roll_Stat",
+            "stat": "INT",
+            "target": 8,
+            "Success": {
+              "type": "choice",
+              "choices": [
+                { "type": "Increase_Stat", "stat": "EDU", "amount": 1 },
+                { "type": "Gain_Skill", "skills_list": ["Electronics 1"] }
+              ]
+            }
+          }
+        ]
+      },
+      "4": {
+        "description": "You take part in a successful military operation. Gain Tactics (Naval) 1 or SOC +1.",
+        "eventChain": [
+          {
+            "type": "choice",
+            "choices": [
+              { "type": "Gain_Skill", "skills_list": ["Tactics (Naval) 1"] },
+              { "type": "Increase_Stat", "stat": "SOC", "amount": 1 }
+            ]
+          }
+        ]
+      },
+      "5": {
+        "description": "You bond with your crewmates. Gain 1d3 Allies.",
+        "eventChain": [{ "type": "Gain_Ally", "amount": "D3" }]
+      },
+      "6": {
+        "description": "You receive advanced training. Increase any skill you already have by one level.",
+        "eventChain": [{ "type": "Increase_Skill", "skills_list": ["Any"] }]
+      },
+      "7": {
+        "description": "Life Event.",
+        "eventChain": [{ "type": "Life_Event" }]
+      },
+      "8": {
+        "description": "You are given command responsibility. Gain Leadership 1 or Admin 1.",
+        "eventChain": [
+          { "type": "Gain_Skill", "skills_list": ["Leadership 1", "Admin 1"] }
+        ]
+      },
+      "9": {
+        "description": "You impress a superior. Gain DM+2 on your next advancement roll.",
+        "eventChain": [{ "type": "Advancement_DM", "DM": 2 }]
+      },
+      "10": {
+        "description": "You are offered a chance to participate in a high-profile operation. Gain one level in any service skill.",
+        "eventChain": [
+          { "type": "Gain_Skill", "skills_list": ["Service_Skill"] }
+        ]
+      },
+      "11": {
+        "description": "You foil an act of sabotage or betrayal. Gain an Ally and a +1 DM to next Benefit Roll.",
+        "eventChain": [
+          { "type": "Gain_Ally", "amount": 1 },
+          { "type": "Benefit_DM", "DM": 1 }
+        ]
+      },
+      "12": {
+        "description": "You distinguish yourself in a campaign. Automatically promoted.",
+        "eventChain": [{ "type": "Automatic_Promotion" }]
+      }
+    }
+  },
+  "merchant": {
+    "hasCommission": true,
+    "comission": { "SOC": 7 },
+    "qualification": { "INT": 6 },
+    "assignments": ["Free Trader", "Broker", "Merchant Marine"],
+    "career_progress": {
+      "survival": {
+        "Free Trader": { "END": 5 },
+        "Broker": { "INT": 6 },
+        "Merchant Marine": { "EDU": 5 }
+      },
+      "advancement": {
+        "Free Trader": { "SOC": 6 },
+        "Broker": { "INT": 7 },
+        "Merchant Marine": { "EDU": 6 }
+      }
+    },
+    "muster_out_benefits": {
+      "cash": {
+        "1": 1000,
+        "2": 5000,
+        "3": 10000,
+        "4": 10000,
+        "5": 20000,
+        "6": 20000,
+        "7": 30000
+      },
+      "benefits": {
+        "1": "EDU +1",
+        "2": "SOC +1",
+        "3": "TAS Membership",
+        "4": "Ship Share",
+        "5": "Contact",
+        "6": "INT +1",
+        "7": "Weapon"
+      }
+    },
+    "skills_and_training": {
+      "personal_development": {
+        "1": "STR +1",
+        "2": "DEX +1",
+        "3": "END +1",
+        "4": "INT +1",
+        "5": "SOC +1",
+        "6": "Carouse"
+      },
+      "service_skills": {
+        "1": "Drive",
+        "2": "Electronics",
+        "3": "Flyer",
+        "4": "Streetwise",
+        "5": "Trade",
+        "6": "Admin"
+      },
+      "advanced_education_requirements": { "EDU": 8 },
+      "advanced_education": {
+        "1": "Advocate",
+        "2": "Broker",
+        "3": "Electronics",
+        "4": "Leadership",
+        "5": "Diplomat",
+        "6": "Navigation"
+      },
+      "free trader": {
+        "1": "Pilot",
+        "2": "Vacc Suit",
+        "3": "Mechanic",
+        "4": "Electronics",
+        "5": "Streetwise",
+        "6": "Gun Combat"
+      },
+      "broker": {
+        "1": "Admin",
+        "2": "Advocate",
+        "3": "Broker",
+        "4": "Diplomat",
+        "5": "Streetwise",
+        "6": "Trade"
+      },
+      "merchant marine": {
+        "1": "Drive",
+        "2": "Mechanic",
+        "3": "Navigation",
+        "4": "Vacc Suit",
+        "5": "Pilot",
+        "6": "Gun Combat"
+      }
+    },
+    "ranks": {
+      "enlisted": {
+        "0": "Deckhand",
+        "1": "Cargo Handler",
+        "2": "Quartermaster",
+        "3": "Chief Steward",
+        "4": "Chief Engineer",
+        "5": "Executive Officer",
+        "6": "Fleet Manager"
+      },
+      "officer": {
+        "1": "Third Officer",
+        "2": "Second Officer",
+        "3": "First Officer",
+        "4": "Captain",
+        "5": "Regional Director",
+        "6": "CEO"
+      }
+    },
+    "rank_bonus": {
+      "enlisted": {
+        "0": "Trade 1",
+        "1": "Vacc Suit 1",
+        "2": "Pilot 1",
+        "3": "Electronics 1",
+        "4": "-",
+        "5": "-",
+        "6": "SOC +1"
+      },
+      "officer": {
+        "1": "Leadership 1",
+        "2": "Admin 1",
+        "3": "-",
+        "4": "Tactics (Naval) 1",
+        "5": "-",
+        "6": "SOC +1"
+      }
+    },
+    "mishaps": {
+      "1": {
+        "description": "Severely injured. Treat as 2 on the Injury Table or roll twice and take the lower result.",
+        "eventChain": [{ "type": "Severe_Injury" }]
+      },
+      "2": {
+        "description": "Your ship is lost due to an accident, piracy, or misjump. You are blamed and discharged.",
+        "eventChain": [
+          { "type": "Removed_From_Career_No_Benefits" },
+          { "type": "Gain_Enemy", "amount": 1 }
+        ]
+      },
+      "3": {
+        "description": "You are investigated for smuggling or fraud. Roll Advocate 8+ or lose all benefit rolls this term.",
+        "eventChain": [
+          {
+            "type": "Roll_Skill",
+            "SkillsAbleToRoll": [{ "Advocate": 8 }],
+            "Failure": { "type": "Lose_Benefit_Roll", "amount": 1 }
+          }
+        ]
+      },
+      "4": {
+        "description": "A trade deal goes bad and you are left in debt. Lose 1d6×1000 credits.",
+        "eventChain": [{ "type": "Lose_Money", "amount": "1d6*1000" }]
+      },
+      "5": {
+        "description": "You make a powerful rival in the business world.",
+        "eventChain": [{ "type": "Gain_Rival", "amount": 1 }]
+      },
+      "6": {
+        "description": "Injured. Roll on the Injury Table.",
+        "eventChain": [{ "type": "Injury" }]
+      }
+    },
+    "events": {
+      "2": {
+        "description": "Disaster! Roll on the Mishap Table but you are not ejected from the career.",
+        "eventChain": [{ "type": "Disaster" }]
+      },
+      "3": {
+        "description": "You close a major trade deal. Gain DM+1 to next benefit roll.",
+        "eventChain": [{ "type": "Benefit_DM", "DM": 1 }]
+      },
+      "4": {
+        "description": "You are involved in a piracy-related incident. Gain Gun Combat 1 or Stealth 1.",
+        "eventChain": [
+          { "type": "Gain_Skill", "skills_list": ["Gun Combat 1", "Stealth 1"] }
+        ]
+      },
+      "5": {
+        "description": "You make a great contact. Gain an Ally or Contact.",
+        "eventChain": [
+          {
+            "type": "choice",
+            "choices": [
+              { "type": "Gain_Ally", "amount": 1 },
+              { "type": "Gain_Contact", "amount": 1 }
+            ]
+          }
+        ]
+      },
+      "6": {
+        "description": "You are promoted to an administrative or command role. Gain Admin 1 or Leadership 1.",
+        "eventChain": [
+          { "type": "Gain_Skill", "skills_list": ["Admin 1", "Leadership 1"] }
+        ]
+      },
+      "7": {
+        "description": "Life Event.",
+        "eventChain": [{ "type": "Life_Event" }]
+      },
+      "8": {
+        "description": "You help broker a planetary trade alliance. Gain Broker 1 or Advocate 1.",
+        "eventChain": [
+          { "type": "Gain_Skill", "skills_list": ["Broker 1", "Advocate 1"] }
+        ]
+      },
+      "9": {
+        "description": "You catch a subordinate stealing or smuggling. Gain an Enemy or +1 SOC.",
+        "eventChain": [
+          {
+            "type": "choice",
+            "choices": [
+              { "type": "Gain_Enemy", "amount": 1 },
+              { "type": "Increase_Stat", "stat": "SOC", "amount": 1 }
+            ]
+          }
+        ]
+      },
+      "10": {
+        "description": "You land a very profitable deal. Gain 1d6×1000 credits or a Ship Share.",
+        "eventChain": [
+          {
+            "type": "choice",
+            "choices": [
+              { "type": "Gain_Money", "amount": "1d6*1000" },
+              { "type": "Gain_Benefit", "benefit": "Ship Share" }
+            ]
+          }
+        ]
+      },
+      "11": {
+        "description": "You make the cover of a major business journal. Gain +1 SOC or TAS Membership.",
+        "eventChain": [
+          {
+            "type": "choice",
+            "choices": [
+              { "type": "Increase_Stat", "stat": "SOC", "amount": 1 },
+              { "type": "Gain_Benefit", "benefit": "TAS Membership" }
+            ]
+          }
+        ]
+      },
+      "12": {
+        "description": "You are awarded a prestigious trade medal. Automatically promoted or gain a permanent Broker +1.",
+        "eventChain": [
+          {
+            "type": "choice",
+            "choices": [
+              { "type": "Automatic_Promotion" },
+              { "type": "Increase_Skill", "skills_list": ["Broker"] }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "navy": {
+    "hasCommission": true,
+    "comission": { "SOC": 8 },
+    "qualification": { "INT": 6 },
+    "assignments": ["Line/Crew", "Engineer/Gunner", "Flight"],
+    "career_progress": {
+      "survival": {
+        "Line/Crew": { "END": 6 },
+        "Engineer/Gunner": { "EDU": 7 },
+        "Flight": { "DEX": 7 }
+      },
+      "advancement": {
+        "Line/Crew": { "SOC": 7 },
+        "Engineer/Gunner": { "INT": 6 },
+        "Flight": { "EDU": 6 }
+      }
+    },
+    "muster_out_benefits": {
+      "cash": {
+        "1": 2000,
+        "2": 5000,
+        "3": 10000,
+        "4": 10000,
+        "5": 20000,
+        "6": 30000,
+        "7": 50000
+      },
+      "benefits": {
+        "1": "Weapon",
+        "2": "INT +1",
+        "3": "EDU +1",
+        "4": "TAS Membership",
+        "5": "SOC +1",
+        "6": "Ship Share",
+        "7": "Ship Share"
+      }
+    },
+    "skills_and_training": {
+      "personal_development": {
+        "1": "STR +1",
+        "2": "DEX +1",
+        "3": "END +1",
+        "4": "INT +1",
+        "5": "EDU +1",
+        "6": "SOC +1"
+      },
+      "service_skills": {
+        "1": "Vacc Suit",
+        "2": "Athletics",
+        "3": "Gun Combat",
+        "4": "Heavy Weapons",
+        "5": "Mechanic",
+        "6": "Electronics"
+      },
+      "advanced_education_requirements": { "EDU": 8 },
+      "advanced_education": {
+        "1": "Admin",
+        "2": "Advocate",
+        "3": "Leadership",
+        "4": "Navigation",
+        "5": "Tactics (Naval)",
+        "6": "Medic"
+      },
+      "line/crew": {
+        "1": "Gun Combat",
+        "2": "Heavy Weapons",
+        "3": "Vacc Suit",
+        "4": "Athletics",
+        "5": "Tactics (Naval)",
+        "6": "Leadership"
+      },
+      "engineer/gunner": {
+        "1": "Mechanic",
+        "2": "Engineer",
+        "3": "Electronics",
+        "4": "Gunner",
+        "5": "Vacc Suit",
+        "6": "Heavy Weapons"
+      },
+      "flight": {
+        "1": "Pilot",
+        "2": "Mechanic",
+        "3": "Electronics",
+        "4": "Navigation",
+        "5": "Vacc Suit",
+        "6": "Tactics (Naval)"
+      }
+    },
+    "ranks": {
+      "enlisted": {
+        "0": "Crewman",
+        "1": "Able Spacehand",
+        "2": "Petty Officer",
+        "3": "Chief Petty Officer",
+        "4": "Senior Chief",
+        "5": "Master Chief",
+        "6": "Fleet Chief"
+      },
+      "officer": {
+        "1": "Ensign",
+        "2": "Lieutenant",
+        "3": "Lieutenant Commander",
+        "4": "Commander",
+        "5": "Captain",
+        "6": "Admiral"
+      }
+    },
+    "rank_bonus": {
+      "enlisted": {
+        "0": "Vacc Suit 1",
+        "1": "-",
+        "2": "Leadership 1",
+        "3": "Tactics (Naval) 1",
+        "4": "-",
+        "5": "-",
+        "6": "SOC +1"
+      },
+      "officer": {
+        "1": "Leadership 1",
+        "2": "Admin 1",
+        "3": "-",
+        "4": "Tactics (Naval) 1",
+        "5": "-",
+        "6": "SOC +1"
+      }
+    },
+    "mishaps": {
+      "1": {
+        "description": "Severely injured. Treat as 2 on the Injury Table or roll twice and take the lower result.",
+        "eventChain": [{ "type": "Severe_Injury" }]
+      },
+      "2": {
+        "description": "A disaster destroys your ship. You survive, but are discharged and gain an Enemy.",
+        "eventChain": [
+          { "type": "Removed_From_Career_No_Benefits" },
+          { "type": "Gain_Enemy", "amount": 1 }
+        ]
+      },
+      "3": {
+        "description": "You are investigated for misconduct or incompetence. Roll Admin 8+ or lose all Benefit Rolls.",
+        "eventChain": [
+          {
+            "type": "Roll_Skill",
+            "SkillsAbleToRoll": [{ "Admin": 8 }],
+            "Failure": { "type": "Lose_Benefit_Roll", "amount": 1 }
+          }
+        ]
+      },
+      "4": {
+        "description": "You disobey orders and are court-martialed. Lose SOC -1 and gain a Rival.",
+        "eventChain": [
+          { "type": "Decrease_Stat", "stat": "SOC", "amount": 1 },
+          { "type": "Gain_Rival", "amount": 1 }
+        ]
+      },
+      "5": {
+        "description": "You are injured in a battle or drill. Roll on the Injury Table.",
+        "eventChain": [{ "type": "Injury" }]
+      },
+      "6": {
+        "description": "Injured. Roll on the Injury Table.",
+        "eventChain": [{ "type": "Injury" }]
+      }
+    },
+    "events": {
+      "2": {
+        "description": "Disaster! Roll on the Mishap Table but do not leave the career.",
+        "eventChain": [{ "type": "Disaster" }]
+      },
+      "3": {
+        "description": "You distinguish yourself in a shipboard emergency. Gain Mechanic 1 or Vacc Suit 1.",
+        "eventChain": [
+          { "type": "Gain_Skill", "skills_list": ["Mechanic 1", "Vacc Suit 1"] }
+        ]
+      },
+      "4": {
+        "description": "You serve with distinction. Gain DM+1 to any one Benefit Roll.",
+        "eventChain": [{ "type": "Benefit_DM", "DM": 1 }]
+      },
+      "5": {
+        "description": "You bond with your crewmates. Gain 1d3 Allies.",
+        "eventChain": [{ "type": "Gain_Ally", "amount": "D3" }]
+      },
+      "6": {
+        "description": "You are given advanced training. Increase any skill you already have by one level.",
+        "eventChain": [{ "type": "Increase_Skill", "skills_list": ["Any"] }]
+      },
+      "7": {
+        "description": "Life Event.",
+        "eventChain": [{ "type": "Life_Event" }]
+      },
+      "8": {
+        "description": "You distinguish yourself in battle. Gain Gun Combat 1 or Leadership 1.",
+        "eventChain": [
+          {
+            "type": "Gain_Skill",
+            "skills_list": ["Gun Combat 1", "Leadership 1"]
+          }
+        ]
+      },
+      "9": {
+        "description": "You impress a superior officer. Gain +2 DM to your next Advancement roll.",
+        "eventChain": [{ "type": "Advancement_DM", "DM": 2 }]
+      },
+      "10": {
+        "description": "You are assigned to a prestigious command. Gain Admin 1 or SOC +1.",
+        "eventChain": [
+          {
+            "type": "choice",
+            "choices": [
+              { "type": "Gain_Skill", "skills_list": ["Admin 1"] },
+              { "type": "Increase_Stat", "stat": "SOC", "amount": 1 }
+            ]
+          }
+        ]
+      },
+      "11": {
+        "description": "You participate in a major space battle. Roll INT 8+ to gain Tactics (Naval) 1 or Leadership 1.",
+        "eventChain": [
+          {
+            "type": "Roll_Stat",
+            "stat": "INT",
+            "target": 8,
+            "Success": {
+              "type": "Gain_Skill",
+              "skills_list": ["Tactics (Naval) 1", "Leadership 1"]
+            }
+          }
+        ]
+      },
+      "12": {
+        "description": "You are awarded a medal for valor. Automatically promoted or SOC +1.",
+        "eventChain": [
+          {
+            "type": "choice",
+            "choices": [
+              { "type": "Automatic_Promotion" },
+              { "type": "Increase_Stat", "stat": "SOC", "amount": 1 }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "noble": {
+    "hasCommission": true,
+    "comission": { "SOC": 10 },
+    "qualification": { "SOC": 10 },
+    "assignments": ["Administrator", "Diplomat", "Dilettante"],
+    "career_progress": {
+      "survival": {
+        "Administrator": { "INT": 6 },
+        "Diplomat": { "SOC": 7 },
+        "Dilettante": { "END": 5 }
+      },
+      "advancement": {
+        "Administrator": { "INT": 7 },
+        "Diplomat": { "SOC": 8 },
+        "Dilettante": { "SOC": 9 }
+      }
+    },
+    "muster_out_benefits": {
+      "cash": {
+        "1": 10000,
+        "2": 10000,
+        "3": 20000,
+        "4": 20000,
+        "5": 30000,
+        "6": 50000,
+        "7": 100000
+      },
+      "benefits": {
+        "1": "SOC +1",
+        "2": "SOC +1",
+        "3": "INT +1",
+        "4": "TAS Membership",
+        "5": "Ship Share",
+        "6": "Contact",
+        "7": "SOC +2"
+      }
+    },
+    "skills_and_training": {
+      "personal_development": {
+        "1": "STR +1",
+        "2": "DEX +1",
+        "3": "END +1",
+        "4": "INT +1",
+        "5": "EDU +1",
+        "6": "SOC +1"
+      },
+      "service_skills": {
+        "1": "Admin",
+        "2": "Carouse",
+        "3": "Advocate",
+        "4": "Electronics",
+        "5": "Persuade",
+        "6": "Diplomat"
+      },
+      "advanced_education_requirements": { "EDU": 8 },
+      "advanced_education": {
+        "1": "Advocate",
+        "2": "Diplomat",
+        "3": "Leadership",
+        "4": "Language",
+        "5": "Admin",
+        "6": "Electronics"
+      },
+      "administrator": {
+        "1": "Admin",
+        "2": "Advocate",
+        "3": "Leadership",
+        "4": "Diplomat",
+        "5": "Carouse",
+        "6": "Electronics"
+      },
+      "diplomat": {
+        "1": "Advocate",
+        "2": "Diplomat",
+        "3": "Persuade",
+        "4": "Language",
+        "5": "Electronics",
+        "6": "Admin"
+      },
+      "dilettante": {
+        "1": "Carouse",
+        "2": "Gambler",
+        "3": "Streetwise",
+        "4": "Melee",
+        "5": "Gun Combat",
+        "6": "Persuade"
+      }
+    },
+    "ranks": {
+      "enlisted": {
+        "0": "Title Holder",
+        "1": "Knight",
+        "2": "Baron",
+        "3": "Count",
+        "4": "Marquis",
+        "5": "Duke",
+        "6": "Archduke"
+      }
+    },
+    "rank_bonus": {
+      "enlisted": {
+        "0": "-",
+        "1": "SOC +1",
+        "2": "Advocate 1",
+        "3": "Leadership 1",
+        "4": "Admin 1",
+        "5": "-",
+        "6": "SOC +1"
+      }
+    },
+    "mishaps": {
+      "1": {
+        "description": "Severely injured. Treat this as 2 on the Injury Table or roll twice and take the lower result.",
+        "eventChain": [{ "type": "Severe_Injury" }]
+      },
+      "2": {
+        "description": "Your reputation is tarnished due to scandal. Reduce SOC by 1 and gain a Rival.",
+        "eventChain": [
+          { "type": "Decrease_Stat", "stat": "SOC", "amount": 1 },
+          { "type": "Gain_Rival", "amount": 1 }
+        ]
+      },
+      "3": {
+        "description": "A failed venture or political scandal forces you into seclusion. Lose all benefit rolls this term.",
+        "eventChain": [{ "type": "Lose_Benefit_Roll", "amount": 1 }]
+      },
+      "4": {
+        "description": "A powerful noble takes offense at your actions. Gain an Enemy.",
+        "eventChain": [{ "type": "Gain_Enemy", "amount": 1 }]
+      },
+      "5": {
+        "description": "You are injured in a duel or accident. Roll on the Injury Table.",
+        "eventChain": [{ "type": "Injury" }]
+      },
+      "6": {
+        "description": "Injured. Roll on the Injury Table.",
+        "eventChain": [{ "type": "Injury" }]
+      }
+    },
+    "events": {
+      "2": {
+        "description": "Disaster! Roll on the Mishap Table but do not leave the career.",
+        "eventChain": [{ "type": "Disaster" }]
+      },
+      "3": {
+        "description": "You make a powerful friend in high places. Gain an Ally or +1 SOC.",
+        "eventChain": [
+          {
+            "type": "choice",
+            "choices": [
+              { "type": "Gain_Ally", "amount": 1 },
+              { "type": "Increase_Stat", "stat": "SOC", "amount": 1 }
+            ]
+          }
+        ]
+      },
+      "4": {
+        "description": "You take part in a major diplomatic event. Gain Diplomat 1 or Admin 1.",
+        "eventChain": [
+          { "type": "Gain_Skill", "skills_list": ["Diplomat 1", "Admin 1"] }
+        ]
+      },
+      "5": {
+        "description": "You are appointed to a prestigious title. Gain +1 SOC and TAS Membership.",
+        "eventChain": [
+          { "type": "Increase_Stat", "stat": "SOC", "amount": 1 },
+          { "type": "Gain_Benefit", "benefit": "TAS Membership" }
+        ]
+      },
+      "6": {
+        "description": "You are given advanced tutoring. Gain any skill you already possess by one level.",
+        "eventChain": [{ "type": "Increase_Skill", "skills_list": ["Any"] }]
+      },
+      "7": {
+        "description": "Life Event.",
+        "eventChain": [{ "type": "Life_Event" }]
+      },
+      "8": {
+        "description": "You settle a major dispute with charm or cunning. Gain Persuade 1 or Advocate 1.",
+        "eventChain": [
+          { "type": "Gain_Skill", "skills_list": ["Persuade 1", "Advocate 1"] }
+        ]
+      },
+      "9": {
+        "description": "You invest in a successful venture. Gain 1d6×1000 credits.",
+        "eventChain": [{ "type": "Gain_Money", "amount": "1d6*1000" }]
+      },
+      "10": {
+        "description": "You mentor a rising noble. Gain Admin 1 and a Contact.",
+        "eventChain": [
+          { "type": "Gain_Skill", "skills_list": ["Admin 1"] },
+          { "type": "Gain_Contact", "amount": 1 }
+        ]
+      },
+      "11": {
+        "description": "You foil a rival’s plot against your house. Gain an Enemy and +2 DM to your next advancement roll.",
+        "eventChain": [
+          { "type": "Gain_Enemy", "amount": 1 },
+          { "type": "Advancement_DM", "DM": 2 }
+        ]
+      },
+      "12": {
+        "description": "You are honored by the Imperial Court. Automatically promoted or SOC +2.",
+        "eventChain": [
+          {
+            "type": "choice",
+            "choices": [
+              { "type": "Automatic_Promotion" },
+              { "type": "Increase_Stat", "stat": "SOC", "amount": 2 }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "rogue": {
+    "hasCommission": false,
+    "qualification": { "DEX": 6 },
+    "assignments": ["Thief", "Enforcer", "Con Artist"],
+    "career_progress": {
+      "survival": {
+        "Thief": { "DEX": 6 },
+        "Enforcer": { "END": 6 },
+        "Con Artist": { "SOC": 6 }
+      },
+      "advancement": {
+        "Thief": { "INT": 6 },
+        "Enforcer": { "STR": 6 },
+        "Con Artist": { "INT": 6 }
+      }
+    },
+    "muster_out_benefits": {
+      "cash": {
+        "1": 1000,
+        "2": 5000,
+        "3": 10000,
+        "4": 10000,
+        "5": 20000,
+        "6": 20000,
+        "7": 50000
+      },
+      "benefits": {
+        "1": "Weapon",
+        "2": "INT +1",
+        "3": "EDU +1",
+        "4": "TAS Membership",
+        "5": "SOC +1",
+        "6": "Low Passage",
+        "7": "Ship Share"
+      }
+    },
+    "skills_and_training": {
+      "personal_development": {
+        "1": "STR +1",
+        "2": "DEX +1",
+        "3": "END +1",
+        "4": "Gambler",
+        "5": "Streetwise",
+        "6": "Melee"
+      },
+      "service_skills": {
+        "1": "Deception",
+        "2": "Electronics",
+        "3": "Stealth",
+        "4": "Streetwise",
+        "5": "Melee",
+        "6": "Gun Combat"
+      },
+      "advanced_education_requirements": { "EDU": 8 },
+      "advanced_education": {
+        "1": "Admin",
+        "2": "Advocate",
+        "3": "Broker",
+        "4": "Carouse",
+        "5": "Electronics",
+        "6": "Leadership"
+      },
+      "thief": {
+        "1": "Stealth",
+        "2": "Electronics",
+        "3": "Streetwise",
+        "4": "Recon",
+        "5": "Drive",
+        "6": "Mechanic"
+      },
+      "enforcer": {
+        "1": "Melee",
+        "2": "Gun Combat",
+        "3": "Athletics",
+        "4": "Intimidate",
+        "5": "Recon",
+        "6": "Streetwise"
+      },
+      "con artist": {
+        "1": "Deception",
+        "2": "Persuade",
+        "3": "Carouse",
+        "4": "Gambler",
+        "5": "Stealth",
+        "6": "Streetwise"
+      }
+    },
+    "ranks": {
+      "enlisted": {
+        "0": "Lowlife",
+        "1": "Runner",
+        "2": "Operator",
+        "3": "Lieutenant",
+        "4": "Boss",
+        "5": "Capo",
+        "6": "Kingpin"
+      }
+    },
+    "rank_bonus": {
+      "enlisted": {
+        "0": "-",
+        "1": "Streetwise 1",
+        "2": "Stealth 1",
+        "3": "Deception 1",
+        "4": "Leadership 1",
+        "5": "-",
+        "6": "SOC +1"
+      }
+    },
+    "mishaps": {
+      "1": {
+        "description": "Severely injured. Treat this as 2 on the Injury Table or roll twice and take the lower result.",
+        "eventChain": [{ "type": "Severe_Injury" }]
+      },
+      "2": {
+        "description": "You are betrayed or caught. You may choose to flee and lose your benefit roll, or go to prison next term.",
+        "eventChain": [
+          {
+            "type": "choice",
+            "choices": [
+              { "type": "Removed_From_Career_No_Benefits" },
+              { "type": "Enter_Career", "career": "prisoner" }
+            ]
+          }
+        ]
+      },
+      "3": {
+        "description": "A job goes bad, and someone gets hurt. Roll END 8+ or take an Injury.",
+        "eventChain": [
+          {
+            "type": "Roll_Stat",
+            "stat": "END",
+            "target": 8,
+            "Failure": { "type": "Injury" }
+          }
+        ]
+      },
+      "4": {
+        "description": "You cross a powerful crime boss. Gain an Enemy and lose one benefit roll.",
+        "eventChain": [
+          { "type": "Gain_Enemy", "amount": 1 },
+          { "type": "Lose_Benefit_Roll", "amount": 1 }
+        ]
+      },
+      "5": {
+        "description": "You suffer from a personal addiction or debt. Lose 1d6×1000 credits.",
+        "eventChain": [{ "type": "Lose_Money", "amount": "1d6*1000" }]
+      },
+      "6": {
+        "description": "Injured. Roll on the Injury Table.",
+        "eventChain": [{ "type": "Injury" }]
+      }
+    },
+    "events": {
+      "2": {
+        "description": "Disaster! Roll on the Mishap Table but do not leave the career.",
+        "eventChain": [{ "type": "Disaster" }]
+      },
+      "3": {
+        "description": "You pull off a big score. Gain 1d6×1000 credits or a Ship Share.",
+        "eventChain": [
+          {
+            "type": "choice",
+            "choices": [
+              { "type": "Gain_Money", "amount": "1d6*1000" },
+              { "type": "Gain_Benefit", "benefit": "Ship Share" }
+            ]
+          }
+        ]
+      },
+      "4": {
+        "description": "You make a useful contact in the underworld. Gain an Ally or Contact.",
+        "eventChain": [
+          {
+            "type": "choice",
+            "choices": [
+              { "type": "Gain_Ally", "amount": 1 },
+              { "type": "Gain_Contact", "amount": 1 }
+            ]
+          }
+        ]
+      },
+      "5": {
+        "description": "You are forced to run a con or job in a dangerous area. Gain Stealth 1 or Recon 1.",
+        "eventChain": [
+          { "type": "Gain_Skill", "skills_list": ["Stealth 1", "Recon 1"] }
+        ]
+      },
+      "6": {
+        "description": "You are trained by an experienced criminal. Increase any one skill you already possess by +1.",
+        "eventChain": [{ "type": "Increase_Skill", "skills_list": ["Any"] }]
+      },
+      "7": {
+        "description": "Life Event.",
+        "eventChain": [{ "type": "Life_Event" }]
+      },
+      "8": {
+        "description": "You work for a corrupt official or noble. Gain Carouse 1 or Deception 1.",
+        "eventChain": [
+          { "type": "Gain_Skill", "skills_list": ["Carouse 1", "Deception 1"] }
+        ]
+      },
+      "9": {
+        "description": "You pull off a risky but successful heist. Gain DM+2 to your next Advancement roll.",
+        "eventChain": [{ "type": "Advancement_DM", "DM": 2 }]
+      },
+      "10": {
+        "description": "You broker peace between rival factions. Gain Persuade 1 or Leadership 1.",
+        "eventChain": [
+          {
+            "type": "Gain_Skill",
+            "skills_list": ["Persuade 1", "Leadership 1"]
+          }
+        ]
+      },
+      "11": {
+        "description": "You double-cross someone. Gain a Ship Share and an Enemy.",
+        "eventChain": [
+          { "type": "Gain_Benefit", "benefit": "Ship Share" },
+          { "type": "Gain_Enemy", "amount": 1 }
+        ]
+      },
+      "12": {
+        "description": "You rise through the ranks of the underworld. Automatically promoted or gain Leadership 1.",
+        "eventChain": [
+          {
+            "type": "choice",
+            "choices": [
+              { "type": "Automatic_Promotion" },
+              { "type": "Gain_Skill", "skills_list": ["Leadership 1"] }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "scholar": {
+    "hasCommission": false,
+    "qualification": { "EDU": 6 },
+    "assignments": ["Field Researcher", "Scientist", "Physician"],
+    "career_progress": {
+      "survival": {
+        "Field Researcher": { "END": 6 },
+        "Scientist": { "EDU": 7 },
+        "Physician": { "INT": 6 }
+      },
+      "advancement": {
+        "Field Researcher": { "EDU": 6 },
+        "Scientist": { "INT": 6 },
+        "Physician": { "EDU": 7 }
+      }
+    },
+    "muster_out_benefits": {
+      "cash": {
+        "1": 1000,
+        "2": 5000,
+        "3": 10000,
+        "4": 10000,
+        "5": 20000,
+        "6": 20000,
+        "7": 50000
+      },
+      "benefits": {
+        "1": "INT +1",
+        "2": "EDU +1",
+        "3": "TAS Membership",
+        "4": "Scientific Equipment",
+        "5": "Contact",
+        "6": "SOC +1",
+        "7": "Ship Share"
+      }
+    },
+    "skills_and_training": {
+      "personal_development": {
+        "1": "INT +1",
+        "2": "EDU +1",
+        "3": "SOC +1",
+        "4": "Medic",
+        "5": "Electronics",
+        "6": "Language"
+      },
+      "service_skills": {
+        "1": "Admin",
+        "2": "Electronics",
+        "3": "Language",
+        "4": "Medic",
+        "5": "Science",
+        "6": "Investigate"
+      },
+      "advanced_education_requirements": { "EDU": 8 },
+      "advanced_education": {
+        "1": "Advocate",
+        "2": "Art",
+        "3": "Diplomat",
+        "4": "Leadership",
+        "5": "Navigation",
+        "6": "Science"
+      },
+      "field researcher": {
+        "1": "Survival",
+        "2": "Recon",
+        "3": "Investigate",
+        "4": "Science",
+        "5": "Language",
+        "6": "Medic"
+      },
+      "scientist": {
+        "1": "Science",
+        "2": "Electronics",
+        "3": "Language",
+        "4": "Admin",
+        "5": "Profession",
+        "6": "Investigate"
+      },
+      "physician": {
+        "1": "Medic",
+        "2": "Science (biology)",
+        "3": "Electronics (medical)",
+        "4": "Admin",
+        "5": "Language",
+        "6": "Investigate"
+      }
+    },
+    "ranks": {
+      "enlisted": {
+        "0": "Student",
+        "1": "Graduate",
+        "2": "Researcher",
+        "3": "Doctor",
+        "4": "Professor",
+        "5": "Department Head",
+        "6": "Dean"
+      }
+    },
+    "rank_bonus": {
+      "enlisted": {
+        "0": "-",
+        "1": "EDU +1",
+        "2": "Science 1",
+        "3": "Medic 1",
+        "4": "Admin 1",
+        "5": "Leadership 1",
+        "6": "SOC +1"
+      }
+    },
+    "mishaps": {
+      "1": {
+        "description": "Severely injured during a field mission. Treat as 2 on the Injury Table or roll twice and take the lower result.",
+        "eventChain": [{ "type": "Severe_Injury" }]
+      },
+      "2": {
+        "description": "Your work is stolen or discredited. Lose one benefit roll and gain a Rival.",
+        "eventChain": [
+          { "type": "Lose_Benefit_Roll", "amount": 1 },
+          { "type": "Gain_Rival", "amount": 1 }
+        ]
+      },
+      "3": {
+        "description": "You make a critical error in research or treatment. Roll INT 8+ or lose one rank (if applicable).",
+        "eventChain": [
+          {
+            "type": "Roll_Stat",
+            "stat": "INT",
+            "target": 8,
+            "Failure": { "type": "Lose_Rank", "amount": 1 }
+          }
+        ]
+      },
+      "4": {
+        "description": "Your institution is defunded or destroyed. Gain Investigate 1 and an Enemy.",
+        "eventChain": [
+          { "type": "Gain_Skill", "skills_list": ["Investigate 1"] },
+          { "type": "Gain_Enemy", "amount": 1 }
+        ]
+      },
+      "5": {
+        "description": "You are injured in an experiment or outbreak. Roll on the Injury Table.",
+        "eventChain": [{ "type": "Injury" }]
+      },
+      "6": {
+        "description": "Injured. Roll on the Injury Table.",
+        "eventChain": [{ "type": "Injury" }]
+      }
+    },
+    "events": {
+      "2": {
+        "description": "Disaster! Roll on the Mishap Table but do not leave the career.",
+        "eventChain": [{ "type": "Disaster" }]
+      },
+      "3": {
+        "description": "You publish groundbreaking research. Gain +1 EDU or Science 1.",
+        "eventChain": [
+          {
+            "type": "choice",
+            "choices": [
+              { "type": "Increase_Stat", "stat": "EDU", "amount": 1 },
+              { "type": "Gain_Skill", "skills_list": ["Science 1"] }
+            ]
+          }
+        ]
+      },
+      "4": {
+        "description": "You work with a prestigious institution. Gain Admin 1 or a Contact.",
+        "eventChain": [
+          {
+            "type": "choice",
+            "choices": [
+              { "type": "Gain_Skill", "skills_list": ["Admin 1"] },
+              { "type": "Gain_Contact", "amount": 1 }
+            ]
+          }
+        ]
+      },
+      "5": {
+        "description": "You mentor a younger scholar. Gain Leadership 1 or EDU +1.",
+        "eventChain": [
+          {
+            "type": "choice",
+            "choices": [
+              { "type": "Gain_Skill", "skills_list": ["Leadership 1"] },
+              { "type": "Increase_Stat", "stat": "EDU", "amount": 1 }
+            ]
+          }
+        ]
+      },
+      "6": {
+        "description": "You undergo advanced training. Increase any one skill you already have by one level.",
+        "eventChain": [{ "type": "Increase_Skill", "skills_list": ["Any"] }]
+      },
+      "7": {
+        "description": "Life Event.",
+        "eventChain": [{ "type": "Life_Event" }]
+      },
+      "8": {
+        "description": "You attend a major scientific conference. Gain Diplomat 1 or Persuade 1.",
+        "eventChain": [
+          { "type": "Gain_Skill", "skills_list": ["Diplomat 1", "Persuade 1"] }
+        ]
+      },
+      "9": {
+        "description": "You make a technological breakthrough. Gain Electronics 1 or Engineer 1.",
+        "eventChain": [
+          {
+            "type": "Gain_Skill",
+            "skills_list": ["Electronics 1", "Engineer 1"]
+          }
+        ]
+      },
+      "10": {
+        "description": "You treat or save a high-profile patient. Gain SOC +1 or Medic 1.",
+        "eventChain": [
+          {
+            "type": "choice",
+            "choices": [
+              { "type": "Increase_Stat", "stat": "SOC", "amount": 1 },
+              { "type": "Gain_Skill", "skills_list": ["Medic 1"] }
+            ]
+          }
+        ]
+      },
+      "11": {
+        "description": "You uncover a conspiracy, secret, or ancient knowledge. Gain Investigate 1 and an Enemy.",
+        "eventChain": [
+          { "type": "Gain_Skill", "skills_list": ["Investigate 1"] },
+          { "type": "Gain_Enemy", "amount": 1 }
+        ]
+      },
+      "12": {
+        "description": "Your work earns you galactic acclaim. Automatically promoted or gain +2 EDU.",
+        "eventChain": [
+          {
+            "type": "choice",
+            "choices": [
+              { "type": "Automatic_Promotion" },
+              { "type": "Increase_Stat", "stat": "EDU", "amount": 2 }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "scout": {
+    "hasCommission": false,
+    "qualification": { "INT": 5 },
+    "assignments": ["Courier", "Surveyor", "Explorer"],
+    "career_progress": {
+      "survival": {
+        "Courier": { "END": 6 },
+        "Surveyor": { "INT": 7 },
+        "Explorer": { "END": 7 }
+      },
+      "advancement": {
+        "Courier": { "EDU": 6 },
+        "Surveyor": { "INT": 6 },
+        "Explorer": { "EDU": 7 }
+      }
+    },
+    "muster_out_benefits": {
+      "cash": {
+        "1": 2000,
+        "2": 5000,
+        "3": 5000,
+        "4": 10000,
+        "5": 10000,
+        "6": 20000,
+        "7": 30000
+      },
+      "benefits": {
+        "1": "Weapon",
+        "2": "INT +1",
+        "3": "EDU +1",
+        "4": "Ship Share",
+        "5": "TAS Membership",
+        "6": "Low Passage",
+        "7": "Scout Ship"
+      }
+    },
+    "skills_and_training": {
+      "personal_development": {
+        "1": "END +1",
+        "2": "INT +1",
+        "3": "EDU +1",
+        "4": "Athletics",
+        "5": "Survival",
+        "6": "Mechanic"
+      },
+      "service_skills": {
+        "1": "Pilot",
+        "2": "Vacc Suit",
+        "3": "Astrogation",
+        "4": "Mechanic",
+        "5": "Electronics",
+        "6": "Recon"
+      },
+      "advanced_education_requirements": { "EDU": 8 },
+      "advanced_education": {
+        "1": "Navigation",
+        "2": "Sensors",
+        "3": "Science",
+        "4": "Medic",
+        "5": "Engineering",
+        "6": "Language"
+      },
+      "courier": {
+        "1": "Pilot",
+        "2": "Electronics",
+        "3": "Mechanic",
+        "4": "Gun Combat",
+        "5": "Astrogation",
+        "6": "Streetwise"
+      },
+      "surveyor": {
+        "1": "Science (Planetology)",
+        "2": "Navigation",
+        "3": "Sensors",
+        "4": "Electronics",
+        "5": "Language",
+        "6": "Admin"
+      },
+      "explorer": {
+        "1": "Survival",
+        "2": "Recon",
+        "3": "Melee",
+        "4": "Gun Combat",
+        "5": "Explosives",
+        "6": "Vacc Suit"
+      }
+    },
+    "ranks": {
+      "enlisted": {
+        "0": "Trainee",
+        "1": "Scout",
+        "2": "Senior Scout",
+        "3": "Pathfinder",
+        "4": "Recon Specialist",
+        "5": "Field Leader",
+        "6": "Sector Pathfinder"
+      }
+    },
+    "rank_bonus": {
+      "enlisted": {
+        "0": "-",
+        "1": "Vacc Suit 1",
+        "2": "Recon 1",
+        "3": "Pilot 1",
+        "4": "Navigation 1",
+        "5": "Leadership 1",
+        "6": "SOC +1"
+      }
+    },
+    "mishaps": {
+      "1": {
+        "description": "Severely injured in an expedition gone wrong. Treat as 2 on the Injury Table or roll twice and take the lower result.",
+        "eventChain": [{ "type": "Severe_Injury" }]
+      },
+      "2": {
+        "description": "You get lost in deep space. You survive, but gain a Rival and lose one benefit roll.",
+        "eventChain": [
+          { "type": "Gain_Rival", "amount": 1 },
+          { "type": "Lose_Benefit_Roll", "amount": 1 }
+        ]
+      },
+      "3": {
+        "description": "You contract a rare disease or radiation exposure. Roll END 8+ or take -1 END.",
+        "eventChain": [
+          {
+            "type": "Roll_Stat",
+            "stat": "END",
+            "target": 8,
+            "Failure": { "type": "Decrease_Stat", "stat": "END", "amount": 1 }
+          }
+        ]
+      },
+      "4": {
+        "description": "A dangerous alien lifeform or environmental hazard wounds you. Roll on the Injury Table.",
+        "eventChain": [{ "type": "Injury" }]
+      },
+      "5": {
+        "description": "You disobeyed orders in the field. Lose 1 SOC and gain a Rival.",
+        "eventChain": [
+          { "type": "Decrease_Stat", "stat": "SOC", "amount": 1 },
+          { "type": "Gain_Rival", "amount": 1 }
+        ]
+      },
+      "6": {
+        "description": "Injured. Roll on the Injury Table.",
+        "eventChain": [{ "type": "Injury" }]
+      }
+    },
+    "events": {
+      "2": {
+        "description": "Disaster! Roll on the Mishap Table but do not leave the career.",
+        "eventChain": [{ "type": "Disaster" }]
+      },
+      "3": {
+        "description": "You discover a mysterious alien artifact. Gain +1 EDU or Science 1.",
+        "eventChain": [
+          {
+            "type": "choice",
+            "choices": [
+              { "type": "Increase_Stat", "stat": "EDU", "amount": 1 },
+              { "type": "Gain_Skill", "skills_list": ["Science 1"] }
+            ]
+          }
+        ]
+      },
+      "4": {
+        "description": "You make a stellar discovery. Gain Navigation 1 or Sensors 1.",
+        "eventChain": [
+          { "type": "Gain_Skill", "skills_list": ["Navigation 1", "Sensors 1"] }
+        ]
+      },
+      "5": {
+        "description": "You assist a colonist or outpost. Gain Admin 1 or +1 SOC.",
+        "eventChain": [
+          {
+            "type": "choice",
+            "choices": [
+              { "type": "Gain_Skill", "skills_list": ["Admin 1"] },
+              { "type": "Increase_Stat", "stat": "SOC", "amount": 1 }
+            ]
+          }
+        ]
+      },
+      "6": {
+        "description": "You spend time improving your survival skills. Increase any one skill you already have by +1.",
+        "eventChain": [{ "type": "Increase_Skill", "skills_list": ["Any"] }]
+      },
+      "7": {
+        "description": "Life Event.",
+        "eventChain": [{ "type": "Life_Event" }]
+      },
+      "8": {
+        "description": "You encounter a unique lifeform. Gain Survival 1 or Investigate 1.",
+        "eventChain": [
+          {
+            "type": "Gain_Skill",
+            "skills_list": ["Survival 1", "Investigate 1"]
+          }
+        ]
+      },
+      "9": {
+        "description": "You chart a new route through unclaimed space. Gain Astrogation 1 or DM+2 to your next advancement roll.",
+        "eventChain": [
+          {
+            "type": "choice",
+            "choices": [
+              { "type": "Gain_Skill", "skills_list": ["Astrogation 1"] },
+              { "type": "Advancement_DM", "DM": 2 }
+            ]
+          }
+        ]
+      },
+      "10": {
+        "description": "You are decorated for bravery during a recon mission. Gain SOC +1 or a Ship Share.",
+        "eventChain": [
+          {
+            "type": "choice",
+            "choices": [
+              { "type": "Increase_Stat", "stat": "SOC", "amount": 1 },
+              { "type": "Gain_Benefit", "benefit": "Ship Share" }
+            ]
+          }
+        ]
+      },
+      "11": {
+        "description": "You uncover a conspiracy or lost knowledge. Gain Investigate 1 and a Rival.",
+        "eventChain": [
+          { "type": "Gain_Skill", "skills_list": ["Investigate 1"] },
+          { "type": "Gain_Rival", "amount": 1 }
+        ]
+      },
+      "12": {
+        "description": "Your name becomes famous across the subsector. Automatically promoted or SOC +1.",
+        "eventChain": [
+          {
+            "type": "choice",
+            "choices": [
+              { "type": "Automatic_Promotion" },
+              { "type": "Increase_Stat", "stat": "SOC", "amount": 1 }
+            ]
+          }
+        ]
+      }
     }
   }
-},
-    "noble": {
-  "hasCommission": true,
-  "comission": { "SOC": 10 },
-  "qualification": { "SOC": 10 },
-  "assignments": [
-    "Administrator",
-    "Diplomat",
-    "Dilettante"
-  ],
-  "career_progress": {
-    "survival": {
-      "Administrator": { "INT": 6 },
-      "Diplomat": { "SOC": 7 },
-      "Dilettante": { "END": 5 }
-    },
-    "advancement": {
-      "Administrator": { "INT": 7 },
-      "Diplomat": { "SOC": 8 },
-      "Dilettante": { "SOC": 9 }
-    }
-  },
-  "muster_out_benefits": {
-    "cash": {
-      "1": 10000,
-      "2": 10000,
-      "3": 20000,
-      "4": 20000,
-      "5": 30000,
-      "6": 50000,
-      "7": 100000
-    },
-    "benefits": {
-      "1": "SOC +1",
-      "2": "SOC +1",
-      "3": "INT +1",
-      "4": "TAS Membership",
-      "5": "Ship Share",
-      "6": "Contact",
-      "7": "SOC +2"
-    }
-  },
-  "skills_and_training": {
-    "personal_development": {
-      "1": "STR +1",
-      "2": "DEX +1",
-      "3": "END +1",
-      "4": "INT +1",
-      "5": "EDU +1",
-      "6": "SOC +1"
-    },
-    "service_skills": {
-      "1": "Admin",
-      "2": "Carouse",
-      "3": "Advocate",
-      "4": "Electronics",
-      "5": "Persuade",
-      "6": "Diplomat"
-    },
-    "advanced_education_requirements": { "EDU": 8 },
-    "advanced_education": {
-      "1": "Advocate",
-      "2": "Diplomat",
-      "3": "Leadership",
-      "4": "Language",
-      "5": "Admin",
-      "6": "Electronics"
-    },
-    "administrator": {
-      "1": "Admin",
-      "2": "Advocate",
-      "3": "Leadership",
-      "4": "Diplomat",
-      "5": "Carouse",
-      "6": "Electronics"
-    },
-    "diplomat": {
-      "1": "Advocate",
-      "2": "Diplomat",
-      "3": "Persuade",
-      "4": "Language",
-      "5": "Electronics",
-      "6": "Admin"
-    },
-    "dilettante": {
-      "1": "Carouse",
-      "2": "Gambler",
-      "3": "Streetwise",
-      "4": "Melee",
-      "5": "Gun Combat",
-      "6": "Persuade"
-    }
-  },
-  "ranks": {
-    "enlisted": {
-      "0": "Title Holder",
-      "1": "Knight",
-      "2": "Baron",
-      "3": "Count",
-      "4": "Marquis",
-      "5": "Duke",
-      "6": "Archduke"
-    }
-  },
-  "rank_bonus": {
-    "enlisted": {
-      "0": "-",
-      "1": "SOC +1",
-      "2": "Advocate 1",
-      "3": "Leadership 1",
-      "4": "Admin 1",
-      "5": "-",
-      "6": "SOC +1"
-    }
-  },
-  "mishaps": {
-    "1": {
-      "description": "Severely injured. Treat this as 2 on the Injury Table or roll twice and take the lower result.",
-      "eventChain": [ { "type": "Severe_Injury" } ]
-    },
-    "2": {
-      "description": "Your reputation is tarnished due to scandal. Reduce SOC by 1 and gain a Rival.",
-      "eventChain": [
-        { "type": "Decrease_Stat", "stat": "SOC", "amount": 1 },
-        { "type": "Gain_Rival", "amount": 1 }
-      ]
-    },
-    "3": {
-      "description": "A failed venture or political scandal forces you into seclusion. Lose all benefit rolls this term.",
-      "eventChain": [ { "type": "Lose_Benefit_Roll", "amount": 1 } ]
-    },
-    "4": {
-      "description": "A powerful noble takes offense at your actions. Gain an Enemy.",
-      "eventChain": [ { "type": "Gain_Enemy", "amount": 1 } ]
-    },
-    "5": {
-      "description": "You are injured in a duel or accident. Roll on the Injury Table.",
-      "eventChain": [ { "type": "Injury" } ]
-    },
-    "6": {
-      "description": "Injured. Roll on the Injury Table.",
-      "eventChain": [ { "type": "Injury" } ]
-    }
-  },
-  "events": {
-    "2": {
-      "description": "Disaster! Roll on the Mishap Table but do not leave the career.",
-      "eventChain": [ { "type": "Disaster" } ]
-    },
-    "3": {
-      "description": "You make a powerful friend in high places. Gain an Ally or +1 SOC.",
-      "eventChain": [
-        {
-          "type": "choice",
-          "choices": [
-            { "type": "Gain_Ally", "amount": 1 },
-            { "type": "Increase_Stat", "stat": "SOC", "amount": 1 }
-          ]
-        }
-      ]
-    },
-    "4": {
-      "description": "You take part in a major diplomatic event. Gain Diplomat 1 or Admin 1.",
-      "eventChain": [ { "type": "Gain_Skill", "skills_list": [ "Diplomat 1", "Admin 1" ] } ]
-    },
-    "5": {
-      "description": "You are appointed to a prestigious title. Gain +1 SOC and TAS Membership.",
-      "eventChain": [
-        { "type": "Increase_Stat", "stat": "SOC", "amount": 1 },
-        { "type": "Gain_Benefit", "benefit": "TAS Membership" }
-      ]
-    },
-    "6": {
-      "description": "You are given advanced tutoring. Gain any skill you already possess by one level.",
-      "eventChain": [ { "type": "Increase_Skill", "skills_list": [ "Any" ] } ]
-    },
-    "7": {
-      "description": "Life Event.",
-      "eventChain": [ { "type": "Life_Event" } ]
-    },
-    "8": {
-      "description": "You settle a major dispute with charm or cunning. Gain Persuade 1 or Advocate 1.",
-      "eventChain": [ { "type": "Gain_Skill", "skills_list": [ "Persuade 1", "Advocate 1" ] } ]
-    },
-    "9": {
-      "description": "You invest in a successful venture. Gain 1d6×1000 credits.",
-      "eventChain": [ { "type": "Gain_Money", "amount": "1d6*1000" } ]
-    },
-    "10": {
-      "description": "You mentor a rising noble. Gain Admin 1 and a Contact.",
-      "eventChain": [
-        { "type": "Gain_Skill", "skills_list": [ "Admin 1" ] },
-        { "type": "Gain_Contact", "amount": 1 }
-      ]
-    },
-    "11": {
-      "description": "You foil a rival’s plot against your house. Gain an Enemy and +2 DM to your next advancement roll.",
-      "eventChain": [
-        { "type": "Gain_Enemy", "amount": 1 },
-        { "type": "Advancement_DM", "DM": 2 }
-      ]
-    },
-    "12": {
-      "description": "You are honored by the Imperial Court. Automatically promoted or SOC +2.",
-      "eventChain": [
-        {
-          "type": "choice",
-          "choices": [
-            { "type": "Automatic_Promotion" },
-            { "type": "Increase_Stat", "stat": "SOC", "amount": 2 }
-          ]
-        }
-      ]
-    }
-  }
-},
-    "rogue": {
-  "hasCommission": false,
-  "qualification": { "DEX": 6 },
-  "assignments": [
-    "Thief",
-    "Enforcer",
-    "Con Artist"
-  ],
-  "career_progress": {
-    "survival": {
-      "Thief": { "DEX": 6 },
-      "Enforcer": { "END": 6 },
-      "Con Artist": { "SOC": 6 }
-    },
-    "advancement": {
-      "Thief": { "INT": 6 },
-      "Enforcer": { "STR": 6 },
-      "Con Artist": { "INT": 6 }
-    }
-  },
-  "muster_out_benefits": {
-    "cash": {
-      "1": 1000,
-      "2": 5000,
-      "3": 10000,
-      "4": 10000,
-      "5": 20000,
-      "6": 20000,
-      "7": 50000
-    },
-    "benefits": {
-      "1": "Weapon",
-      "2": "INT +1",
-      "3": "EDU +1",
-      "4": "TAS Membership",
-      "5": "SOC +1",
-      "6": "Low Passage",
-      "7": "Ship Share"
-    }
-  },
-  "skills_and_training": {
-    "personal_development": {
-      "1": "STR +1",
-      "2": "DEX +1",
-      "3": "END +1",
-      "4": "Gambler",
-      "5": "Streetwise",
-      "6": "Melee"
-    },
-    "service_skills": {
-      "1": "Deception",
-      "2": "Electronics",
-      "3": "Stealth",
-      "4": "Streetwise",
-      "5": "Melee",
-      "6": "Gun Combat"
-    },
-    "advanced_education_requirements": { "EDU": 8 },
-    "advanced_education": {
-      "1": "Admin",
-      "2": "Advocate",
-      "3": "Broker",
-      "4": "Carouse",
-      "5": "Electronics",
-      "6": "Leadership"
-    },
-    "thief": {
-      "1": "Stealth",
-      "2": "Electronics",
-      "3": "Streetwise",
-      "4": "Recon",
-      "5": "Drive",
-      "6": "Mechanic"
-    },
-    "enforcer": {
-      "1": "Melee",
-      "2": "Gun Combat",
-      "3": "Athletics",
-      "4": "Intimidate",
-      "5": "Recon",
-      "6": "Streetwise"
-    },
-    "con artist": {
-      "1": "Deception",
-      "2": "Persuade",
-      "3": "Carouse",
-      "4": "Gambler",
-      "5": "Stealth",
-      "6": "Streetwise"
-    }
-  },
-  "ranks": {
-    "enlisted": {
-      "0": "Lowlife",
-      "1": "Runner",
-      "2": "Operator",
-      "3": "Lieutenant",
-      "4": "Boss",
-      "5": "Capo",
-      "6": "Kingpin"
-    }
-  },
-  "rank_bonus": {
-    "enlisted": {
-      "0": "-",
-      "1": "Streetwise 1",
-      "2": "Stealth 1",
-      "3": "Deception 1",
-      "4": "Leadership 1",
-      "5": "-",
-      "6": "SOC +1"
-    }
-  },
-  "mishaps": {
-    "1": {
-      "description": "Severely injured. Treat this as 2 on the Injury Table or roll twice and take the lower result.",
-      "eventChain": [ { "type": "Severe_Injury" } ]
-    },
-    "2": {
-      "description": "You are betrayed or caught. You may choose to flee and lose your benefit roll, or go to prison next term.",
-      "eventChain": [
-        {
-          "type": "choice",
-          "choices": [
-            { "type": "Removed_From_Career_No_Benefits" },
-            { "type": "Enter_Career", "career": "prisoner" }
-          ]
-        }
-      ]
-    },
-    "3": {
-      "description": "A job goes bad, and someone gets hurt. Roll END 8+ or take an Injury.",
-      "eventChain": [
-        {
-          "type": "Roll_Stat",
-          "stat": "END",
-          "target": 8,
-          "Failure": { "type": "Injury" }
-        }
-      ]
-    },
-    "4": {
-      "description": "You cross a powerful crime boss. Gain an Enemy and lose one benefit roll.",
-      "eventChain": [
-        { "type": "Gain_Enemy", "amount": 1 },
-        { "type": "Lose_Benefit_Roll", "amount": 1 }
-      ]
-    },
-    "5": {
-      "description": "You suffer from a personal addiction or debt. Lose 1d6×1000 credits.",
-      "eventChain": [ { "type": "Lose_Money", "amount": "1d6*1000" } ]
-    },
-    "6": {
-      "description": "Injured. Roll on the Injury Table.",
-      "eventChain": [ { "type": "Injury" } ]
-    }
-  },
-  "events": {
-    "2": {
-      "description": "Disaster! Roll on the Mishap Table but do not leave the career.",
-      "eventChain": [ { "type": "Disaster" } ]
-    },
-    "3": {
-      "description": "You pull off a big score. Gain 1d6×1000 credits or a Ship Share.",
-      "eventChain": [
-        {
-          "type": "choice",
-          "choices": [
-            { "type": "Gain_Money", "amount": "1d6*1000" },
-            { "type": "Gain_Benefit", "benefit": "Ship Share" }
-          ]
-        }
-      ]
-    },
-    "4": {
-      "description": "You make a useful contact in the underworld. Gain an Ally or Contact.",
-      "eventChain": [
-        {
-          "type": "choice",
-          "choices": [
-            { "type": "Gain_Ally", "amount": 1 },
-            { "type": "Gain_Contact", "amount": 1 }
-          ]
-        }
-      ]
-    },
-    "5": {
-      "description": "You are forced to run a con or job in a dangerous area. Gain Stealth 1 or Recon 1.",
-      "eventChain": [ { "type": "Gain_Skill", "skills_list": [ "Stealth 1", "Recon 1" ] } ]
-    },
-    "6": {
-      "description": "You are trained by an experienced criminal. Increase any one skill you already possess by +1.",
-      "eventChain": [ { "type": "Increase_Skill", "skills_list": [ "Any" ] } ]
-    },
-    "7": {
-      "description": "Life Event.",
-      "eventChain": [ { "type": "Life_Event" } ]
-    },
-    "8": {
-      "description": "You work for a corrupt official or noble. Gain Carouse 1 or Deception 1.",
-      "eventChain": [ { "type": "Gain_Skill", "skills_list": [ "Carouse 1", "Deception 1" ] } ]
-    },
-    "9": {
-      "description": "You pull off a risky but successful heist. Gain DM+2 to your next Advancement roll.",
-      "eventChain": [ { "type": "Advancement_DM", "DM": 2 } ]
-    },
-    "10": {
-      "description": "You broker peace between rival factions. Gain Persuade 1 or Leadership 1.",
-      "eventChain": [ { "type": "Gain_Skill", "skills_list": [ "Persuade 1", "Leadership 1" ] } ]
-    },
-    "11": {
-      "description": "You double-cross someone. Gain a Ship Share and an Enemy.",
-      "eventChain": [
-        { "type": "Gain_Benefit", "benefit": "Ship Share" },
-        { "type": "Gain_Enemy", "amount": 1 }
-      ]
-    },
-    "12": {
-      "description": "You rise through the ranks of the underworld. Automatically promoted or gain Leadership 1.",
-      "eventChain": [
-        {
-          "type": "choice",
-          "choices": [
-            { "type": "Automatic_Promotion" },
-            { "type": "Gain_Skill", "skills_list": [ "Leadership 1" ] }
-          ]
-        }
-      ]
-    }
-  }
-},
-    "scholar": {
-  "hasCommission": false,
-  "qualification": { "EDU": 6 },
-  "assignments": [
-    "Field Researcher",
-    "Scientist",
-    "Physician"
-  ],
-  "career_progress": {
-    "survival": {
-      "Field Researcher": { "END": 6 },
-      "Scientist": { "EDU": 7 },
-      "Physician": { "INT": 6 }
-    },
-    "advancement": {
-      "Field Researcher": { "EDU": 6 },
-      "Scientist": { "INT": 6 },
-      "Physician": { "EDU": 7 }
-    }
-  },
-  "muster_out_benefits": {
-    "cash": {
-      "1": 1000,
-      "2": 5000,
-      "3": 10000,
-      "4": 10000,
-      "5": 20000,
-      "6": 20000,
-      "7": 50000
-    },
-    "benefits": {
-      "1": "INT +1",
-      "2": "EDU +1",
-      "3": "TAS Membership",
-      "4": "Scientific Equipment",
-      "5": "Contact",
-      "6": "SOC +1",
-      "7": "Ship Share"
-    }
-  },
-  "skills_and_training": {
-    "personal_development": {
-      "1": "INT +1",
-      "2": "EDU +1",
-      "3": "SOC +1",
-      "4": "Medic",
-      "5": "Electronics",
-      "6": "Language"
-    },
-    "service_skills": {
-      "1": "Admin",
-      "2": "Electronics",
-      "3": "Language",
-      "4": "Medic",
-      "5": "Science",
-      "6": "Investigate"
-    },
-    "advanced_education_requirements": { "EDU": 8 },
-    "advanced_education": {
-      "1": "Advocate",
-      "2": "Art",
-      "3": "Diplomat",
-      "4": "Leadership",
-      "5": "Navigation",
-      "6": "Science"
-    },
-    "field researcher": {
-      "1": "Survival",
-      "2": "Recon",
-      "3": "Investigate",
-      "4": "Science",
-      "5": "Language",
-      "6": "Medic"
-    },
-    "scientist": {
-      "1": "Science",
-      "2": "Electronics",
-      "3": "Language",
-      "4": "Admin",
-      "5": "Profession",
-      "6": "Investigate"
-    },
-    "physician": {
-      "1": "Medic",
-      "2": "Science (biology)",
-      "3": "Electronics (medical)",
-      "4": "Admin",
-      "5": "Language",
-      "6": "Investigate"
-    }
-  },
-  "ranks": {
-    "enlisted": {
-      "0": "Student",
-      "1": "Graduate",
-      "2": "Researcher",
-      "3": "Doctor",
-      "4": "Professor",
-      "5": "Department Head",
-      "6": "Dean"
-    }
-  },
-  "rank_bonus": {
-    "enlisted": {
-      "0": "-",
-      "1": "EDU +1",
-      "2": "Science 1",
-      "3": "Medic 1",
-      "4": "Admin 1",
-      "5": "Leadership 1",
-      "6": "SOC +1"
-    }
-  },
-  "mishaps": {
-    "1": {
-      "description": "Severely injured during a field mission. Treat as 2 on the Injury Table or roll twice and take the lower result.",
-      "eventChain": [ { "type": "Severe_Injury" } ]
-    },
-    "2": {
-      "description": "Your work is stolen or discredited. Lose one benefit roll and gain a Rival.",
-      "eventChain": [
-        { "type": "Lose_Benefit_Roll", "amount": 1 },
-        { "type": "Gain_Rival", "amount": 1 }
-      ]
-    },
-    "3": {
-      "description": "You make a critical error in research or treatment. Roll INT 8+ or lose one rank (if applicable).",
-      "eventChain": [
-        {
-          "type": "Roll_Stat",
-          "stat": "INT",
-          "target": 8,
-          "Failure": { "type": "Lose_Rank", "amount": 1 }
-        }
-      ]
-    },
-    "4": {
-      "description": "Your institution is defunded or destroyed. Gain Investigate 1 and an Enemy.",
-      "eventChain": [
-        { "type": "Gain_Skill", "skills_list": [ "Investigate 1" ] },
-        { "type": "Gain_Enemy", "amount": 1 }
-      ]
-    },
-    "5": {
-      "description": "You are injured in an experiment or outbreak. Roll on the Injury Table.",
-      "eventChain": [ { "type": "Injury" } ]
-    },
-    "6": {
-      "description": "Injured. Roll on the Injury Table.",
-      "eventChain": [ { "type": "Injury" } ]
-    }
-  },
-  "events": {
-    "2": {
-      "description": "Disaster! Roll on the Mishap Table but do not leave the career.",
-      "eventChain": [ { "type": "Disaster" } ]
-    },
-    "3": {
-      "description": "You publish groundbreaking research. Gain +1 EDU or Science 1.",
-      "eventChain": [
-        {
-          "type": "choice",
-          "choices": [
-            { "type": "Increase_Stat", "stat": "EDU", "amount": 1 },
-            { "type": "Gain_Skill", "skills_list": [ "Science 1" ] }
-          ]
-        }
-      ]
-    },
-    "4": {
-      "description": "You work with a prestigious institution. Gain Admin 1 or a Contact.",
-      "eventChain": [
-        {
-          "type": "choice",
-          "choices": [
-            { "type": "Gain_Skill", "skills_list": [ "Admin 1" ] },
-            { "type": "Gain_Contact", "amount": 1 }
-          ]
-        }
-      ]
-    },
-    "5": {
-      "description": "You mentor a younger scholar. Gain Leadership 1 or EDU +1.",
-      "eventChain": [
-        {
-          "type": "choice",
-          "choices": [
-            { "type": "Gain_Skill", "skills_list": [ "Leadership 1" ] },
-            { "type": "Increase_Stat", "stat": "EDU", "amount": 1 }
-          ]
-        }
-      ]
-    },
-    "6": {
-      "description": "You undergo advanced training. Increase any one skill you already have by one level.",
-      "eventChain": [ { "type": "Increase_Skill", "skills_list": [ "Any" ] } ]
-    },
-    "7": {
-      "description": "Life Event.",
-      "eventChain": [ { "type": "Life_Event" } ]
-    },
-    "8": {
-      "description": "You attend a major scientific conference. Gain Diplomat 1 or Persuade 1.",
-      "eventChain": [ { "type": "Gain_Skill", "skills_list": [ "Diplomat 1", "Persuade 1" ] } ]
-    },
-    "9": {
-      "description": "You make a technological breakthrough. Gain Electronics 1 or Engineer 1.",
-      "eventChain": [ { "type": "Gain_Skill", "skills_list": [ "Electronics 1", "Engineer 1" ] } ]
-    },
-    "10": {
-      "description": "You treat or save a high-profile patient. Gain SOC +1 or Medic 1.",
-      "eventChain": [
-        {
-          "type": "choice",
-          "choices": [
-            { "type": "Increase_Stat", "stat": "SOC", "amount": 1 },
-            { "type": "Gain_Skill", "skills_list": [ "Medic 1" ] }
-          ]
-        }
-      ]
-    },
-    "11": {
-      "description": "You uncover a conspiracy, secret, or ancient knowledge. Gain Investigate 1 and an Enemy.",
-      "eventChain": [
-        { "type": "Gain_Skill", "skills_list": [ "Investigate 1" ] },
-        { "type": "Gain_Enemy", "amount": 1 }
-      ]
-    },
-    "12": {
-      "description": "Your work earns you galactic acclaim. Automatically promoted or gain +2 EDU.",
-      "eventChain": [
-        {
-          "type": "choice",
-          "choices": [
-            { "type": "Automatic_Promotion" },
-            { "type": "Increase_Stat", "stat": "EDU", "amount": 2 }
-          ]
-        }
-      ]
-    }
-  }
-},
-    "scout": {
-  "hasCommission": false,
-  "qualification": { "INT": 5 },
-  "assignments": [
-    "Courier",
-    "Surveyor",
-    "Explorer"
-  ],
-  "career_progress": {
-    "survival": {
-      "Courier": { "END": 6 },
-      "Surveyor": { "INT": 7 },
-      "Explorer": { "END": 7 }
-    },
-    "advancement": {
-      "Courier": { "EDU": 6 },
-      "Surveyor": { "INT": 6 },
-      "Explorer": { "EDU": 7 }
-    }
-  },
-  "muster_out_benefits": {
-    "cash": {
-      "1": 2000,
-      "2": 5000,
-      "3": 5000,
-      "4": 10000,
-      "5": 10000,
-      "6": 20000,
-      "7": 30000
-    },
-    "benefits": {
-      "1": "Weapon",
-      "2": "INT +1",
-      "3": "EDU +1",
-      "4": "Ship Share",
-      "5": "TAS Membership",
-      "6": "Low Passage",
-      "7": "Scout Ship"
-    }
-  },
-  "skills_and_training": {
-    "personal_development": {
-      "1": "END +1",
-      "2": "INT +1",
-      "3": "EDU +1",
-      "4": "Athletics",
-      "5": "Survival",
-      "6": "Mechanic"
-    },
-    "service_skills": {
-      "1": "Pilot",
-      "2": "Vacc Suit",
-      "3": "Astrogation",
-      "4": "Mechanic",
-      "5": "Electronics",
-      "6": "Recon"
-    },
-    "advanced_education_requirements": { "EDU": 8 },
-    "advanced_education": {
-      "1": "Navigation",
-      "2": "Sensors",
-      "3": "Science",
-      "4": "Medic",
-      "5": "Engineering",
-      "6": "Language"
-    },
-    "courier": {
-      "1": "Pilot",
-      "2": "Electronics",
-      "3": "Mechanic",
-      "4": "Gun Combat",
-      "5": "Astrogation",
-      "6": "Streetwise"
-    },
-    "surveyor": {
-      "1": "Science (Planetology)",
-      "2": "Navigation",
-      "3": "Sensors",
-      "4": "Electronics",
-      "5": "Language",
-      "6": "Admin"
-    },
-    "explorer": {
-      "1": "Survival",
-      "2": "Recon",
-      "3": "Melee",
-      "4": "Gun Combat",
-      "5": "Explosives",
-      "6": "Vacc Suit"
-    }
-  },
-  "ranks": {
-    "enlisted": {
-      "0": "Trainee",
-      "1": "Scout",
-      "2": "Senior Scout",
-      "3": "Pathfinder",
-      "4": "Recon Specialist",
-      "5": "Field Leader",
-      "6": "Sector Pathfinder"
-    }
-  },
-  "rank_bonus": {
-    "enlisted": {
-      "0": "-",
-      "1": "Vacc Suit 1",
-      "2": "Recon 1",
-      "3": "Pilot 1",
-      "4": "Navigation 1",
-      "5": "Leadership 1",
-      "6": "SOC +1"
-    }
-  },
-  "mishaps": {
-    "1": {
-      "description": "Severely injured in an expedition gone wrong. Treat as 2 on the Injury Table or roll twice and take the lower result.",
-      "eventChain": [ { "type": "Severe_Injury" } ]
-    },
-    "2": {
-      "description": "You get lost in deep space. You survive, but gain a Rival and lose one benefit roll.",
-      "eventChain": [
-        { "type": "Gain_Rival", "amount": 1 },
-        { "type": "Lose_Benefit_Roll", "amount": 1 }
-      ]
-    },
-    "3": {
-      "description": "You contract a rare disease or radiation exposure. Roll END 8+ or take -1 END.",
-      "eventChain": [
-        {
-          "type": "Roll_Stat",
-          "stat": "END",
-          "target": 8,
-          "Failure": { "type": "Decrease_Stat", "stat": "END", "amount": 1 }
-        }
-      ]
-    },
-    "4": {
-      "description": "A dangerous alien lifeform or environmental hazard wounds you. Roll on the Injury Table.",
-      "eventChain": [ { "type": "Injury" } ]
-    },
-    "5": {
-      "description": "You disobeyed orders in the field. Lose 1 SOC and gain a Rival.",
-      "eventChain": [
-        { "type": "Decrease_Stat", "stat": "SOC", "amount": 1 },
-        { "type": "Gain_Rival", "amount": 1 }
-      ]
-    },
-    "6": {
-      "description": "Injured. Roll on the Injury Table.",
-      "eventChain": [ { "type": "Injury" } ]
-    }
-  },
-  "events": {
-    "2": {
-      "description": "Disaster! Roll on the Mishap Table but do not leave the career.",
-      "eventChain": [ { "type": "Disaster" } ]
-    },
-    "3": {
-      "description": "You discover a mysterious alien artifact. Gain +1 EDU or Science 1.",
-      "eventChain": [
-        {
-          "type": "choice",
-          "choices": [
-            { "type": "Increase_Stat", "stat": "EDU", "amount": 1 },
-            { "type": "Gain_Skill", "skills_list": [ "Science 1" ] }
-          ]
-        }
-      ]
-    },
-    "4": {
-      "description": "You make a stellar discovery. Gain Navigation 1 or Sensors 1.",
-      "eventChain": [ { "type": "Gain_Skill", "skills_list": [ "Navigation 1", "Sensors 1" ] } ]
-    },
-    "5": {
-      "description": "You assist a colonist or outpost. Gain Admin 1 or +1 SOC.",
-      "eventChain": [
-        {
-          "type": "choice",
-          "choices": [
-            { "type": "Gain_Skill", "skills_list": [ "Admin 1" ] },
-            { "type": "Increase_Stat", "stat": "SOC", "amount": 1 }
-          ]
-        }
-      ]
-    },
-    "6": {
-      "description": "You spend time improving your survival skills. Increase any one skill you already have by +1.",
-      "eventChain": [ { "type": "Increase_Skill", "skills_list": [ "Any" ] } ]
-    },
-    "7": {
-      "description": "Life Event.",
-      "eventChain": [ { "type": "Life_Event" } ]
-    },
-    "8": {
-      "description": "You encounter a unique lifeform. Gain Survival 1 or Investigate 1.",
-      "eventChain": [ { "type": "Gain_Skill", "skills_list": [ "Survival 1", "Investigate 1" ] } ]
-    },
-    "9": {
-      "description": "You chart a new route through unclaimed space. Gain Astrogation 1 or DM+2 to your next advancement roll.",
-      "eventChain": [
-        {
-          "type": "choice",
-          "choices": [
-            { "type": "Gain_Skill", "skills_list": [ "Astrogation 1" ] },
-            { "type": "Advancement_DM", "DM": 2 }
-          ]
-        }
-      ]
-    },
-    "10": {
-      "description": "You are decorated for bravery during a recon mission. Gain SOC +1 or a Ship Share.",
-      "eventChain": [
-        {
-          "type": "choice",
-          "choices": [
-            { "type": "Increase_Stat", "stat": "SOC", "amount": 1 },
-            { "type": "Gain_Benefit", "benefit": "Ship Share" }
-          ]
-        }
-      ]
-    },
-    "11": {
-      "description": "You uncover a conspiracy or lost knowledge. Gain Investigate 1 and a Rival.",
-      "eventChain": [
-        { "type": "Gain_Skill", "skills_list": [ "Investigate 1" ] },
-        { "type": "Gain_Rival", "amount": 1 }
-      ]
-    },
-    "12": {
-      "description": "Your name becomes famous across the subsector. Automatically promoted or SOC +1.",
-      "eventChain": [
-        {
-          "type": "choice",
-          "choices": [
-            { "type": "Automatic_Promotion" },
-            { "type": "Increase_Stat", "stat": "SOC", "amount": 1 }
-          ]
-        }
-      ]
-    }
-  }
-}
 }

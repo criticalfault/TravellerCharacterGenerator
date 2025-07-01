@@ -4,35 +4,41 @@ import raceData from '../../data/races.json';
 
 export default function RaceSelectionTab() {
   const { character, dispatch, CHARACTER_ACTIONS } = useCharacter();
-  const [selectedRace, setSelectedRace] = useState(character.species || 'Human');
+  const [selectedRace, setSelectedRace] = useState(
+    character.species || 'Human'
+  );
   const [raceConfirmed, setRaceConfirmed] = useState(false);
 
-  const handleRaceSelection = (raceName) => {
+  const handleRaceSelection = raceName => {
     setSelectedRace(raceName);
     setRaceConfirmed(false);
   };
 
   const confirmRaceSelection = () => {
     const race = raceData[selectedRace];
-    
+
     // Set the species in character state
     dispatch({
       type: CHARACTER_ACTIONS.SET_SPECIES,
-      payload: selectedRace
+      payload: selectedRace,
     });
 
     // Apply racial attribute modifiers to current attributes
     if (race.attributeModifiers) {
       const modifiedAttributes = { ...character.attributes };
       Object.entries(race.attributeModifiers).forEach(([attr, modifier]) => {
-        if (attr !== 'PSI') { // Handle PSI separately as it's not a standard attribute
-          modifiedAttributes[attr] = Math.max(0, (modifiedAttributes[attr] || 0) + modifier);
+        if (attr !== 'PSI') {
+          // Handle PSI separately as it's not a standard attribute
+          modifiedAttributes[attr] = Math.max(
+            0,
+            (modifiedAttributes[attr] || 0) + modifier
+          );
         }
       });
-      
+
       dispatch({
         type: CHARACTER_ACTIONS.SET_ATTRIBUTES,
-        payload: modifiedAttributes
+        payload: modifiedAttributes,
       });
     }
 
@@ -45,11 +51,11 @@ export default function RaceSelectionTab() {
     setSelectedRace('Human');
     dispatch({
       type: CHARACTER_ACTIONS.SET_SPECIES,
-      payload: 'Human'
+      payload: 'Human',
     });
   };
 
-  const getRaceDetails = (raceName) => {
+  const getRaceDetails = raceName => {
     return raceData[raceName] || raceData['Human'];
   };
 
@@ -58,7 +64,10 @@ export default function RaceSelectionTab() {
   return (
     <div className="race-selection-tab">
       <h2>Species Selection</h2>
-      <p>Choose your character's species. Each species has unique traits and attribute modifiers.</p>
+      <p>
+        Choose your character's species. Each species has unique traits and
+        attribute modifiers.
+      </p>
 
       {!raceConfirmed ? (
         <div className="race-selection-content">
@@ -85,11 +94,14 @@ export default function RaceSelectionTab() {
               <div className="attribute-modifiers">
                 <h4>Attribute Modifiers</h4>
                 <ul>
-                  {Object.entries(selectedRaceData.attributeModifiers).map(([attr, modifier]) => (
-                    <li key={attr}>
-                      {attr}: {modifier > 0 ? '+' : ''}{modifier}
-                    </li>
-                  ))}
+                  {Object.entries(selectedRaceData.attributeModifiers).map(
+                    ([attr, modifier]) => (
+                      <li key={attr}>
+                        {attr}: {modifier > 0 ? '+' : ''}
+                        {modifier}
+                      </li>
+                    )
+                  )}
                 </ul>
               </div>
             )}
@@ -115,7 +127,7 @@ export default function RaceSelectionTab() {
             </div>
 
             <div className="race-selection-actions">
-              <button 
+              <button
                 className="confirm-race-button"
                 onClick={confirmRaceSelection}
               >
@@ -129,16 +141,19 @@ export default function RaceSelectionTab() {
           <h3>Species Confirmed: {character.species}</h3>
           <div className="confirmed-race-summary">
             <p>{selectedRaceData.description}</p>
-            
+
             {Object.keys(selectedRaceData.attributeModifiers).length > 0 && (
               <div className="applied-modifiers">
                 <h4>Applied Attribute Modifiers</h4>
                 <ul>
-                  {Object.entries(selectedRaceData.attributeModifiers).map(([attr, modifier]) => (
-                    <li key={attr}>
-                      {attr}: {modifier > 0 ? '+' : ''}{modifier}
-                    </li>
-                  ))}
+                  {Object.entries(selectedRaceData.attributeModifiers).map(
+                    ([attr, modifier]) => (
+                      <li key={attr}>
+                        {attr}: {modifier > 0 ? '+' : ''}
+                        {modifier}
+                      </li>
+                    )
+                  )}
                 </ul>
               </div>
             )}
@@ -154,10 +169,7 @@ export default function RaceSelectionTab() {
           </div>
 
           <div className="race-actions">
-            <button 
-              className="change-race-button"
-              onClick={resetRaceSelection}
-            >
+            <button className="change-race-button" onClick={resetRaceSelection}>
               Change Species
             </button>
           </div>
@@ -166,8 +178,12 @@ export default function RaceSelectionTab() {
 
       <div className="current-character-info">
         <h4>Current Character</h4>
-        <p><strong>Species:</strong> {character.species}</p>
-        <p><strong>Name:</strong> {character.name || 'Unnamed'}</p>
+        <p>
+          <strong>Species:</strong> {character.species}
+        </p>
+        <p>
+          <strong>Name:</strong> {character.name || 'Unnamed'}
+        </p>
       </div>
     </div>
   );

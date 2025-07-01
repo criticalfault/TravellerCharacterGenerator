@@ -13,9 +13,9 @@ class ErrorBoundary extends React.Component {
   componentDidCatch(error, errorInfo) {
     this.setState({
       error: error,
-      errorInfo: errorInfo
+      errorInfo: errorInfo,
     });
-    
+
     // Log error to console in development
     if (process.env.NODE_ENV === 'development') {
       console.error('ErrorBoundary caught an error:', error, errorInfo);
@@ -28,8 +28,10 @@ class ErrorBoundary extends React.Component {
         <div className="error-boundary">
           <div className="error-container">
             <h2>Something went wrong</h2>
-            <p>The Traveller Character Generator encountered an unexpected error.</p>
-            
+            <p>
+              The Traveller Character Generator encountered an unexpected error.
+            </p>
+
             {process.env.NODE_ENV === 'development' && (
               <details className="error-details">
                 <summary>Error Details (Development Mode)</summary>
@@ -40,17 +42,23 @@ class ErrorBoundary extends React.Component {
                 </pre>
               </details>
             )}
-            
+
             <div className="error-actions">
-              <button 
+              <button
                 className="btn btn-primary"
                 onClick={() => window.location.reload()}
               >
                 Reload Page
               </button>
-              <button 
+              <button
                 className="btn btn-secondary"
-                onClick={() => this.setState({ hasError: false, error: null, errorInfo: null })}
+                onClick={() =>
+                  this.setState({
+                    hasError: false,
+                    error: null,
+                    errorInfo: null,
+                  })
+                }
               >
                 Try Again
               </button>

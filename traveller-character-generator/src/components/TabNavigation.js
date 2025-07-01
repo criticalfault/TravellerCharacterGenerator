@@ -14,18 +14,26 @@ import SaveLoadTab from './tabs/SaveLoadTab';
 const TABS = [
   { id: 'race-selection', label: 'Species', component: RaceSelectionTab },
   { id: 'attributes', label: 'Attributes', component: AttributesTab },
-  { id: 'background', label: 'Background Skills', component: BackgroundSkillsTab },
-  { id: 'career-selection', label: 'Career Selection', component: CareerSelectionTab },
+  {
+    id: 'background',
+    label: 'Background Skills',
+    component: BackgroundSkillsTab,
+  },
+  {
+    id: 'career-selection',
+    label: 'Career Selection',
+    component: CareerSelectionTab,
+  },
   { id: 'career-terms', label: 'Career Terms', component: CareerTermsTab },
   { id: 'mustering-out', label: 'Mustering Out', component: MusteringOutTab },
   { id: 'summary', label: 'Summary', component: SummaryTab },
-  { id: 'save-load', label: 'Save/Load', component: SaveLoadTab }
+  { id: 'save-load', label: 'Save/Load', component: SaveLoadTab },
 ];
 
 export default function TabNavigation() {
   const [activeTab, setActiveTab] = useState('race-selection');
 
-  const handleTabChange = (tabId) => {
+  const handleTabChange = tabId => {
     setActiveTab(tabId);
   };
 
@@ -38,17 +46,26 @@ export default function TabNavigation() {
     return null;
   };
 
-  const canNavigateToTab = (tabId) => {
+  const canNavigateToTab = tabId => {
     // Navigation validation based on character creation progress
-    const tabOrder = ['race-selection', 'attributes', 'background', 'career-selection', 'career-terms', 'mustering-out', 'summary', 'save-load'];
+    const tabOrder = [
+      'race-selection',
+      'attributes',
+      'background',
+      'career-selection',
+      'career-terms',
+      'mustering-out',
+      'summary',
+      'save-load',
+    ];
     const currentIndex = tabOrder.indexOf(activeTab);
     const targetIndex = tabOrder.indexOf(tabId);
-    
+
     // Always allow navigation to current tab or previous tabs
     if (targetIndex <= currentIndex) {
       return true;
     }
-    
+
     // Allow navigation to next tab only if current requirements are met
     // For development, allow navigation to all tabs
     // TODO: Add proper validation logic based on character state
@@ -63,7 +80,9 @@ export default function TabNavigation() {
             <button
               key={tab.id}
               className={`tab-button ${activeTab === tab.id ? 'active' : ''} ${!canNavigateToTab(tab.id) ? 'disabled' : ''}`}
-              onClick={() => canNavigateToTab(tab.id) && handleTabChange(tab.id)}
+              onClick={() =>
+                canNavigateToTab(tab.id) && handleTabChange(tab.id)
+              }
               disabled={!canNavigateToTab(tab.id)}
             >
               {tab.label}
@@ -71,13 +90,11 @@ export default function TabNavigation() {
           ))}
         </div>
       </div>
-      
-      <div className="tab-content">
-        {getCurrentTabComponent()}
-      </div>
-      
+
+      <div className="tab-content">{getCurrentTabComponent()}</div>
+
       <div className="tab-navigation-controls">
-        <button 
+        <button
           className="nav-button prev"
           onClick={() => {
             const currentIndex = TABS.findIndex(tab => tab.id === activeTab);
@@ -92,8 +109,8 @@ export default function TabNavigation() {
         >
           Previous
         </button>
-        
-        <button 
+
+        <button
           className="nav-button next"
           onClick={() => {
             const currentIndex = TABS.findIndex(tab => tab.id === activeTab);
@@ -104,7 +121,9 @@ export default function TabNavigation() {
               }
             }
           }}
-          disabled={TABS.findIndex(tab => tab.id === activeTab) === TABS.length - 1}
+          disabled={
+            TABS.findIndex(tab => tab.id === activeTab) === TABS.length - 1
+          }
         >
           Next
         </button>

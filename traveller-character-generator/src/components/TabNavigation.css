@@ -7,7 +7,7 @@
 .tab-header {
   background: white;
   border-radius: 8px 8px 0 0;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   overflow-x: auto;
 }
 
@@ -50,7 +50,7 @@
 .tab-content {
   background: white;
   border-radius: 0 0 8px 8px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   min-height: 500px;
   padding: 30px;
 }
@@ -98,21 +98,21 @@
   .tab-header {
     border-radius: 0;
   }
-  
+
   .tab-button {
     padding: 12px 16px;
     font-size: 0.9rem;
   }
-  
+
   .tab-content {
     border-radius: 0;
     padding: 20px;
   }
-  
+
   .tab-navigation-controls {
     padding: 0 5px;
   }
-  
+
   .nav-button {
     padding: 10px 20px;
     font-size: 0.9rem;
@@ -349,15 +349,15 @@
     grid-template-columns: 1fr;
     gap: 20px;
   }
-  
+
   .race-details {
     padding: 20px;
   }
-  
+
   .race-confirmed {
     padding: 20px;
   }
-  
+
   .current-character-info {
     padding: 15px;
   }

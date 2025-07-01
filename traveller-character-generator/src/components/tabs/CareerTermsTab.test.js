@@ -5,7 +5,6 @@ import CareerTermsTab from './CareerTermsTab';
 import { CharacterProvider } from '../../context/CharacterContext';
 
 describe('CareerTermsTab', () => {
-
   test('renders component without crashing', () => {
     render(
       <CharacterProvider>
@@ -23,6 +22,10 @@ describe('CareerTermsTab', () => {
       </CharacterProvider>
     );
 
-    expect(screen.getByText('No active career. Please select a career first in the Career Selection tab.')).toBeInTheDocument();
+    expect(
+      screen.getByText(
+        'No active career. Please select a career first in the Career Selection tab.'
+      )
+    ).toBeInTheDocument();
   });
 });

@@ -29,9 +29,13 @@ describe('SaveLoadTab', () => {
 
   test('renders save/load interface', () => {
     renderSaveLoadTab();
-    
+
     expect(screen.getByText('Save & Load Characters')).toBeInTheDocument();
-    expect(screen.getByText('Manage your Traveller characters with save, load, and export functionality.')).toBeInTheDocument();
+    expect(
+      screen.getByText(
+        'Manage your Traveller characters with save, load, and export functionality.'
+      )
+    ).toBeInTheDocument();
     expect(screen.getByText('Current Character')).toBeInTheDocument();
     expect(screen.getByText('Saved Characters')).toBeInTheDocument();
     expect(screen.getByText('Import/Export')).toBeInTheDocument();
@@ -39,7 +43,7 @@ describe('SaveLoadTab', () => {
 
   test('displays character name input', () => {
     renderSaveLoadTab();
-    
+
     const nameInput = screen.getByLabelText('Character Name:');
     expect(nameInput).toBeInTheDocument();
     expect(nameInput).toHaveAttribute('placeholder', 'Enter character name');
@@ -47,7 +51,7 @@ describe('SaveLoadTab', () => {
 
   test('displays action buttons', () => {
     renderSaveLoadTab();
-    
+
     expect(screen.getByText('Save Character')).toBeInTheDocument();
     expect(screen.getByText('New Character')).toBeInTheDocument();
     expect(screen.getByText('Import Character')).toBeInTheDocument();
@@ -55,22 +59,28 @@ describe('SaveLoadTab', () => {
 
   test('shows empty state when no saved characters', () => {
     renderSaveLoadTab();
-    
+
     expect(screen.getByText('No saved characters found.')).toBeInTheDocument();
   });
 
   test('handles localStorage initialization', () => {
     // Test that the component doesn't crash when localStorage is empty
     renderSaveLoadTab();
-    
+
     expect(screen.getByText('No saved characters found.')).toBeInTheDocument();
   });
 
   test('displays save/load information', () => {
     renderSaveLoadTab();
-    
+
     expect(screen.getByText('Save/Load Information')).toBeInTheDocument();
-    expect(screen.getByText(/Characters are saved to your browser's local storage/)).toBeInTheDocument();
-    expect(screen.getByText(/Clearing your browser data will remove saved characters/)).toBeInTheDocument();
+    expect(
+      screen.getByText(/Characters are saved to your browser's local storage/)
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText(
+        /Clearing your browser data will remove saved characters/
+      )
+    ).toBeInTheDocument();
   });
 });

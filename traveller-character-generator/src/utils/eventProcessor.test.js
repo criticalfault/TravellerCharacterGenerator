@@ -1,18 +1,29 @@
-import { processEventChain, processEventStep, resolvePlayerChoice, processCrossCareerResults } from './eventProcessor';
+import {
+  processEventChain,
+  processEventStep,
+  resolvePlayerChoice,
+  processCrossCareerResults,
+} from './eventProcessor';
 
 // Mock dependencies
 jest.mock('./dice', () => ({
   roll2d6: jest.fn(() => ({ total: 8, dice: [4, 4], formatted: '8 (4, 4)' })),
-  rollWithModifier: jest.fn(() => ({ total: 10, baseRoll: 8, modifier: 2, dice: [4, 4], formatted: '10 (4, 4+2)' })),
+  rollWithModifier: jest.fn(() => ({
+    total: 10,
+    baseRoll: 8,
+    modifier: 2,
+    dice: [4, 4],
+    formatted: '10 (4, 4+2)',
+  })),
   makeSkillCheck: jest.fn(() => ({ success: true, formatted: 'Success' })),
   roll1d3: jest.fn(() => ({ total: 2, dice: [2], formatted: '2' })),
-  roll1d6: jest.fn(() => ({ total: 4, dice: [4], formatted: '4' }))
+  roll1d6: jest.fn(() => ({ total: 4, dice: [4], formatted: '4' })),
 }));
 
 jest.mock('./gameMechanics', () => ({
   getAttributeModifier: jest.fn(() => 1),
   rollEvent: jest.fn(),
-  rollMishap: jest.fn()
+  rollMishap: jest.fn(),
 }));
 
 jest.mock('../data/careers.json', () => ({}));
@@ -20,8 +31,8 @@ jest.mock('../data/careers.json', () => ({}));
 describe('Event Processor', () => {
   const mockCharacter = {
     attributes: { STR: 8, DEX: 7, END: 9, INT: 8, EDU: 7, SOC: 6 },
-    skills: { 'Gun Combat': 1, 'Investigate': 2 },
-    currentTerm: 1
+    skills: { 'Gun Combat': 1, Investigate: 2 },
+    currentTerm: 1,
   };
 
   const mockDispatch = jest.fn();
@@ -31,7 +42,7 @@ describe('Event Processor', () => {
     SET_BENEFIT_DM: 'SET_BENEFIT_DM',
     ADD_INJURY: 'ADD_INJURY',
     END_CAREER: 'END_CAREER',
-    REDUCE_ATTRIBUTE: 'REDUCE_ATTRIBUTE'
+    REDUCE_ATTRIBUTE: 'REDUCE_ATTRIBUTE',
   };
   const mockAddSkill = jest.fn();
   const mockUpdateAttribute = jest.fn();
@@ -45,8 +56,8 @@ describe('Event Processor', () => {
     const eventChain = [
       {
         type: 'Gain_Skill',
-        skills_list: ['Gun Combat 1']
-      }
+        skills_list: ['Gun Combat 1'],
+      },
     ];
 
     const result = await processEventChain(
@@ -68,8 +79,8 @@ describe('Event Processor', () => {
     const eventChain = [
       {
         type: 'Gain_Skill',
-        skills_list: ['Gun Combat 1', 'Melee 1', 'Athletics 1']
-      }
+        skills_list: ['Gun Combat 1', 'Melee 1', 'Athletics 1'],
+      },
     ];
 
     const result = await processEventChain(
@@ -92,8 +103,8 @@ describe('Event Processor', () => {
     const eventChain = [
       {
         type: 'Advancement_DM',
-        DM: 2
-      }
+        DM: 2,
+      },
     ];
 
     const result = await processEventChain(
@@ -109,7 +120,7 @@ describe('Event Processor', () => {
     expect(result.completed).toBe(true);
     expect(mockDispatch).toHaveBeenCalledWith({
       type: 'SET_ADVANCEMENT_DM',
-      payload: 2
+      payload: 2,
     });
   });
 
@@ -117,8 +128,8 @@ describe('Event Processor', () => {
     const eventChain = [
       {
         type: 'Gain_Enemy',
-        amount: 1
-      }
+        amount: 1,
+      },
     ];
 
     const result = await processEventChain(
@@ -132,15 +143,18 @@ describe('Event Processor', () => {
     );
 
     expect(result.completed).toBe(true);
-    expect(mockAddRelationship).toHaveBeenCalledWith('enemy', expect.any(String));
+    expect(mockAddRelationship).toHaveBeenCalledWith(
+      'enemy',
+      expect.any(String)
+    );
   });
 
   test('processes Gain_Contacts with D3 amount', async () => {
     const eventChain = [
       {
         type: 'Gain_Contacts',
-        amount: 2 // Use fixed number instead of D3 for testing
-      }
+        amount: 2, // Use fixed number instead of D3 for testing
+      },
     ];
 
     const result = await processEventChain(
@@ -164,14 +178,14 @@ describe('Event Processor', () => {
         choices: [
           {
             type: 'Gain_Skill',
-            skills_list: ['Leadership 1']
+            skills_list: ['Leadership 1'],
           },
           {
             type: 'Advancement_DM',
-            DM: 4
-          }
-        ]
-      }
+            DM: 4,
+          },
+        ],
+      },
     ];
 
     const result = await processEventChain(
@@ -192,8 +206,8 @@ describe('Event Processor', () => {
   test('processes Injury event', async () => {
     const eventChain = [
       {
-        type: 'Injury'
-      }
+        type: 'Injury',
+      },
     ];
 
     const result = await processEventChain(
@@ -211,8 +225,8 @@ describe('Event Processor', () => {
       type: 'ADD_INJURY',
       payload: expect.objectContaining({
         type: 'Injury',
-        term: 1
-      })
+        term: 1,
+      }),
     });
   });
 
@@ -221,8 +235,8 @@ describe('Event Processor', () => {
       {
         type: 'Increase_Stat',
         stat: 'STR',
-        amount: 1
-      }
+        amount: 1,
+      },
     ];
 
     const result = await processEventChain(
@@ -242,8 +256,8 @@ describe('Event Processor', () => {
   test('handles unknown event type gracefully', async () => {
     const eventChain = [
       {
-        type: 'Unknown_Event_Type'
-      }
+        type: 'Unknown_Event_Type',
+      },
     ];
 
     const result = await processEventChain(
@@ -269,8 +283,8 @@ describe('Event Processor', () => {
   test('processes Severe_Injury with injury table', async () => {
     const eventChain = [
       {
-        type: 'Severe_Injury'
-      }
+        type: 'Severe_Injury',
+      },
     ];
 
     const result = await processEventChain(
@@ -288,16 +302,16 @@ describe('Event Processor', () => {
       type: 'ADD_INJURY',
       payload: expect.objectContaining({
         type: 'Severe_Injury',
-        term: 1
-      })
+        term: 1,
+      }),
     });
   });
 
   test('processes Automatic_Promotion_Or_Comission with choice', async () => {
     const eventChain = [
       {
-        type: 'Automatic_Promotion_Or_Comission'
-      }
+        type: 'Automatic_Promotion_Or_Comission',
+      },
     ];
 
     const result = await processEventChain(
@@ -321,8 +335,8 @@ describe('Event Processor', () => {
     const eventChain = [
       {
         type: 'Roll_On_Specialist_Table',
-        Events_Tables: ['agent']
-      }
+        Events_Tables: ['agent'],
+      },
     ];
 
     const result = await processEventChain(
@@ -344,16 +358,16 @@ describe('Event Processor', () => {
     const eventChain = [
       {
         type: 'Gain_Skill',
-        skills_list: ['Leadership 1']
+        skills_list: ['Leadership 1'],
       },
       {
         type: 'Advancement_DM',
-        DM: 2
+        DM: 2,
       },
       {
         type: 'Gain_Ally',
-        amount: 1
-      }
+        amount: 1,
+      },
     ];
 
     const result = await processEventChain(
@@ -371,18 +385,20 @@ describe('Event Processor', () => {
     expect(mockAddSkill).toHaveBeenCalledWith('Leadership', 1);
     expect(mockDispatch).toHaveBeenCalledWith({
       type: 'SET_ADVANCEMENT_DM',
-      payload: 2
+      payload: 2,
     });
-    expect(mockAddRelationship).toHaveBeenCalledWith('ally', expect.any(String));
+    expect(mockAddRelationship).toHaveBeenCalledWith(
+      'ally',
+      expect.any(String)
+    );
   });
 
   describe('resolvePlayerChoice', () => {
     test('resolves skill choice correctly', async () => {
-      
       const choice = {
         type: 'skill',
         skill: 'Gun Combat',
-        level: 1
+        level: 1,
       };
 
       const result = await resolvePlayerChoice(
@@ -401,7 +417,6 @@ describe('Event Processor', () => {
 
   describe('processCrossCareerResults', () => {
     test('processes cross-career results with event chains', async () => {
-      
       const crossCareerResults = [
         {
           career: 'Agent',
@@ -410,10 +425,10 @@ describe('Event Processor', () => {
           eventChain: [
             {
               type: 'Gain_Skill',
-              skills_list: ['Investigate 1']
-            }
-          ]
-        }
+              skills_list: ['Investigate 1'],
+            },
+          ],
+        },
       ];
 
       const results = await processCrossCareerResults(
