@@ -198,9 +198,11 @@ export default function BackgroundSkillsTab() {
                   <span className="skill-name">{skill}</span>
                   <span className="skill-level-display">
                     Level {currentLevel}
-                  </span>
+                  </span><br></br>
                 </div>
-
+                <div>
+                  {SKILL_DESCRIPTIONS[skill]}
+                </div>
                 {showSkillDescriptions && (
                   <div className="skill-description">
                     <small>{SKILL_DESCRIPTIONS[skill]}</small>
@@ -250,12 +252,6 @@ export default function BackgroundSkillsTab() {
                     +
                   </button>
                 </div>
-
-                {selectedSkillInfo === skill && !showSkillDescriptions && (
-                  <div className="skill-tooltip">
-                    {SKILL_DESCRIPTIONS[skill]}
-                  </div>
-                )}
               </div>
             );
           })}

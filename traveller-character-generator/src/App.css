@@ -374,16 +374,23 @@
 .points-available {
   color: #28a745;
   font-size: 1.1rem;
+  margin-right:10px;
 }
 
 .points-used {
   color: #dc3545;
   font-size: 1.1rem;
+  margin-right:10px;
 }
 
 .points-remaining {
   color: #007bff;
   font-size: 1.1rem;
+  margin-right:10px;
+}
+
+.points-info{
+  margin-bottom: 10px;
 }
 
 .skill-actions {
@@ -1703,4 +1710,10 @@ ill Training Interface Styles */
     flex-direction: column;
     gap: 4px;
   }
+}
+
+
+.centeredNoDot{
+  text-align: center;
+  list-style: none;
 }

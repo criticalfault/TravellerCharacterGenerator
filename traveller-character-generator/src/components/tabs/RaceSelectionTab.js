@@ -121,7 +121,7 @@ export default function RaceSelectionTab() {
               <h4>Racial Traits</h4>
               <ul>
                 {selectedRaceData.traits.map((trait, index) => (
-                  <li key={index}>{trait}</li>
+                  <li className='centeredNoDot' key={index}>{trait}</li>
                 ))}
               </ul>
             </div>

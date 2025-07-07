@@ -215,7 +215,7 @@ export default function CareerSelectionTab() {
                   <strong>Assignments:</strong>
                   <ul>
                     {careerData.assignments?.map(assignment => (
-                      <li key={assignment}>{assignment}</li>
+                      <li className='centeredNoDot' key={assignment}>{assignment}</li>
                     ))}
                   </ul>
                 </div>
