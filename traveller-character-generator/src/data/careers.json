@@ -2853,5 +2853,138 @@
         ]
       }
     }
+  },
+  "psion": {
+    "hasCommission": false,
+    "qualification": { "PSI": 6 },
+    "assignments": [
+      "Wild Talent",
+      "Adept",
+      "Psi-Warrior"
+    ],
+    "career_progress": {
+      "survival": {
+        "Wild Talent": { "SOC": 6 },
+        "Adept":       { "EDU": 4 },
+        "Psi-Warrior": { "END": 6 }
+      },
+      "advancement": {
+        "Wild Talent": { "INT": 8 },
+        "TeleAdeptkinetic": { "EDU": 8 },
+        "Psi-Warrior": { "END": 6 }
+      }
+    },
+    "muster_out_benefits": {
+      "cash": {
+        "1": 1000,
+        "2": 2000,
+        "3": 4000,
+        "4": 4000,
+        "5": 8000,
+        "6": 8000,
+        "7": 16000
+      },
+      "benefits": {
+        "1": "Gun",
+        "2": "2 Ship Shares",
+        "3": "Contact",
+        "4": "TAS Membership",
+        "5": "Contact 1",
+        "6": "Combat Implant",
+        "7": "10 Ship Shares"
+      }
+    },
+    "skills_and_training": {
+      "personal_development": {
+        "1": "EDU +1",
+        "2": "INT +1",
+        "3": "STR +1",
+        "4": "Dex +1",
+        "5": "END +1",
+        "6": "PSI +1"
+      },
+      "service_skills": {
+        "1": "Telepathy",
+        "2": "Clairvoyance",
+        "3": "Telekinesis",
+        "4": "Awareness",
+        "5": "Teleportation",
+        "6": "Any Talent"
+      },
+      "Wild Talent": {
+        "1": "Telepathy",
+        "2": "Telekinesis",
+        "3": "Deception",
+        "4": "Stealth",
+        "5": "Streetwise",
+        "6": "Melee or Gun Combat"
+      },
+      "Adept": {
+        "1": "Telepathy",
+        "2": "Clairvoyance",
+        "3": "Awareness",
+        "4": "Medic",
+        "5": "Persuade",
+        "6": "Science"
+      },
+      "Psi-Warrior": {
+        "1": "Telepathy",
+        "2": "Awareness",
+        "3": "Teleportation",
+        "4": "Gun Combat",
+        "5": "Vacc Suit",
+        "6": "Recon"
+      }
+    },
+    "rank_bonus": {
+      "Wild Talent": {
+        "0": "-",
+        "1": "Survival 1 or Streetwise 1",
+        "2": "-",
+        "3": "Deception 1",
+        "4": "-",
+        "5": "-",
+        "6": "-"
+      },
+      "adept": {
+        "0":"-",
+        "1": "Science (psionicology) 1",
+        "2": "-",
+        "3": "Any Talent skill 1",
+        "4": "-",
+        "5": "-",
+        "6": "Any Talent skill 1"
+      },
+      "psi-warrior": {
+        "0":"-",
+        "1": "-",
+        "2": "Gun Combat 1",
+        "3": "Leadership 1",
+        "4": "-",
+        "5": "Tactics (any) 1",
+        "6": "-"
+      }
+    },
+    "events": {
+      "2": { "description": "Disaster! Roll on the Mishap table but you are not ejected from this career" },
+      "3": { "description": "Your psionic abilities make you uncomfortable to be around. One Contact or Ally becomes a Rival" },
+      "4": { "description": "Choose one of these skills, reflecting your time spent mastering mind and body. Gain one of Athletics 1, Stealth 1, Survival 1 or Art 1." },
+      "5": { "description": "You have a chance to use your powers unethically to better your standing. If you accept, roll PSI 8+. If you succeed, gain an extra Benefit roll or +1 SOC. If you fail, lose one SOC" },
+      "6": { "description": "You make an unexpected connection outside your normal circles. Gain a Contact." },
+      "7": { "description": "Life Event", "eventChain": [{ "type": "Life_Event" }] },
+      "8": { "description": "You achieve a new level of psionic strength. Increase your PSI by +1." },
+      "9": { "description": "You are given advanced training in a specialist field. Roll EDU 8+ to gain any one skill except Jack of-all-Trades. " },
+      "10": { "description": "You pick up potentially useful information using your psychic powers. Gain DM+1 to any one Benefit roll" },
+      "11": { "description": "You gain a mentor. Gain an Ally and DM+4 to your next advancement roll (in any career) thanks to their aid" },
+      "12": { "description": "You achieve a new level of discipline in your powers. You are automatically promoted." }
+    },
+    "mishaps": {
+      "1": { "description": "Your powers overload or cause harm. Roll on the Injury table." },
+      "2": { "description": "You telepathically contact something dangerous. Lose one PSI. You also suffer from persistent and terrifying nightmares" },
+      "3": { "description": "An anti-psi cult or gang attempts to expose or attack you. Roll 1D: on a 1-2, you are injured, roll on the Injury table (see page 49). On a 3-4, lose one SOC. On a 5-6, nothing else happens but you still must leave this career" },
+      "4": { "description": "You are asked to use your psionic powers in an unethical fashion. Accept and you may continue in this career but gain an Enemy. Refuse and you must leave the career." },
+      "5": { "description": "You are experimented on by a corporation, government or other organisation. You escape but are forced to leave this career" },
+      "6": { "description": "Your gift causes a former friend to turn on you and betray you. One Ally or Contact becomes an Enemy." }
+    }
   }
 }
