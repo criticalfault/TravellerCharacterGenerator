@@ -1,0 +1,105 @@
+{
+  "cash_benefits": {
+    "2": 1000,
+    "3": 5000,
+    "4": 10000,
+    "5": 10000,
+    "6": 10000,
+    "7": 20000,
+    "8": 30000,
+    "9": 40000,
+    "10": 50000,
+    "11": 75000,
+    "12": 100000
+  },
+  "material_benefits": {
+    "2": {
+      "type": "contact",
+      "description": "Gain a Contact"
+    },
+    "3": {
+      "type": "characteristic_increase",
+      "characteristic": "INT",
+      "amount": 1,
+      "description": "Intelligence +1"
+    },
+    "4": {
+      "type": "weapon",
+      "description": "Any weapon (Cr3000, TL12 limit)"
+    },
+    "5": {
+      "type": "characteristic_increase", 
+      "characteristic": "EDU",
+      "amount": 1,
+      "description": "Education +1"
+    },
+    "6": {
+      "type": "ship_shares",
+      "amount": 1,
+      "description": "1 Ship Share"
+    },
+    "7": {
+      "type": "characteristic_increase",
+      "characteristic": "SOC", 
+      "amount": 2,
+      "description": "Social Standing +2"
+    },
+    "8": {
+      "type": "ally",
+      "description": "Gain an Ally"
+    },
+    "9": {
+      "type": "armor",
+      "description": "Any armor (Cr10000, TL12 limit)"
+    },
+    "10": {
+      "type": "ship_shares",
+      "amount": 2,
+      "description": "2 Ship Shares"
+    },
+    "11": {
+      "type": "cybernetic_implant",
+      "description": "Any augmentation (Cr75000, TL12 limit)"
+    },
+    "12": {
+      "type": "special",
+      "options": [
+        {
+          "type": "free_trader",
+          "description": "Free Trader (25% mortgage paid)"
+        },
+        {
+          "type": "scout_ship", 
+          "description": "Scout Ship (on loan from service)"
+        },
+        {
+          "type": "yacht",
+          "description": "Yacht (25% mortgage paid)"
+        },
+        {
+          "type": "tas_membership",
+          "description": "TAS Membership"
+        }
+      ]
+    }
+  },
+  "benefit_descriptions": {
+    "armor": "Select any type of armour with a limit of Cr10,000 and TL12. If you roll this Benefit again, then you can either select another type of armour with the same limits or trade your original in for armour with a limit of Cr25,000.",
+    "ally": "Gain an Ally relationship with an NPC who will provide assistance when called upon.",
+    "blade": "Select any blade weapon with a limit of Cr1,000 and TL12. If you roll this Benefit again, you may take another blade or one level in the Melee (blade) skill.",
+    "characteristic_increase": "Increase the listed characteristic by the amount shown, up to your racial maximum. Human characters are limited to a score of 15. Characteristic increases above 15 are lost, with the exception of SOC increases – every point of excess SOC becomes a Ship Share.",
+    "cybernetic_implant": "Gain any augmentations with a limit of Cr75,000 and TL12. If you roll this Benefit again, then you may either take a different augmentation or increase the one you already possess by one level of Improvement.",
+    "contact": "Gain a Contact relationship with an NPC who can provide information or minor assistance.",
+    "free_trader": "You receive a free trader with 25% of the mortgage paid off on it. If you roll this Benefit again, an additional 25% of the mortgage has been paid off.",
+    "gun": "Select any common or military ranged weapon with a limit of Cr3,000 and TL12. If you roll this benefit again, you may take another weapon or one level in the appropriate Gun Combat skill.",
+    "lab_ship": "You receive a lab ship with 25% of the mortgage paid off on it. If you roll this Benefit again, an additional 25% of the mortgage has been paid off.",
+    "personal_vehicle": "You receive a personal vehicle, such as a ground car or air/raft. You can choose exactly what type of vehicle this is but it may not be armed and has a limit of Cr300,000 and TL10.",
+    "scientific_equipment": "Gain any one piece of scientific equipment with a limit of Cr2,000 and TL12. If you roll this Benefit again, take another piece of scientific equipment or gain one level in Electronics or Science.",
+    "scout_ship": "You receive a scout ship. You have full use of the ship but it still belongs to the Scout Service and can be recalled back into service as needed.",
+    "ship_boat": "You receive a ship's boat or other small craft with a limit of MCr10 and TL12. If you roll this Benefit again, gain Pilot (small craft) or receive a Ship Share instead.",
+    "ship_shares": "You obtain Ship Shares that can be put towards obtaining a ship. Each share is worth MCr1 but cannot be redeemed for cash.",
+    "weapon": "Select any weapon with a limit of Cr3,000 and TL12. If you roll this benefit again, you may take another weapon or one level in the appropriate combat skill.",
+    "yacht": "You receive a yacht with 25% of the mortgage paid off on it. If you roll this Benefit again, an additional 25% of the mortgage has been paid off.",
+    "tas_membership": "You are a member of the Traveller's Aid Society (TAS). Membership provides high passage dividends every two months and access to TAS facilities."
+  }
+}

@@ -1,0 +1,93 @@
+{
+  "life_events": {
+    "2": {
+      "description": "Sickness or Injury: You are injured or become sick.",
+      "eventChain": [
+        { "type": "Roll_On_Injury_Table" }
+      ]
+    },
+    "3": {
+      "description": "Birth or Death: Someone close to you dies or is born. You are involved in some fashion (e.g., parent, godparent, etc.)."
+    },
+    "4": {
+      "description": "Ending of Relationship: A romantic relationship ends badly.",
+      "eventChain": [
+        { "type": "Gain_Rival_Or_Enemy" }
+      ]
+    },
+    "5": {
+      "description": "Improved Relationship: A romantic relationship deepens, possibly leading to marriage.",
+      "eventChain": [
+        { "type": "Gain_Ally" }
+      ]
+    },
+    "6": {
+      "description": "New Relationship: You become involved in a romantic relationship.",
+      "eventChain": [
+        { "type": "Gain_Ally" }
+      ]
+    },
+    "7": {
+      "description": "New Contact: You gain a new Contact.",
+      "eventChain": [
+        { "type": "Gain_Contact" }
+      ]
+    },
+    "8": {
+      "description": "Betrayal: You are betrayed by a friend.",
+      "eventChain": [
+        { "type": "Convert_Contact_Or_Ally_To_Rival_Or_Enemy" },
+        { "type": "Gain_Rival_Or_Enemy_If_None" }
+      ]
+    },
+    "9": {
+      "description": "Travel: You move to another world.",
+      "eventChain": [
+        { "type": "Qualification_DM", "DM": 2 }
+      ]
+    },
+    "10": {
+      "description": "Good Fortune: You come into money, fulfill a dream, or experience a great event.",
+      "eventChain": [
+        { "type": "Benefit_DM", "DM": 2 }
+      ]
+    },
+    "11": {
+      "description": "Crime: You are involved in a crime, as victim, perpetrator, or accused.",
+      "eventChain": [
+        { "type": "Lose_Benefit_Roll_Or_Enter_Prisoner_Career" }
+      ]
+    },
+    "12": {
+      "description": "Unusual Event: Something strange happens. Roll 1D for effect.",
+      "subtable": {
+        "1": {
+          "description": "Psionics: You encounter a Psionic institute.",
+          "eventChain": [
+            { "type": "Test_Psionic_Strength" },
+            { "type": "Optional_Enter_Career", "career": "psion" }
+          ]
+        },
+        "2": {
+          "description": "Aliens: You spend time among an alien species.",
+          "eventChain": [
+            { "type": "Gain_Skill", "skills_list": ["Science 1"] },
+            { "type": "Gain_Contact", "trait": "Alien" }
+          ]
+        },
+        "3": {
+          "description": "Alien Artefact: You possess a strange device of alien origin."
+        },
+        "4": {
+          "description": "Amnesia: Something happened, but you do not know what."
+        },
+        "5": {
+          "description": "Contact with Government: You briefly meet the highest levels of Imperial society."
+        },
+        "6": {
+          "description": "Ancient Technology: You have something older than the Imperium."
+        }
+      }
+    }
+  }
+}

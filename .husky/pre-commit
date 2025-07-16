@@ -1,0 +1,2 @@
+cd traveller-character-generator
+npx lint-staged

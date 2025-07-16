@@ -1,0 +1,102 @@
+{
+  "Human": {
+    "name": "Human",
+    "description": "The baseline human species, adaptable and widespread throughout Charted Space.",
+    "attributeModifiers": {},
+    "specialAbilities": [],
+    "traits": [
+      "Versatile and adaptable",
+      "No attribute penalties or bonuses",
+      "Standard lifespan and aging"
+    ]
+  },
+  "Aslan": {
+    "name": "Aslan",
+    "description": "Proud, leonine humanoids with a strong warrior culture and territorial instincts.",
+    "attributeModifiers": {
+      "STR": 2,
+      "DEX": -2
+    },
+    "specialAbilities": [
+      "Natural Weapons (claws and teeth): 1d6 damage",
+      "Heightened Senses: +1 DM to Recon and Survival checks"
+    ],
+    "traits": [
+      "Territorial and honor-bound",
+      "Males focus on military pursuits",
+      "Females handle trade and business",
+      "Cannot use weapons smaller than their hands"
+    ]
+  },
+  "Vargr": {
+    "name": "Vargr",
+    "description": "Canine-descended humanoids known for their pack mentality and charismatic leadership.",
+    "attributeModifiers": {
+      "DEX": 1,
+      "END": -1
+    },
+    "specialAbilities": [
+      "Pack Mentality: +1 DM to Leadership checks when leading other Vargr",
+      "Keen Senses: +1 DM to Investigate and Recon checks involving scent or hearing"
+    ],
+    "traits": [
+      "Highly social and pack-oriented",
+      "Charismatic leaders",
+      "Prone to factional conflicts",
+      "Enhanced hearing and smell"
+    ]
+  },
+  "Zhodani": {
+    "name": "Zhodani",
+    "description": "Psychically gifted humans from the Zhodani Consulate, known for their mental disciplines.",
+    "attributeModifiers": {
+      "PSI": 2
+    },
+    "specialAbilities": [
+      "Psionic Potential: All Zhodani have PSI attribute starting at 2d6+2",
+      "Mental Discipline: +1 DM to resist mental effects and psionics"
+    ],
+    "traits": [
+      "Naturally psionic",
+      "Highly disciplined society",
+      "Thought police maintain order",
+      "Advanced mental training from childhood"
+    ]
+  },
+  "Vilani": {
+    "name": "Vilani",
+    "description": "Ancient human subspecies, the first to achieve interstellar travel, known for conservatism.",
+    "attributeModifiers": {
+      "SOC": 1,
+      "STR": -1
+    },
+    "specialAbilities": [
+      "Cultural Memory: +1 DM to Admin and Diplomat checks",
+      "Conservative Nature: +1 DM to resist new ideas or changes"
+    ],
+    "traits": [
+      "Extremely conservative culture",
+      "First human interstellar civilization",
+      "Emphasis on tradition and stability",
+      "Natural administrators and diplomats"
+    ]
+  },
+  "Solomani": {
+    "name": "Solomani",
+    "description": "Humans from Terra (Earth), known for their diversity and adaptability.",
+    "attributeModifiers": {
+      "EDU": 1,
+      "SOC": -1
+    },
+    "specialAbilities": [
+      "Diverse Heritage: May choose one skill at level 0 during character creation",
+      "Adaptable: +1 DM to one attribute roll during character generation"
+    ],
+    "traits": [
+      "Highly diverse and adaptable",
+      "Strong scientific tradition",
+      "Individualistic culture",
+      "Birthplace of humanity"
+    ]
+  }
+}

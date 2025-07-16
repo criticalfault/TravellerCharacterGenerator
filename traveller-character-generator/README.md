@@ -1,6 +1,56 @@
-# Getting Started with Create React App
+# Traveller Character Generator (Mongoose 2nd Edition)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A web-based character generator for Mongoose 2nd Edition Traveller RPG. This React application guides users through the complete character creation process, following the official rules and mechanics of the game.
+
+## Features
+
+### Core Character Creation
+- **Race Selection**: Choose from various races across the Traveller universe with automatic racial modifiers and abilities
+- **Attribute Generation**: Randomize character statistics with re-roll capability until satisfied
+- **Background Skills**: Select background skills based on Education DM (3 + Education DM skills from a predefined list)
+- **Career Progression**: Navigate through multiple career terms with:
+  - Qualification rolls for career entry
+  - Event processing with complex branching outcomes
+  - Survival and advancement checks
+  - Skill training and rank progression
+  - Mishap handling for failed survival rolls
+
+### Advanced Features
+- **Event Chain System**: Complex event processing with multiple outcome paths, player choices, and conditional logic
+- **Character Relationships**: Track contacts, allies, enemies, and rivals gained through career events
+- **Equipment & Benefits**: Mustering out benefits including gear, money, and cyberware
+- **Save/Load System**: Persist characters to local storage with import/export functionality
+- **Character Summary**: Complete character sheet with long-term tracking capabilities
+
+### User Interface
+- **Tabbed Navigation**: Intuitive step-by-step character creation process
+- **Real-time Updates**: Character state updates automatically as you progress
+- **Error Handling**: Comprehensive validation and error boundaries
+- **Responsive Design**: Works on desktop and mobile devices
+
+## Project Structure
+
+This project follows a component-based architecture with:
+
+- **Context Management**: `CharacterContext` for global character state
+- **Tabbed Interface**: Separate components for each creation step
+- **Utility Functions**: Game mechanics, dice rolling, and validation helpers
+- **Data Files**: Career and race definitions in JSON format
+- **Comprehensive Testing**: Unit tests for all major components and utilities
+
+## Getting Started
+
+### Prerequisites
+- Node.js (version 14 or higher)
+- npm or yarn package manager
+
+### Installation
+1. Clone the repository
+2. Navigate to the project directory
+3. Install dependencies:
+   ```bash
+   npm install
+   ```
 
 ## Available Scripts
 
@@ -16,8 +66,14 @@ You may also see any lint errors in the console.
 
 ### `npm test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Launches the test runner in the interactive watch mode. The test suite includes:
+
+- **Component Tests**: Verify UI components render correctly and handle user interactions
+- **Utility Tests**: Validate game mechanics, dice rolling, and character generation logic
+- **Integration Tests**: Ensure proper data flow between components and context
+- **Event Processing Tests**: Verify complex career event chains work correctly
+
+Run tests to ensure all character generation mechanics work correctly.
 
 ### `npm run build`
 
@@ -27,7 +83,7 @@ It correctly bundles React in production mode and optimizes the build for the be
 The build is minified and the filenames include the hashes.\
 Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Your app is ready to be deployed!
 
 ### `npm run eject`
 
@@ -39,32 +95,38 @@ Instead, it will copy all the configuration files and the transitive dependencie
 
 You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
 
+## How to Use
+
+1. **Start the Application**: Run `npm start` and navigate to `http://localhost:3000`
+2. **Race Selection**: Choose your character's race from the available options
+3. **Generate Attributes**: Roll for your character's six core attributes (STR, DEX, END, INT, EDU, SOC)
+4. **Background Skills**: Select skills based on your Education modifier
+5. **Career Selection**: Choose your first career and attempt qualification
+6. **Career Terms**: Progress through career terms, handling events and making choices
+7. **Mustering Out**: Collect benefits when leaving careers
+8. **Save Character**: Use the Save/Load tab to persist your character
+
+## Character Data Structure
+
+Characters are stored with the following key information:
+- Basic details (name, age, species)
+- Six core attributes with modifiers
+- Skills with levels
+- Career history with terms and ranks
+- Relationships (contacts, allies, enemies, rivals)
+- Equipment and cyberware
+- Money and benefit rolls
+- Injuries and damage tracking
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit pull requests or open issues for:
+- Bug fixes
+- New features
+- Career data updates
+- UI improvements
+- Test coverage expansion
+
 ## Learn More
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
 To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
