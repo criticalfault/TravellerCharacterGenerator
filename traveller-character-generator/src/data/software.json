@@ -1,0 +1,95 @@
+{
+  "software": [
+    {
+      "name": "Agent",
+      "tech_level": 10,
+      "cost": 1000,
+      "bandwidth": 1,
+      "description": "Performs simple tasks like calendar, reminders, and simple instructions."
+    },
+    {
+      "name": "Analysis",
+      "tech_level": 12,
+      "cost": 2000,
+      "bandwidth": 2,
+      "description": "Performs in-depth analysis of data streams, scientific readings, or information networks."
+    },
+    {
+      "name": "Battle",
+      "tech_level": 12,
+      "cost": 10000,
+      "bandwidth": 4,
+      "description": "Assists in tactical coordination and gives bonuses to command-related checks."
+    },
+    {
+      "name": "Comms",
+      "tech_level": 10,
+      "cost": 2000,
+      "bandwidth": 1,
+      "description": "Controls communications for networks, encrypts or decrypts transmissions."
+    },
+    {
+      "name": "Evade",
+      "tech_level": 12,
+      "cost": 5000,
+      "bandwidth": 2,
+      "description": "Attempts to spoof or hide electronic signals. Useful for stealth and ECM tasks."
+    },
+    {
+      "name": "Expert-1",
+      "tech_level": 10,
+      "cost": 5000,
+      "bandwidth": 1,
+      "description": "Acts as a virtual assistant with a single skill at level 1."
+    },
+    {
+      "name": "Expert-2",
+      "tech_level": 10,
+      "cost": 10000,
+      "bandwidth": 2,
+      "description": "Acts as a virtual assistant with a single skill at level 2."
+    },
+    {
+      "name": "Expert-3",
+      "tech_level": 10,
+      "cost": 20000,
+      "bandwidth": 4,
+      "description": "Acts as a virtual assistant with a single skill at level 3."
+    },
+    {
+      "name": "Intellect",
+      "tech_level": 12,
+      "cost": 15000,
+      "bandwidth": 6,
+      "description": "Simulates an intelligent personality. Grants +1 to skill rolls in designated domains."
+    },
+    {
+      "name": "Library",
+      "tech_level": 8,
+      "cost": 1000,
+      "bandwidth": 1,
+      "description": "Offline database of general knowledge. Useful for Education-related checks."
+    },
+    {
+      "name": "Translate",
+      "tech_level": 10,
+      "cost": 2500,
+      "bandwidth": 2,
+      "description": "Translates written and spoken languages. May be unreliable with unknown dialects."
+    },
+    {
+      "name": "Firewall",
+      "tech_level": 10,
+      "cost": 3000,
+      "bandwidth": 2,
+      "description": "Protects against intrusion. Acts as security software for computers and networks."
+    },
+    {
+      "name": "Intrusion",
+      "tech_level": 12,
+      "cost": 8000,
+      "bandwidth": 3,
+      "description": "Software designed to break through security protocols and firewalls."
+    }
+  ]
+}

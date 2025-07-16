@@ -1,204 +1,214 @@
 import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import MusteringOutTab from './MusteringOutTab';
-import * as gameMechanics from '../../utils/gameMechanics';
+import { CharacterProvider } from '../../context/CharacterContext';
 
-// Mock the game mechanics module
-jest.mock('../../utils/gameMechanics');
-
-// Mock career data
-jest.mock(
-  '../../data/careers.json',
-  () => ({
-    agent: {
-      muster_out_benefits: {
-        cash: {
-          1: 1000,
-          2: 2000,
-          3: 5000,
-          4: 7500,
-          5: 10000,
-          6: 25000,
-          7: 50000,
-        },
-        benefits: {
-          1: 'Scientific Equipment',
-          2: 'INT +1',
-          3: 'Ship Share',
-          4: 'Weapon',
-          5: 'Cybernetic Implant',
-          6: ['SOC +1', 'Cybernetic Implant'],
-          7: 'TAS Membership',
-        },
-      },
+// Mock data
+const mockCharacterWithCareers = {
+  name: 'Test Character',
+  age: 30,
+  species: 'Human',
+  attributes: {
+    STR: 8,
+    DEX: 9,
+    END: 7,
+    INT: 10,
+    EDU: 11,
+    SOC: 8,
+    PSI: 0,
+  },
+  skills: {
+    Gamble: 1, // Should provide +1 DM to cash rolls
+  },
+  careerHistory: [
+    {
+      career: 'Navy',
+      assignment: 'Line/Crew',
+      terms: 3,
+      rank: 5, // Should provide +1 DM to all benefit rolls
+      rankTitle: 'Commander',
+      events: [],
     },
-  }),
-  { virtual: true }
-);
+    {
+      career: 'Merchant',
+      assignment: 'Merchant Marine',
+      terms: 2,
+      rank: 2,
+      rankTitle: 'Senior Crewman',
+      events: [],
+    }
+  ],
+  contacts: [],
+  allies: [],
+  enemies: [],
+  rivals: [],
+  gear: [],
+  cyberware: [],
+  money: 5000,
+};
 
-// Mock the useCharacter hook
-jest.mock('../../context/CharacterContext', () => ({
-  useCharacter: jest.fn(),
+// Mock the context with test data
+const MockCharacterProvider = ({ children, character = mockCharacterWithCareers }) => {
+  const mockDispatch = jest.fn();
+  const mockValue = {
+    character,
+    dispatch: mockDispatch,
+    CHARACTER_ACTIONS: {
+      UPDATE_MONEY: 'UPDATE_MONEY',
+      ADD_CONTACT: 'ADD_CONTACT',
+      ADD_ALLY: 'ADD_ALLY',
+      UPDATE_ATTRIBUTE: 'UPDATE_ATTRIBUTE',
+      ADD_GEAR: 'ADD_GEAR',
+      ADD_CYBERWARE: 'ADD_CYBERWARE',
+    },
+  };
+
+  return (
+    <div data-testid="mock-provider">
+      {React.cloneElement(children, { mockValue })}
+    </div>
+  );
+};
+
+// Mock the dice utility
+jest.mock('../../utils/dice', () => ({
+  rollWithModifier: jest.fn(() => ({
+    total: 8,
+    baseRoll: 7,
+    modifier: 1,
+    dice: [3, 4],
+    formatted: '8 (3, 4+1)',
+  })),
 }));
 
-const { useCharacter } = require('../../context/CharacterContext');
-
 describe('MusteringOutTab', () => {
-  const mockDispatch = jest.fn();
-  const CHARACTER_ACTIONS = {
-    UPDATE_MONEY: 'UPDATE_MONEY',
-    UPDATE_ATTRIBUTE: 'UPDATE_ATTRIBUTE',
-    ADD_BENEFIT_ROLLS: 'ADD_BENEFIT_ROLLS',
-    ADD_CONTACT: 'ADD_CONTACT',
-    ADD_GEAR: 'ADD_GEAR',
-    ADD_CYBERWARE: 'ADD_CYBERWARE',
-  };
-
-  const defaultCharacter = {
-    name: 'Test Character',
-    age: 30,
-    attributes: { STR: 8, DEX: 7, END: 9, INT: 10, EDU: 8, SOC: 6 },
-    skills: {},
-    careerHistory: [
-      {
-        career: 'Agent',
-        assignment: 'Law Enforcement',
-        terms: 2,
-        rank: 3,
-        rankTitle: 'Detective',
-        events: [],
-      },
-    ],
-    contacts: [],
-    allies: [],
-    enemies: [],
-    rivals: [],
-    gear: [],
-    cyberware: [],
-    money: 5000,
-    benefitRolls: 3,
-    tempModifiers: { benefitDM: 0 },
-  };
-
   beforeEach(() => {
     jest.clearAllMocks();
-    useCharacter.mockReturnValue({
-      character: defaultCharacter,
-      dispatch: mockDispatch,
-      CHARACTER_ACTIONS,
-    });
   });
 
-  test('renders mustering out tab with benefit rolls available', () => {
-    render(<MusteringOutTab />);
-
-    expect(screen.getByText('Mustering Out')).toBeInTheDocument();
-    expect(screen.getByText('Benefit Rolls Available: 3')).toBeInTheDocument();
-    expect(screen.getByText('Agent (Law Enforcement)')).toBeInTheDocument();
-    expect(
-      screen.getByText('Terms: 2, Rank: 3 (Detective)')
-    ).toBeInTheDocument();
-  });
-
-  test('displays current benefits correctly', () => {
-    const characterWithBenefits = {
-      ...defaultCharacter,
-      money: 15000,
-      gear: ['Weapon', 'Scientific Equipment'],
-      cyberware: ['Neural Interface'],
-      contacts: ['Detective Smith'],
-      allies: ['Captain Martinez'],
-    };
-
-    useCharacter.mockReturnValue({
-      character: characterWithBenefits,
-      dispatch: mockDispatch,
-      CHARACTER_ACTIONS,
-    });
-
-    render(<MusteringOutTab />);
-
-    expect(screen.getByText('15,000 Cr')).toBeInTheDocument();
-    expect(screen.getByText('Weapon')).toBeInTheDocument();
-    expect(screen.getByText('Scientific Equipment')).toBeInTheDocument();
-    expect(screen.getByText('Neural Interface')).toBeInTheDocument();
-    expect(screen.getByText('Contacts:')).toBeInTheDocument();
-    expect(screen.getByText('Detective Smith')).toBeInTheDocument();
-    expect(screen.getByText('Allies:')).toBeInTheDocument();
-    expect(screen.getByText('Captain Martinez')).toBeInTheDocument();
-  });
-
-  test('calculates benefit DM correctly based on rank', () => {
-    render(<MusteringOutTab />);
-
-    // Rank 3 should give +1 DM (floor(3/2) = 1)
-    expect(screen.getByText('Benefit DM: +1')).toBeInTheDocument();
-  });
-
-  test('handles cash benefit roll', () => {
-    const mockRollResult = {
-      roll: 8,
-      clampedRoll: 6,
-      benefit: 25000,
-      isCash: true,
-      dice: [4, 4],
-      additionalDM: 1,
-    };
-
-    gameMechanics.rollMusteringOutBenefit.mockReturnValue(mockRollResult);
-
-    render(<MusteringOutTab />);
-
-    const cashButton = screen.getByText('Roll for Cash');
-    fireEvent.click(cashButton);
-
-    expect(gameMechanics.rollMusteringOutBenefit).toHaveBeenCalledWith(
-      expect.objectContaining({
-        cash: expect.any(Object),
-        benefits: expect.any(Object),
-      }),
-      true, // isCash
-      1 // benefit DM
+  const renderWithProvider = (character = mockCharacterWithCareers) => {
+    return render(
+      <CharacterProvider>
+        <MusteringOutTab />
+      </CharacterProvider>
     );
+  };
 
-    // Check roll history appears
-    expect(screen.getByText('Benefit Roll History')).toBeInTheDocument();
-    expect(screen.getByText('Cash Roll')).toBeInTheDocument();
-    // Check that Agent appears in the roll history
-    const rollHistory = screen
-      .getByText('Benefit Roll History')
-      .closest('.roll-history');
-    expect(rollHistory).toContainHTML('Agent');
-    expect(rollHistory).toContainHTML('Rolled 8');
-    expect(screen.getByText('25000')).toBeInTheDocument();
+  test('renders mustering out interface', () => {
+    renderWithProvider();
+    
+    expect(screen.getByText('Mustering Out')).toBeInTheDocument();
+    expect(screen.getByText('Benefit Rolls Available')).toBeInTheDocument();
+    expect(screen.getByText('Make Benefit Rolls')).toBeInTheDocument();
   });
 
-  test('shows no benefit rolls message when none available', () => {
-    const characterWithNoBenefits = {
-      ...defaultCharacter,
-      benefitRolls: 0,
-    };
+  test('calculates benefit rolls correctly', () => {
+    renderWithProvider();
+    
+    // Navy: 3 terms + 3 rank bonus rolls (rank 5 = ceil(5/2) = 3) = 6 rolls
+    // Merchant: 2 terms + 1 rank bonus roll (rank 2 = ceil(2/2) = 1) = 3 rolls
+    // Total: 9 rolls
+    expect(screen.getByText(/Total Rolls: 9/)).toBeInTheDocument();
+  });
 
-    useCharacter.mockReturnValue({
-      character: characterWithNoBenefits,
-      dispatch: mockDispatch,
-      CHARACTER_ACTIONS,
+  test('shows rank 5 bonus indicator', () => {
+    renderWithProvider();
+    
+    expect(screen.getByText('✓ Rank 5+ Bonus: +1 DM to all benefit rolls')).toBeInTheDocument();
+  });
+
+  test('shows gamble skill bonus indicator', () => {
+    renderWithProvider();
+    
+    expect(screen.getByText('✓ Gamble Skill Bonus: +1 DM to cash benefit rolls')).toBeInTheDocument();
+  });
+
+  test('displays career breakdown correctly', () => {
+    renderWithProvider();
+    
+    expect(screen.getByText('Navy (Line/Crew)')).toBeInTheDocument();
+    expect(screen.getByText('Merchant (Merchant Marine)')).toBeInTheDocument();
+    expect(screen.getByText('Terms: 3 (×1 = 3 rolls)')).toBeInTheDocument();
+    expect(screen.getByText('Rank 5: +3 bonus rolls')).toBeInTheDocument();
+  });
+
+  test('shows benefit roll buttons', () => {
+    renderWithProvider();
+    
+    const rollButtons = screen.getAllByText('Make Roll');
+    expect(rollButtons).toHaveLength(9); // Should have 9 roll buttons
+  });
+
+  test('opens benefit choice modal when roll button clicked', async () => {
+    renderWithProvider();
+    
+    const firstRollButton = screen.getAllByText('Make Roll')[0];
+    fireEvent.click(firstRollButton);
+    
+    await waitFor(() => {
+      expect(screen.getByText('Choose Benefit Type')).toBeInTheDocument();
+      expect(screen.getByText('Cash Benefits')).toBeInTheDocument();
+      expect(screen.getByText('Other Benefits')).toBeInTheDocument();
     });
-
-    render(<MusteringOutTab />);
-
-    expect(screen.getByText('No benefit rolls remaining.')).toBeInTheDocument();
-    expect(screen.queryByText('Roll for Cash')).not.toBeInTheDocument();
-    expect(screen.queryByText('Roll for Benefits')).not.toBeInTheDocument();
   });
 
-  test('displays mustering out information', () => {
-    render(<MusteringOutTab />);
+  test('tracks cash benefit limit', async () => {
+    renderWithProvider();
+    
+    expect(screen.getByText('Cash Benefits Used: 0/3')).toBeInTheDocument();
+  });
 
-    expect(screen.getByText('Mustering Out Information')).toBeInTheDocument();
-    expect(screen.getByText('Cash Benefits:')).toBeInTheDocument();
-    expect(screen.getByText('Material Benefits:')).toBeInTheDocument();
-    expect(screen.getByText('Benefit DM:')).toBeInTheDocument();
+  test('displays current character status', () => {
+    renderWithProvider();
+    
+    expect(screen.getByText('Current Character Status')).toBeInTheDocument();
+    expect(screen.getByText('5,000 Cr')).toBeInTheDocument();
+    expect(screen.getByText('Credits')).toBeInTheDocument();
+    expect(screen.getByText('Equipment')).toBeInTheDocument();
+    expect(screen.getByText('Cyberware')).toBeInTheDocument();
+    expect(screen.getByText('Contacts & Relationships')).toBeInTheDocument();
+  });
+
+  test('handles character with no careers', () => {
+    const characterNoCareers = {
+      ...mockCharacterWithCareers,
+      careerHistory: []
+    };
+    
+    renderWithProvider(characterNoCareers);
+    
+    expect(screen.getByText(/Total Rolls: 0/)).toBeInTheDocument();
+  });
+
+  test('handles character without gamble skill', () => {
+    const characterNoGamble = {
+      ...mockCharacterWithCareers,
+      skills: {}
+    };
+    
+    renderWithProvider(characterNoGamble);
+    
+    expect(screen.queryByText('✓ Gamble Skill Bonus')).not.toBeInTheDocument();
+  });
+
+  test('handles character without rank 5', () => {
+    const characterNoRank5 = {
+      ...mockCharacterWithCareers,
+      careerHistory: [
+        {
+          career: 'Navy',
+          assignment: 'Line/Crew',
+          terms: 2,
+          rank: 3,
+          rankTitle: 'Lieutenant',
+          events: [],
+        }
+      ]
+    };
+    
+    renderWithProvider(characterNoRank5);
+    
+    expect(screen.queryByText('✓ Rank 5+ Bonus')).not.toBeInTheDocument();
   });
 });

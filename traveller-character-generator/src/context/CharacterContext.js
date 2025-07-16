@@ -14,6 +14,15 @@ const initialCharacterState = {
     SOC: 0,
     PSI: 0,
   },
+  currentAttributes: {
+    STR: 0,
+    DEX: 0,
+    END: 0,
+    INT: 0,
+    EDU: 0,
+    SOC: 0,
+    PSI: 0,
+  },
   skills: {},
   careerHistory: [],
   contacts: [],
@@ -24,13 +33,28 @@ const initialCharacterState = {
   cyberware: [],
   money: 0,
   benefitRolls: 0,
+  benefitRollsState: [], // Store individual benefit roll states
+  cashBenefitsUsed: 0,
+  selectedBenefits: [],
+  shoppingCart: [], // Store shopping cart items
   injuries: [],
   damage: { current: 0, max: 0 },
   // Character creation state
+  speciesConfirmed: false,
   attributesLocked: false,
   backgroundSkillsSelected: false,
   currentCareer: null,
   currentTerm: 0,
+  preCareerEducation: null, // 'university', 'military_academy', or null
+  preCareerEducationType: null, // For military academy: 'army', 'marines', 'navy'
+  preCareerEducationCompleted: false,
+  preCareerSkillsChosen: [],
+  preCareerGraduated: false,
+  preCareerHonors: false,
+  preCareerEntryResult: null,
+  preCareerEventResult: null,
+  preCareerGraduationResult: null,
+  preCareerCurrentPhase: 'selection',
   // Temporary state for career progression
   tempModifiers: {
     advancementDM: 0,
@@ -44,6 +68,8 @@ export const CHARACTER_ACTIONS = {
   SET_NAME: 'SET_NAME',
   SET_AGE: 'SET_AGE',
   SET_SPECIES: 'SET_SPECIES',
+  CONFIRM_SPECIES: 'CONFIRM_SPECIES',
+  RESET_SPECIES_CONFIRMATION: 'RESET_SPECIES_CONFIRMATION',
 
   // Attributes
   SET_ATTRIBUTES: 'SET_ATTRIBUTES',
@@ -72,10 +98,23 @@ export const CHARACTER_ACTIONS = {
   ADD_CYBERWARE: 'ADD_CYBERWARE',
   UPDATE_MONEY: 'UPDATE_MONEY',
   ADD_BENEFIT_ROLLS: 'ADD_BENEFIT_ROLLS',
+  SET_BENEFIT_ROLLS_STATE: 'SET_BENEFIT_ROLLS_STATE',
+  UPDATE_BENEFIT_ROLL: 'UPDATE_BENEFIT_ROLL',
+  SET_CASH_BENEFITS_USED: 'SET_CASH_BENEFITS_USED',
+  ADD_SELECTED_BENEFIT: 'ADD_SELECTED_BENEFIT',
+
+  // Shopping cart
+  ADD_TO_CART: 'ADD_TO_CART',
+  REMOVE_FROM_CART: 'REMOVE_FROM_CART',
+  UPDATE_CART_QUANTITY: 'UPDATE_CART_QUANTITY',
+  CLEAR_CART: 'CLEAR_CART',
 
   // Injuries and damage
   ADD_INJURY: 'ADD_INJURY',
   UPDATE_DAMAGE: 'UPDATE_DAMAGE',
+  APPLY_DAMAGE: 'APPLY_DAMAGE',
+  HEAL_DAMAGE: 'HEAL_DAMAGE',
+  SET_CURRENT_ATTRIBUTES: 'SET_CURRENT_ATTRIBUTES',
 
   // Temporary modifiers
   SET_ADVANCEMENT_DM: 'SET_ADVANCEMENT_DM',
@@ -84,6 +123,16 @@ export const CHARACTER_ACTIONS = {
 
   // Character creation flow
   SET_BACKGROUND_SKILLS_SELECTED: 'SET_BACKGROUND_SKILLS_SELECTED',
+
+  // Pre-career education
+  START_PRE_CAREER_EDUCATION: 'START_PRE_CAREER_EDUCATION',
+  SET_PRE_CAREER_SKILLS: 'SET_PRE_CAREER_SKILLS',
+  COMPLETE_PRE_CAREER_EDUCATION: 'COMPLETE_PRE_CAREER_EDUCATION',
+  SET_PRE_CAREER_GRADUATION: 'SET_PRE_CAREER_GRADUATION',
+  SET_PRE_CAREER_ENTRY_RESULT: 'SET_PRE_CAREER_ENTRY_RESULT',
+  SET_PRE_CAREER_EVENT_RESULT: 'SET_PRE_CAREER_EVENT_RESULT',
+  SET_PRE_CAREER_GRADUATION_RESULT: 'SET_PRE_CAREER_GRADUATION_RESULT',
+  SET_PRE_CAREER_PHASE: 'SET_PRE_CAREER_PHASE',
 
   // Full character reset
   RESET_CHARACTER: 'RESET_CHARACTER',
@@ -102,11 +151,18 @@ const characterReducer = (state, action) => {
     case CHARACTER_ACTIONS.SET_SPECIES:
       return { ...state, species: action.payload };
 
+    case CHARACTER_ACTIONS.CONFIRM_SPECIES:
+      return { ...state, speciesConfirmed: true };
+
+    case CHARACTER_ACTIONS.RESET_SPECIES_CONFIRMATION:
+      return { ...state, speciesConfirmed: false };
+
     case CHARACTER_ACTIONS.SET_ATTRIBUTES:
       const updatedAttributes = { ...state.attributes, ...action.payload };
       return {
         ...state,
         attributes: updatedAttributes,
+        currentAttributes: { ...state.currentAttributes, ...action.payload },
         damage: {
           ...state.damage,
           max: calculateMaxDamage(
@@ -122,9 +178,14 @@ const characterReducer = (state, action) => {
         ...state.attributes,
         [action.payload.attribute]: action.payload.value,
       };
+      const newCurrentAttributes = {
+        ...state.currentAttributes,
+        [action.payload.attribute]: action.payload.value,
+      };
       return {
         ...state,
         attributes: newAttributes,
+        currentAttributes: newCurrentAttributes,
         damage: {
           ...state.damage,
           max: calculateMaxDamage(
@@ -291,6 +352,82 @@ const characterReducer = (state, action) => {
         benefitRolls: state.benefitRolls + action.payload,
       };
 
+    case CHARACTER_ACTIONS.SET_BENEFIT_ROLLS_STATE:
+      return {
+        ...state,
+        benefitRollsState: action.payload,
+      };
+
+    case CHARACTER_ACTIONS.UPDATE_BENEFIT_ROLL:
+      const updatedRolls = [...state.benefitRollsState];
+      const rollIndex = updatedRolls.findIndex(roll => roll.id === action.payload.id);
+      if (rollIndex !== -1) {
+        updatedRolls[rollIndex] = { ...updatedRolls[rollIndex], ...action.payload.updates };
+      }
+      return {
+        ...state,
+        benefitRollsState: updatedRolls,
+      };
+
+    case CHARACTER_ACTIONS.SET_CASH_BENEFITS_USED:
+      return {
+        ...state,
+        cashBenefitsUsed: action.payload,
+      };
+
+    case CHARACTER_ACTIONS.ADD_SELECTED_BENEFIT:
+      return {
+        ...state,
+        selectedBenefits: [...state.selectedBenefits, action.payload],
+      };
+
+    case CHARACTER_ACTIONS.ADD_TO_CART:
+      const existingItem = state.shoppingCart.find(item => item.id === action.payload.id);
+      if (existingItem) {
+        return {
+          ...state,
+          shoppingCart: state.shoppingCart.map(item =>
+            item.id === action.payload.id
+              ? { ...item, quantity: item.quantity + 1 }
+              : item
+          ),
+        };
+      } else {
+        return {
+          ...state,
+          shoppingCart: [...state.shoppingCart, { ...action.payload, quantity: 1 }],
+        };
+      }
+
+    case CHARACTER_ACTIONS.REMOVE_FROM_CART:
+      return {
+        ...state,
+        shoppingCart: state.shoppingCart.filter(item => item.id !== action.payload),
+      };
+
+    case CHARACTER_ACTIONS.UPDATE_CART_QUANTITY:
+      if (action.payload.quantity <= 0) {
+        return {
+          ...state,
+          shoppingCart: state.shoppingCart.filter(item => item.id !== action.payload.id),
+        };
+      } else {
+        return {
+          ...state,
+          shoppingCart: state.shoppingCart.map(item =>
+            item.id === action.payload.id
+              ? { ...item, quantity: action.payload.quantity }
+              : item
+          ),
+        };
+      }
+
+    case CHARACTER_ACTIONS.CLEAR_CART:
+      return {
+        ...state,
+        shoppingCart: [],
+      };
+
     case CHARACTER_ACTIONS.ADD_INJURY:
       return {
         ...state,
@@ -301,6 +438,31 @@ const characterReducer = (state, action) => {
       return {
         ...state,
         damage: { ...state.damage, ...action.payload },
+      };
+
+    case CHARACTER_ACTIONS.APPLY_DAMAGE:
+      const damagedAttributes = { ...state.currentAttributes };
+      const { attribute, amount } = action.payload;
+      damagedAttributes[attribute] = Math.max(0, damagedAttributes[attribute] - amount);
+      return {
+        ...state,
+        currentAttributes: damagedAttributes,
+      };
+
+    case CHARACTER_ACTIONS.HEAL_DAMAGE:
+      const healedAttributes = { ...state.currentAttributes };
+      const { attribute: healAttr, amount: healAmount } = action.payload;
+      const maxValue = state.attributes[healAttr];
+      healedAttributes[healAttr] = Math.min(maxValue, healedAttributes[healAttr] + healAmount);
+      return {
+        ...state,
+        currentAttributes: healedAttributes,
+      };
+
+    case CHARACTER_ACTIONS.SET_CURRENT_ATTRIBUTES:
+      return {
+        ...state,
+        currentAttributes: { ...action.payload },
       };
 
     case CHARACTER_ACTIONS.SET_ADVANCEMENT_DM:
@@ -326,6 +488,59 @@ const characterReducer = (state, action) => {
 
     case CHARACTER_ACTIONS.SET_BACKGROUND_SKILLS_SELECTED:
       return { ...state, backgroundSkillsSelected: action.payload };
+
+    case CHARACTER_ACTIONS.START_PRE_CAREER_EDUCATION:
+      return {
+        ...state,
+        preCareerEducation: action.payload.type,
+        preCareerEducationType: action.payload.subtype || null,
+        currentTerm: 1,
+        age: state.age + 4,
+      };
+
+    case CHARACTER_ACTIONS.SET_PRE_CAREER_SKILLS:
+      return {
+        ...state,
+        preCareerSkillsChosen: action.payload,
+      };
+
+    case CHARACTER_ACTIONS.COMPLETE_PRE_CAREER_EDUCATION:
+      return {
+        ...state,
+        preCareerEducationCompleted: true,
+        currentTerm: 0,
+      };
+
+    case CHARACTER_ACTIONS.SET_PRE_CAREER_GRADUATION:
+      return {
+        ...state,
+        preCareerGraduated: action.payload.graduated,
+        preCareerHonors: action.payload.honors || false,
+      };
+
+    case CHARACTER_ACTIONS.SET_PRE_CAREER_ENTRY_RESULT:
+      return {
+        ...state,
+        preCareerEntryResult: action.payload,
+      };
+
+    case CHARACTER_ACTIONS.SET_PRE_CAREER_EVENT_RESULT:
+      return {
+        ...state,
+        preCareerEventResult: action.payload,
+      };
+
+    case CHARACTER_ACTIONS.SET_PRE_CAREER_GRADUATION_RESULT:
+      return {
+        ...state,
+        preCareerGraduationResult: action.payload,
+      };
+
+    case CHARACTER_ACTIONS.SET_PRE_CAREER_PHASE:
+      return {
+        ...state,
+        preCareerCurrentPhase: action.payload,
+      };
 
     case CHARACTER_ACTIONS.RESET_CHARACTER:
       return { ...initialCharacterState };

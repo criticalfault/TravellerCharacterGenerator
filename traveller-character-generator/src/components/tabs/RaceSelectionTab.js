@@ -7,11 +7,13 @@ export default function RaceSelectionTab() {
   const [selectedRace, setSelectedRace] = useState(
     character.species || 'Human'
   );
-  const [raceConfirmed, setRaceConfirmed] = useState(false);
+  
+  // Use persistent species confirmation state from character context
+  const raceConfirmed = character.speciesConfirmed;
 
   const handleRaceSelection = raceName => {
     setSelectedRace(raceName);
-    setRaceConfirmed(false);
+    // Note: raceConfirmed is now managed by character context, not local state
   };
 
   const confirmRaceSelection = () => {
@@ -42,11 +44,18 @@ export default function RaceSelectionTab() {
       });
     }
 
-    setRaceConfirmed(true);
+    // Confirm species selection in character context
+    dispatch({
+      type: CHARACTER_ACTIONS.CONFIRM_SPECIES
+    });
   };
 
   const resetRaceSelection = () => {
-    setRaceConfirmed(false);
+    // Reset species confirmation in character context
+    dispatch({
+      type: CHARACTER_ACTIONS.RESET_SPECIES_CONFIRMATION
+    });
+    
     // Reset to Human baseline
     setSelectedRace('Human');
     dispatch({

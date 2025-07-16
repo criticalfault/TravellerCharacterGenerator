@@ -5,9 +5,12 @@ import './TabNavigation.css';
 import RaceSelectionTab from './tabs/RaceSelectionTab';
 import AttributesTab from './tabs/AttributesTab';
 import BackgroundSkillsTab from './tabs/BackgroundSkillsTab';
+import PreCareerEducationTab from './tabs/PreCareerEducationTab';
 import CareerSelectionTab from './tabs/CareerSelectionTab';
 import CareerTermsTab from './tabs/CareerTermsTab';
 import MusteringOutTab from './tabs/MusteringOutTab';
+import ShoppingTab from './tabs/ShoppingTab';
+import CharacterSheetTab from './tabs/CharacterSheetTab';
 import SummaryTab from './tabs/SummaryTab';
 import SaveLoadTab from './tabs/SaveLoadTab';
 
@@ -20,12 +23,19 @@ const TABS = [
     component: BackgroundSkillsTab,
   },
   {
+    id: 'pre-career-education',
+    label: 'Pre-Career Education',
+    component: PreCareerEducationTab,
+  },
+  {
     id: 'career-selection',
     label: 'Career Selection',
     component: CareerSelectionTab,
   },
   { id: 'career-terms', label: 'Career Terms', component: CareerTermsTab },
   { id: 'mustering-out', label: 'Mustering Out', component: MusteringOutTab },
+  { id: 'shopping', label: 'Shopping', component: ShoppingTab },
+  { id: 'character-sheet', label: 'Character Sheet', component: CharacterSheetTab },
   { id: 'summary', label: 'Summary', component: SummaryTab },
   { id: 'save-load', label: 'Save/Load', component: SaveLoadTab },
 ];
@@ -52,9 +62,12 @@ export default function TabNavigation() {
       'race-selection',
       'attributes',
       'background',
+      'pre-career-education',
       'career-selection',
       'career-terms',
       'mustering-out',
+      'shopping',
+      'character-sheet',
       'summary',
       'save-load',
     ];

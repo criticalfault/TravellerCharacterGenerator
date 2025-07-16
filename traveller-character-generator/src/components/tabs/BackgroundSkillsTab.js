@@ -58,23 +58,37 @@ export default function BackgroundSkillsTab() {
   const basePoints = 3;
   const educationDM = getAttributeModifier(character.attributes.EDU);
   const availablePoints = Math.max(1, basePoints + educationDM); // Minimum 1 point
+  
+  // Count skill points used: Level 0 costs 1 point, each additional level costs 1 more
   const usedPoints = Object.values(character.skills).reduce(
-    (sum, level) => sum + level,
+    (sum, level) => {
+      // Each skill level costs 1 point, including level 0
+      // Level 0 = 1 point, Level 1 = 2 points, Level 2 = 3 points, etc.
+      return sum + level + 1;
+    },
     0
   );
   const remainingPoints = Math.max(0, availablePoints - usedPoints);
 
   const handleSkillAdd = skillName => {
+    const currentLevel = character.skills[skillName];
+    
     if (remainingPoints > 0) {
-      addSkill(skillName, 1);
+      if (currentLevel === undefined) {
+        // Skill doesn't exist yet, add it at level 0 (costs 1 point)
+        updateSkill(skillName, 0);
+      } else {
+        // Skill exists, increment by 1
+        updateSkill(skillName, currentLevel + 1);
+      }
     }
   };
 
   const handleSkillRemove = skillName => {
-    const currentLevel = character.skills[skillName] || 0;
-    if (currentLevel > 0) {
-      if (currentLevel === 1) {
-        // Remove skill entirely if it would go to 0
+    const currentLevel = character.skills[skillName];
+    if (currentLevel !== undefined) {
+      if (currentLevel === 0) {
+        // Remove skill entirely if it's at level 0
         dispatch({
           type: CHARACTER_ACTIONS.REMOVE_SKILL,
           payload: skillName,
@@ -87,23 +101,29 @@ export default function BackgroundSkillsTab() {
   };
 
   const handleSkillLevelChange = (skillName, newLevel) => {
-    const currentLevel = character.skills[skillName] || 0;
-    const levelDifference = newLevel - currentLevel;
+    const currentLevel = character.skills[skillName];
+    const currentActualLevel = currentLevel !== undefined ? currentLevel : -1;
+    
+    // Calculate point cost difference
+    const currentCost = currentLevel !== undefined ? (currentLevel === 0 ? 1 : currentLevel + 1) : 0;
+    const newCost = newLevel === 0 ? 1 : newLevel + 1;
+    const costDifference = newCost - currentCost;
 
     // Check if we have enough points for the increase
-    if (levelDifference > 0 && levelDifference > remainingPoints) {
-      // If not enough points, set to maximum possible level
-      const maxPossibleLevel = currentLevel + remainingPoints;
-      newLevel = Math.min(newLevel, maxPossibleLevel);
+    if (costDifference > 0 && costDifference > remainingPoints) {
+      return; // Not enough points, don't change
     }
 
-    if (newLevel <= 0) {
-      // Remove skill if level is 0 or less
-      dispatch({
-        type: CHARACTER_ACTIONS.REMOVE_SKILL,
-        payload: skillName,
-      });
+    if (newLevel < 0) {
+      // Remove skill if level is less than 0
+      if (currentLevel !== undefined) {
+        dispatch({
+          type: CHARACTER_ACTIONS.REMOVE_SKILL,
+          payload: skillName,
+        });
+      }
     } else {
+      // Set skill to new level (0 or higher)
       updateSkill(skillName, newLevel);
     }
   };
@@ -130,7 +150,8 @@ export default function BackgroundSkillsTab() {
   };
 
   const getSkillLevel = skillName => {
-    return character.skills[skillName] || 0;
+    const level = character.skills[skillName];
+    return level !== undefined ? level : -1; // Return -1 for skills that don't exist
   };
 
   const isSkillMaxed = skillName => {
@@ -190,14 +211,14 @@ export default function BackgroundSkillsTab() {
             return (
               <div
                 key={skill}
-                className={`skill-item ${currentLevel > 0 ? 'skill-selected' : ''} ${isMaxed ? 'skill-maxed' : ''}`}
+                className={`skill-item ${currentLevel >= 0 ? 'skill-selected' : ''} ${isMaxed ? 'skill-maxed' : ''}`}
                 onMouseEnter={() => setSelectedSkillInfo(skill)}
                 onMouseLeave={() => setSelectedSkillInfo(null)}
               >
                 <div className="skill-header">
                   <span className="skill-name">{skill}</span>
                   <span className="skill-level-display">
-                    Level {currentLevel}
+                    {currentLevel >= 0 ? `Level ${currentLevel}` : 'Not Selected'}
                   </span><br></br>
                 </div>
                 <div>
@@ -214,7 +235,7 @@ export default function BackgroundSkillsTab() {
                     className="btn btn-sm btn-danger"
                     onClick={() => handleSkillRemove(skill)}
                     disabled={
-                      currentLevel === 0 || character.backgroundSkillsSelected
+                      currentLevel < 0 || character.backgroundSkillsSelected
                     }
                     title="Remove one level"
                     aria-label={`Remove one level from ${skill}`}
@@ -226,7 +247,7 @@ export default function BackgroundSkillsTab() {
                     type="number"
                     min="0"
                     max="3"
-                    value={currentLevel}
+                    value={currentLevel >= 0 ? currentLevel : ''}
                     onChange={e =>
                       handleSkillLevelChange(
                         skill,
@@ -236,6 +257,7 @@ export default function BackgroundSkillsTab() {
                     className="skill-level-input"
                     disabled={character.backgroundSkillsSelected}
                     aria-label={`${skill} skill level`}
+                    placeholder="0"
                   />
 
                   <button

@@ -1,0 +1,84 @@
+{
+  "armor": [
+    {
+      "name": "Cloth",
+      "tech_level": 10,
+      "protection": 8,
+      "traits": [],
+      "cost": 1000,
+      "mass": 1
+    },
+    {
+      "name": "Flak Jacket",
+      "tech_level": 5,
+      "protection": 5,
+      "traits": ["No effect vs Energy Weapons"],
+      "cost": 150,
+      "mass": 1
+    },
+    {
+      "name": "Reflec",
+      "tech_level": 10,
+      "protection": 0,
+      "traits": ["+8 vs Laser weapons only"],
+      "cost": 500,
+      "mass": 0.5
+    },
+    {
+      "name": "Ablat",
+      "tech_level": 9,
+      "protection": 5,
+      "traits": ["+4 vs Laser weapons only"],
+      "cost": 150,
+      "mass": 1
+    },
+    {
+      "name": "Mesh",
+      "tech_level": 8,
+      "protection": 6,
+      "traits": [],
+      "cost": 300,
+      "mass": 1
+    },
+    {
+      "name": "Jack",
+      "tech_level": 3,
+      "protection": 4,
+      "traits": [],
+      "cost": 50,
+      "mass": 1
+    },
+    {
+      "name": "Vac Suit",
+      "tech_level": 8,
+      "protection": 8,
+      "traits": ["Environmental protection", "Bulky"],
+      "cost": 10000,
+      "mass": 6
+    },
+    {
+      "name": "Hostile Environment Suit",
+      "tech_level": 10,
+      "protection": 10,
+      "traits": ["Environmental", "Bulky"],
+      "cost": 20000,
+      "mass": 10
+    },
+    {
+      "name": "Combat Armor",
+      "tech_level": 13,
+      "protection": 14,
+      "traits": ["Military Only", "Bulky"],
+      "cost": 50000,
+      "mass": 20
+    },
+    {
+      "name": "Battle Dress",
+      "tech_level": 14,
+      "protection": 16,
+      "traits": ["Military Only", "Bulky", "+2 STR"],
+      "cost": 150000,
+      "mass": 40
+    }
+  ]
+}

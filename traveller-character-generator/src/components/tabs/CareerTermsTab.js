@@ -279,7 +279,7 @@ export default function CareerTermsTab() {
     const rankBonusTable = commissioned
       ? career.rank_bonus?.officer
       : career.rank_bonus?.enlisted ||
-        career.rank_bonus?.[assignment.toLowerCase()];
+      career.rank_bonus?.[assignment.toLowerCase()];
     if (
       rankBonusTable &&
       rankBonusTable[newRank] &&
@@ -294,6 +294,77 @@ export default function CareerTermsTab() {
       type: CHARACTER_ACTIONS.LOAD_CHARACTER,
       payload: { ...character, careerHistory: updatedHistory },
     });
+  };
+
+  // Handle continuing career for another term
+  const handleContinueCareer = () => {
+    // Update the current career's terms in career history
+    const updatedHistory = [...character.careerHistory];
+    if (updatedHistory.length > 0) {
+      updatedHistory[updatedHistory.length - 1].terms = character.currentTerm;
+    }
+
+    // Update character state with current terms saved
+    dispatch({
+      type: CHARACTER_ACTIONS.LOAD_CHARACTER,
+      payload: { ...character, careerHistory: updatedHistory },
+    });
+
+    // Advance to next term
+    dispatch({ type: CHARACTER_ACTIONS.ADVANCE_TERM });
+
+    // Check for aging effects (every term after age 34)
+    if (character.age >= 34) {
+      const agingResult = calculateAgingEffects(character.age);
+      if (!agingResult.noAging) {
+        setTermResults(prev => ({ ...prev, aging: agingResult }));
+
+        // Apply aging effects to character
+        Object.entries(agingResult.totalEffects).forEach(([attr, change]) => {
+          if (change !== 0) {
+            const currentValue = character.attributes[attr];
+            updateAttribute(attr, Math.max(0, currentValue + change));
+          }
+        });
+      }
+    }
+
+    // Reset term results and start new term
+    setTermResults({
+      survival: null,
+      event: null,
+      mishap: null,
+      advancement: null,
+      skillTraining: null,
+      aging: null,
+    });
+    setCurrentPhase('survival');
+    setShowTermSummary(false);
+  };
+
+  // Handle leaving career
+  const handleLeaveCareer = () => {
+    // Update the current career's terms in career history before ending
+    const updatedHistory = [...character.careerHistory];
+    if (updatedHistory.length > 0) {
+      updatedHistory[updatedHistory.length - 1].terms = character.currentTerm;
+    }
+
+    // Update character state with final terms saved
+    dispatch({
+      type: CHARACTER_ACTIONS.LOAD_CHARACTER,
+      payload: { ...character, careerHistory: updatedHistory },
+    });
+
+    // End the career
+    dispatch({ type: CHARACTER_ACTIONS.END_CAREER });
+
+    setCurrentPhase('ended');
+  };
+
+  // Handle showing term summary
+  const handleShowTermSummary = () => {
+    setShowTermSummary(!showTermSummary);
   };
 
   const applyRankBonus = bonus => {
@@ -369,21 +440,7 @@ export default function CareerTermsTab() {
     }
   };
 
-  const handleContinueCareer = () => {
-    // Advance to next term
-    dispatch({ type: CHARACTER_ACTIONS.ADVANCE_TERM });
-    setShowTermSummary(false);
-  };
 
-  const handleLeaveCareer = () => {
-    // End current career
-    dispatch({ type: CHARACTER_ACTIONS.END_CAREER });
-    setCurrentPhase('ended');
-  };
-
-  const handleShowTermSummary = () => {
-    setShowTermSummary(true);
-  };
 
   const handlePlayerChoice = (option, choiceIndex) => {
     // Apply the chosen option
@@ -767,9 +824,37 @@ export default function CareerTermsTab() {
 
       <div className="career-history-display">
         <h3>Career History</h3>
-        {character.careerHistory.length > 0 ? (
-          <div className="history-list">
-            {character.careerHistory.map((career, index) => (
+        <div className="history-list">
+          {/* Show Pre-Career Education as first entry if completed */}
+          {character.preCareerEducation && (
+            <div className="career-entry pre-career">
+              <h4>
+                {character.preCareerEducation === 'university' 
+                  ? 'University' 
+                  : `${character.preCareerEducationType?.charAt(0).toUpperCase()}${character.preCareerEducationType?.slice(1)} Military Academy`}
+              </h4>
+              <p>
+                <strong>Terms:</strong> 1,
+                <strong> Status:</strong> {character.preCareerGraduated 
+                  ? (character.preCareerHonors ? 'Graduated with Honors' : 'Graduated') 
+                  : 'Did not graduate'}
+              </p>
+              {character.preCareerSkillsChosen.length > 0 && (
+                <div className="career-events">
+                  <strong>Skills Gained:</strong> {character.preCareerSkillsChosen.join(', ')}
+                </div>
+              )}
+              {character.preCareerEventResult && (
+                <div className="career-events">
+                  <strong>Event:</strong> {character.preCareerEventResult.description}
+                </div>
+              )}
+            </div>
+          )}
+          
+          {/* Show regular career history */}
+          {character.careerHistory.length > 0 ? (
+            character.careerHistory.map((career, index) => (
               <div key={index} className="career-entry">
                 <h4>
                   {career.career.charAt(0).toUpperCase() +
@@ -806,11 +891,11 @@ export default function CareerTermsTab() {
                   </div>
                 )}
               </div>
-            ))}
-          </div>
-        ) : (
-          <p>No career history yet.</p>
-        )}
+            ))
+          ) : !character.preCareerEducation ? (
+            <p>No career history yet.</p>
+          ) : null}
+        </div>
       </div>
     </div>
   );

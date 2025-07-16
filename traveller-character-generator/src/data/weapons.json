@@ -1,0 +1,156 @@
+{
+  "weapons": [
+    {
+      "name": "Dagger",
+      "category": "Melee",
+      "tech_level": 1,
+      "damage": "1D6",
+      "traits": [],
+      "cost": 20
+    },
+    {
+      "name": "Blade",
+      "category": "Melee",
+      "tech_level": 1,
+      "damage": "2D6",
+      "traits": [],
+      "cost": 50
+    },
+    {
+      "name": "Cutlass",
+      "category": "Melee",
+      "tech_level": 1,
+      "damage": "2D6",
+      "traits": ["+1 DM to Parry"],
+      "cost": 40
+    },
+    {
+      "name": "Broadsword",
+      "category": "Melee",
+      "tech_level": 1,
+      "damage": "3D6",
+      "traits": [],
+      "cost": 60
+    },
+    {
+      "name": "Club",
+      "category": "Melee",
+      "tech_level": 1,
+      "damage": "1D6",
+      "traits": [],
+      "cost": 10
+    },
+    {
+      "name": "Stunstick",
+      "category": "Melee",
+      "tech_level": 2,
+      "damage": "1D6 (Stun)",
+      "traits": ["Stun"],
+      "cost": 150
+    },
+    {
+      "name": "Pistol",
+      "category": "Slug",
+      "tech_level": 5,
+      "damage": "3D6",
+      "traits": ["Range: 10m"],
+      "cost": 150
+    },
+    {
+      "name": "Revolver",
+      "category": "Slug",
+      "tech_level": 5,
+      "damage": "3D6",
+      "traits": ["Reliable", "Range: 10m"],
+      "cost": 200
+    },
+    {
+      "name": "Rifle",
+      "category": "Slug",
+      "tech_level": 5,
+      "damage": "3D6+1",
+      "traits": ["Range: 100m"],
+      "cost": 500
+    },
+    {
+      "name": "Shotgun",
+      "category": "Slug",
+      "tech_level": 5,
+      "damage": "3D6",
+      "traits": ["Spread", "Range: 20m"],
+      "cost": 250
+    },
+    {
+      "name": "SMG",
+      "category": "Slug",
+      "tech_level": 6,
+      "damage": "3D6",
+      "traits": ["Auto 2", "Range: 30m"],
+      "cost": 750
+    },
+    {
+      "name": "Assault Rifle",
+      "category": "Slug",
+      "tech_level": 6,
+      "damage": "3D6",
+      "traits": ["Auto 3", "Range: 100m"],
+      "cost": 1000
+    },
+    {
+      "name": "Advanced Combat Rifle",
+      "category": "Slug",
+      "tech_level": 8,
+      "damage": "3D6",
+      "traits": ["Auto 3", "Laser Sight", "Range: 100m"],
+      "cost": 2000
+    },
+    {
+      "name": "Accelerator Rifle",
+      "category": "Slug",
+      "tech_level": 7,
+      "damage": "4D6",
+      "traits": ["Zero-G", "Range: 150m"],
+      "cost": 5000
+    },
+    {
+      "name": "Laser Pistol",
+      "category": "Energy",
+      "tech_level": 10,
+      "damage": "3D6",
+      "traits": ["Range: 20m"],
+      "cost": 1000
+    },
+    {
+      "name": "Laser Carbine",
+      "category": "Energy",
+      "tech_level": 10,
+      "damage": "5D6",
+      "traits": ["Range: 100m"],
+      "cost": 1500
+    },
+    {
+      "name": "Laser Rifle",
+      "category": "Energy",
+      "tech_level": 11,
+      "damage": "5D6",
+      "traits": ["Accurate", "Range: 150m"],
+      "cost": 3000
+    },
+    {
+      "name": "PGMP-12",
+      "category": "Energy",
+      "tech_level": 13,
+      "damage": "10D6",
+      "traits": ["Bulky", "Range: 200m"],
+      "cost": 25000
+    },
+    {
+      "name": "FGMP-15",
+      "category": "Energy",
+      "tech_level": 14,
+      "damage": "12D6",
+      "traits": ["Bulky", "Explosive", "Range: 250m"],
+      "cost": 50000
+    }
+  ]
+}
